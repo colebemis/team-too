@@ -1,3 +1,4 @@
 # group-formation-team-too
 
-API/DB Lead: Derek Lam
+* API/DB Lead: Derek Lam
+* Architect: Sujit Madiraju
