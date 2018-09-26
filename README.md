@@ -1,5 +1,5 @@
 # group-formation-team-too
 
-* QA Lead: Gabriel Medina-Kim
+* API/DB Lead: Derek Lam
 * Architect: Sujit Madiraju
-* API/DB Lead: Derek
+* QA Lead: Gabriel Medina-Kim
