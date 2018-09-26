@@ -1,6 +1,7 @@
 # group-formation-team-too
 
 ## Team Members
+* UI Design Lead: Kim
 * Team Lead: Cole Bemis
 * API/DB Lead: Derek Lam
 * Architect: Sujit Madiraju
