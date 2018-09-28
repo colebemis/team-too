@@ -1,4 +1,4 @@
-# group-formation-team-too
+# Team Too
 
 ## Team Members
 * UI Design Lead: Kim
@@ -9,4 +9,4 @@
 
 ## Team Information
 * Motto: "Have it your way."
-* Pizza Topping: Pineapple
+* Pizza Topping: Bacon, Pineapple, Sausage
