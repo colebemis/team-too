@@ -1,0 +1,5 @@
+# import User, UserWhereInput from "./generated/prisma.graphql"
+
+type Query {
+  users(where: UserWhereInput): [User]
+}
