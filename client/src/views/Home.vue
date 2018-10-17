@@ -6,7 +6,6 @@
     <!-- Apollo watched Graphql query -->
     <ApolloQuery
       :query="require('../graphql/Users.gql')"
-    >
       <template slot-scope="{ result: { loading, error, data } }">
 
         <!-- Result -->
@@ -17,6 +16,8 @@
 
     <el-button>Default</el-button>
   </div>
+
+
 </template>
 
 <script lang="ts">

@@ -3,11 +3,11 @@
     
       <!-- Apollo watched Graphql query -->
     <ApolloQuery
-      :query="require('../graphql/Users.gql')"
+      :query="require('../graphql/ShopProduct.gql')"
     >
       <template slot-scope="{ result: { loading, error, data } }">
         <!-- Result -->
-        <div v-for="user of data.users" :key="user.name">{{ user.name }}</div>
+        <div v-for="product of data.products" :key="product.name">This product is named {{ product.name }}. Its price is ${{product.price}}</div>
       </template>
     </ApolloQuery>
 
