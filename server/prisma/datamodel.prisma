@@ -1,4 +1,31 @@
 type User {
   id: ID! @unique
   name: String!
+  email: String
+}
+
+type Order {
+  id: ID! @unique
+  total: Float!
+
+  name: String!
+  email: String!
+}
+
+type OrderProduct {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  name: String!
+  info: String!
+  price: Float!
+  quantity: Int!
+}
+
+type Product {
+  id: ID! @unique
+  name: String!
+  info: String!
+  price: Float!
 }
