@@ -5,8 +5,7 @@
 
     <!-- Apollo watched Graphql query -->
     <ApolloQuery
-      :query="require('../graphql/User.gql')"
-    >
+      :query="require('../graphql/Users.gql')"
       <template slot-scope="{ result: { loading, error, data } }">
 
         <!-- Result -->
