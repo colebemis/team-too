@@ -1,8 +1,14 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="/shop">Shop</router-link>
+      <el-header>
+        <router-link to="/">Home</router-link>
+        <router-link to="/shop">Shop</router-link>
+      </el-header>
+      <el-container>
+        <el-main>Main</el-main>
+        <el-footer>Footer</el-footer>
+      </el-container>
     </div>
     <router-view/>
   </div>
@@ -15,6 +21,13 @@ export default {
 </script>
 
 <style>
+.el-header, .el-footer {
+    background-color: #fefbd8;
+    color: red;
+    text-align: center;
+    line-height: 60px;
+  }
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

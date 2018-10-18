@@ -12,7 +12,9 @@ const typeDefs = gql(importSchema(path.resolve(__dirname, "schema.graphql")));
 const resolvers = {
   Query: {
     users: (root, args, context: Context, info) => context.db.users(args),
+    products: (root, args, context: Context, info) => context.db.products(args)
   },
+
 };
 
 const server = new ApolloServer({
