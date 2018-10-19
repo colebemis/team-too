@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <div id="nav">
-      <el-header>
-        <router-link to="/">Home</router-link>
-        <router-link to="/shop">Shop</router-link>
-      </el-header>
-      <el-container>
-        <el-main>Main</el-main>
-        <el-footer>Footer</el-footer>
-      </el-container>
+      <header class="header">
+        <p style="text-align:left;" class="large_font"> FOXCYCLE 
+          <span style= "float:right;" class="small_font">
+            <router-link to="/">HOME</router-link>
+            <router-link to="/shop">SHOP</router-link>
+          </span> 
+        </p>
+      </header>
     </div>
     <router-view/>
   </div>
@@ -21,12 +21,20 @@ export default {
 </script>
 
 <style>
-.el-header, .el-footer {
-    background-color: #fefbd8;
-    color: red;
-    text-align: center;
-    line-height: 60px;
+.large_font{
+  padding-left: 30px;
+	font-size: 25pt;
+}
+
+.small_font{
+	font-size: 20pt;
   }
+
+.header {
+  padding: 10px;
+  background: #1abc9c;
+  color: white;
+}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -41,11 +49,12 @@ export default {
 }
 
 #nav a {
+  padding: 10px;
   font-weight: bold;
-  color: #2c3e50;
+  color: #00717394;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #004173;
 }
 </style>
