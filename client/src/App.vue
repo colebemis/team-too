@@ -21,6 +21,7 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
 .large_font{
   padding-left: 30px;
 	font-size: 25pt;

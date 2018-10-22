@@ -2,8 +2,10 @@ query
 {
     products
     {
+        id
         info
         name
         price
+        image
     }
 }
