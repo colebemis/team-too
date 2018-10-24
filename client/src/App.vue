@@ -6,6 +6,7 @@
           <span style= "float:right;" class="small_font">
             <router-link to="/">HOME</router-link>
             <router-link to="/shop">SHOP</router-link>
+            <router-link to="/cart">CART</router-link>
           </span> 
         </p>
       </header>
