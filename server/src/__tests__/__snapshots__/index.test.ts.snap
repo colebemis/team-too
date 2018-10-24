@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns user name and email 1`] = `
+Object {
+  "data": Object {
+    "users": Array [
+      Object {
+        "email": "Hello World",
+        "name": "Hello World",
+      },
+      Object {
+        "email": "Hello World",
+        "name": "Hello World",
+      },
+    ],
+  },
+}
+`;
