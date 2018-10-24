@@ -25,6 +25,7 @@ type OrderProduct {
 
 type Product {
   id: ID! @unique
+  image: String!
   name: String!
   info: String!
   price: Float!
