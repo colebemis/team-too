@@ -275,6 +275,8 @@ export type UserOrderByInput =
 export type ProductOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "image_ASC"
+  | "image_DESC"
   | "name_ASC"
   | "name_DESC"
   | "info_ASC"
@@ -386,6 +388,7 @@ export interface UserCreateInput {
 }
 
 export interface ProductCreateInput {
+  image: String;
   name: String;
   info: String;
   price: Float;
@@ -560,6 +563,20 @@ export interface ProductWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
+  image?: String;
+  image_not?: String;
+  image_in?: String[] | String;
+  image_not_in?: String[] | String;
+  image_lt?: String;
+  image_lte?: String;
+  image_gt?: String;
+  image_gte?: String;
+  image_contains?: String;
+  image_not_contains?: String;
+  image_starts_with?: String;
+  image_not_starts_with?: String;
+  image_ends_with?: String;
+  image_not_ends_with?: String;
   name?: String;
   name_not?: String;
   name_in?: String[] | String;
@@ -635,6 +652,7 @@ export type OrderProductWhereUniqueInput = AtLeastOne<{
 }>;
 
 export interface ProductUpdateInput {
+  image?: String;
   name?: String;
   info?: String;
   price?: Float;
@@ -943,6 +961,7 @@ export interface BatchPayloadSubscription
 
 export interface ProductPreviousValuesNode {
   id: ID_Output;
+  image: String;
   name: String;
   info: String;
   price: Float;
@@ -952,6 +971,7 @@ export interface ProductPreviousValues
   extends Promise<ProductPreviousValuesNode>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  image: () => Promise<String>;
   name: () => Promise<String>;
   info: () => Promise<String>;
   price: () => Promise<Float>;
@@ -961,6 +981,7 @@ export interface ProductPreviousValuesSubscription
   extends Promise<AsyncIterator<ProductPreviousValuesNode>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  image: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   info: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
@@ -1117,6 +1138,7 @@ export interface AggregateOrderProductSubscription
 
 export interface ProductNode {
   id: ID_Output;
+  image: String;
   name: String;
   info: String;
   price: Float;
@@ -1124,6 +1146,7 @@ export interface ProductNode {
 
 export interface Product extends Promise<ProductNode>, Fragmentable {
   id: () => Promise<ID_Output>;
+  image: () => Promise<String>;
   name: () => Promise<String>;
   info: () => Promise<String>;
   price: () => Promise<Float>;
@@ -1133,6 +1156,7 @@ export interface ProductSubscription
   extends Promise<AsyncIterator<ProductNode>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  image: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   info: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;

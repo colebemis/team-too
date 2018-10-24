@@ -362,6 +362,7 @@ type PageInfo {
 
 type Product {
   id: ID!
+  image: String!
   name: String!
   info: String!
   price: Float!
@@ -374,6 +375,7 @@ type ProductConnection {
 }
 
 input ProductCreateInput {
+  image: String!
   name: String!
   info: String!
   price: Float!
@@ -387,6 +389,8 @@ type ProductEdge {
 enum ProductOrderByInput {
   id_ASC
   id_DESC
+  image_ASC
+  image_DESC
   name_ASC
   name_DESC
   info_ASC
@@ -401,6 +405,7 @@ enum ProductOrderByInput {
 
 type ProductPreviousValues {
   id: ID!
+  image: String!
   name: String!
   info: String!
   price: Float!
@@ -425,6 +430,7 @@ input ProductSubscriptionWhereInput {
 }
 
 input ProductUpdateInput {
+  image: String
   name: String
   info: String
   price: Float
@@ -445,6 +451,20 @@ input ProductWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
