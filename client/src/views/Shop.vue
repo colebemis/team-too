@@ -58,18 +58,13 @@
 <script>
 export default {
   name: 'shop',
+
   methods: {
     routeToProduct(event) {
       var idd = event.currentTarget.id;
-      console.log(idd)
-      this.$router.push({path: '/productInfo', query: {productName: idd, productPrice: '420'}})
+      console.log(event.target);
+      this.$router.push({path: '/productInfo', query: {productId: idd}})
     }
-
-    // onClickProduct(evnt){
-    //   query : {}
-    //   routeToProduct()
-
-    //}
   }
 }
 </script>

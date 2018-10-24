@@ -26,9 +26,9 @@ export default new Router({
       name: 'productInfo',
       component: () => import('./views/ProductInfo.vue'),
       props: (route) => ({
-        productName: route.query.productName,
-        productPrice: route.query.productPrice
-      })
+        productId: route.query.productId
+      }),
+
     }
   ],
 });

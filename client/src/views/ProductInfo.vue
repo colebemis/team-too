@@ -1,5 +1,5 @@
 <template>
-    <p> Your product is called {{productName}} and its price is {{productPrice}} </p>
+    <p> Your product has an ID of {{productId}} </p>
 </template>
 
 
@@ -11,6 +11,6 @@
 <script>
 export default {
   name: 'productInfo',
-  props: ['productName', 'productPrice']
+  props: ['productId']
 }
 </script>
