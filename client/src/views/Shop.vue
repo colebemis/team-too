@@ -10,16 +10,17 @@
         <div class = "images">
         <div v-bind:id="product.id" v-for="product of data.products" :key="product.name" class="product" v-on:click="routeToProduct">
           <img v-bind:src="product.image">
+
           <div  class="imageInfo">
-            
             <p>${{product.price}}</p>
-             <p>{{product.name}}</p>
+            <p>{{product.name}}</p>
           </div>
+
         </div>
         </div>
       </template>
     </ApolloQuery>
-    
+  
   </div>
 </template>
 
@@ -68,7 +69,3 @@ export default {
   }
 }
 </script>
-
-
-
-

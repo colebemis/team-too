@@ -1,11 +1,12 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="FOXYCLE 2"/>
+    <HelloWorld msg="FOXYCLE"/>
 
     <!-- Apollo watched Graphql query -->
     <ApolloQuery
       :query="require('../graphql/Users.gql')"
+    >
       <template slot-scope="{ result: { loading, error, data } }">
 
         <!-- Result -->
