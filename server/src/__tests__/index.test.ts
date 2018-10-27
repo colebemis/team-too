@@ -21,6 +21,25 @@ it("returns user name and email", async () => {
     }
   `;
 
+
+
+  const result = await graphql(schema, query);
+
+  expect(result).toMatchSnapshot();
+});
+
+it("returns product name and price", async () => {
+  const query = `
+    query  {
+      products {
+        name,
+        price
+      }
+    }
+  `;
+
+
+
   const result = await graphql(schema, query);
 
   expect(result).toMatchSnapshot();
