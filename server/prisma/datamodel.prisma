@@ -1,15 +1,28 @@
 type User {
   id: ID! @unique
   name: String!
-  email: String
+  email: String!
+  password: String!
+  isAdmin: Boolean
 }
 
 type Order {
   id: ID! @unique
-  total: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 
-  name: String!
-  email: String!
+  products: [OrderProduct!]!
+
+  status: String!
+  customer: Customer!
+  shippingAddress: Address @relation(name: "ShippingAddress", onDelete:CASCADE)
+  billingAddress: Address @relation(name: "BillingAddress", onDelete:CASCADE)
+  
+  payment: CreditCard
+
+  subtotal: Float!
+  tax: Float!
+  total: Float!
 }
 
 type OrderProduct {
@@ -17,16 +30,41 @@ type OrderProduct {
   createdAt: DateTime!
   updatedAt: DateTime!
 
-  name: String!
-  info: String!
+  title: String!
+  imageURL: String!
+  description: String!
   price: Float!
   quantity: Int!
 }
 
 type Product {
   id: ID! @unique
-  image: String!
-  name: String!
-  info: String!
+  imageURL: String!
+  title: String!
+  description: String!
   price: Float!
+}
+
+type Address {
+  id: ID! @unique
+  name: String!
+  line1: String!
+  line2: String
+  city: String!
+  state: String!
+  zip: String!
+}
+
+type Customer {
+  id: ID! @unique
+  name: String!
+  email: String!
+}
+
+type CreditCard {
+  id: ID! @unique
+  name: String!
+  number: String!
+  expDate: DateTime!
+  cvv: String!
 }
