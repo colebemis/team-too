@@ -1294,7 +1294,7 @@ export interface AddressUpdateInput {
 export interface AddressCreateInput {
   name: String;
   line1: String;
-  line2: String;
+  line2?: String;
   city: String;
   state: String;
   zip: String;
@@ -1512,7 +1512,7 @@ export interface AddressNode {
   id: ID_Output;
   name: String;
   line1: String;
-  line2: String;
+  line2?: String;
   city: String;
   state: String;
   zip: String;
@@ -1709,7 +1709,7 @@ export interface AddressPreviousValuesNode {
   id: ID_Output;
   name: String;
   line1: String;
-  line2: String;
+  line2?: String;
   city: String;
   state: String;
   zip: String;

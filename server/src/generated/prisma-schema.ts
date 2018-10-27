@@ -2,7 +2,7 @@ export const typeDefs = /* GraphQL */ `type Address {
   id: ID!
   name: String!
   line1: String!
-  line2: String!
+  line2: String
   city: String!
   state: String!
   zip: String!
@@ -17,7 +17,7 @@ type AddressConnection {
 input AddressCreateInput {
   name: String!
   line1: String!
-  line2: String!
+  line2: String
   city: String!
   state: String!
   zip: String!
@@ -58,7 +58,7 @@ type AddressPreviousValues {
   id: ID!
   name: String!
   line1: String!
-  line2: String!
+  line2: String
   city: String!
   state: String!
   zip: String!
