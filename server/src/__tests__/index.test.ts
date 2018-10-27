@@ -26,11 +26,11 @@ it("returns user name and email", async () => {
   expect(result).toMatchSnapshot();
 });
 
-it("returns total", async () => {
+it("returns product name", async () => {
   const query = `
     query  {
-      order {
-        total
+      products {
+        name
       }
     }
   `;
