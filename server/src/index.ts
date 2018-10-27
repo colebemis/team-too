@@ -13,6 +13,7 @@ const resolvers = {
   Query: {
     users: (root, args, context: Context, info) => context.db.users(args),
     products: (root, args, context: Context, info) => context.db.products(args),
+
   },
 
 };
