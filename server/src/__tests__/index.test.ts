@@ -25,3 +25,17 @@ it("returns user name and email", async () => {
 
   expect(result).toMatchSnapshot();
 });
+
+it("returns total", async () => {
+  const query = `
+    query  {
+      order {
+        total
+      }
+    }
+  `;
+
+  const result = await graphql(schema, query);
+
+  expect(result).toMatchSnapshot();
+});
