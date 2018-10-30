@@ -1,7 +1,8 @@
-# import User, UserWhereInput, Product, ProductWhereInput from "./generated/prisma.graphql"
+# import User, UserWhereInput, Product, ProductWhereInput, Order, OrderWhereInput, OrderOrderByInput from "./generated/prisma.graphql"
 
 type Query {
   users(where: UserWhereInput): [User]
-  products(where: ProductWhereInput): [Product]
+  products(where: ProductWhereInput): [Product],
+  orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
 }
 

@@ -13,8 +13,25 @@ const resolvers = {
   Query: {
     users: (root, args, context: Context, info) => context.db.users(args),
     products: (root, args, context: Context, info) => context.db.products(args),
+    orders: (root, args, context: Context, info) => context.db.orders(args),
   },
-
+  Order: {
+    customer: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).customer();
+    },
+    products: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).products();
+    },
+    shippingAddress: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).shippingAddress();
+    },
+    billingAddress: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).billingAddress();
+    },
+    payment: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).payment();
+    },
+  },
 };
 
 const server = new ApolloServer({

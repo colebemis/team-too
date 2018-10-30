@@ -1,33 +1,98 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`returns product name and price 1`] = `
+exports[`orders query 1`] = `
 Object {
   "data": Object {
-    "products": Array [
+    "orders": Array [
       Object {
-        "name": "Hello World",
-        "price": 51.834346450561696,
+        "billingAddress": Object {
+          "line1": "Hello",
+        },
+        "customer": Object {
+          "name": "Hello",
+        },
+        "payment": Object {
+          "number": "Hello",
+        },
+        "products": Array [
+          Object {
+            "title": "Hello",
+          },
+          Object {
+            "title": "Hello",
+          },
+        ],
+        "shippingAddress": Object {
+          "line1": "Hello",
+        },
+        "status": "Hello",
+        "subtotal": 22.1,
+        "tax": 22.1,
+        "total": 22.1,
       },
       Object {
-        "name": "Hello World",
-        "price": 49.81798219554122,
+        "billingAddress": Object {
+          "line1": "Hello",
+        },
+        "customer": Object {
+          "name": "Hello",
+        },
+        "payment": Object {
+          "number": "Hello",
+        },
+        "products": Array [
+          Object {
+            "title": "Hello",
+          },
+          Object {
+            "title": "Hello",
+          },
+        ],
+        "shippingAddress": Object {
+          "line1": "Hello",
+        },
+        "status": "Hello",
+        "subtotal": 22.1,
+        "tax": 22.1,
+        "total": 22.1,
       },
     ],
   },
 }
 `;
 
-exports[`returns user name and email 1`] = `
+exports[`products query 1`] = `
+Object {
+  "data": Object {
+    "products": Array [
+      Object {
+        "description": "Hello",
+        "price": 22.1,
+        "title": "Hello",
+      },
+      Object {
+        "description": "Hello",
+        "price": 22.1,
+        "title": "Hello",
+      },
+    ],
+  },
+}
+`;
+
+exports[`users query 1`] = `
 Object {
   "data": Object {
     "users": Array [
       Object {
-        "email": "Hello World",
-        "name": "Hello World",
+        "email": "Hello",
+        "id": "test-id",
+        "name": "Hello",
       },
       Object {
-        "email": "Hello World",
-        "name": "Hello World",
+        "email": "Hello",
+        "id": "test-id",
+        "name": "Hello",
       },
     ],
   },

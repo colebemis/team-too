@@ -9,36 +9,72 @@ const typeDefs = gql(
   importSchema(path.resolve(__dirname, "../schema.graphql")),
 );
 const schema = makeExecutableSchema({ typeDefs });
-addMockFunctionsToSchema({ schema });
+const mocks = {
+  Int: () => 6,
+  Float: () => 22.1,
+  String: () => "Hello World",
+  ID: () => "test-id",
+};
+addMockFunctionsToSchema({ schema, mocks });
 
-it("returns user name and email", async () => {
+test("users query", async () => {
   const query = `
     query  {
       users {
-        name,
+        id
+        name
         email
       }
     }
   `;
-
-
 
   const result = await graphql(schema, query);
 
   expect(result).toMatchSnapshot();
 });
 
-it("returns product name and price", async () => {
+test("products query", async () => {
   const query = `
     query  {
       products {
-        name,
+        title
+        description
         price
       }
     }
   `;
 
+  const result = await graphql(schema, query);
 
+  expect(result).toMatchSnapshot();
+});
+
+test("orders query", async () => {
+  const query = `
+    query {
+      orders {
+        status
+        subtotal
+        tax
+        total
+        customer {
+          name
+        }
+        products {
+          title
+        }
+        shippingAddress {
+          line1
+        }
+        billingAddress {
+          line1
+        }
+        payment {
+          number
+        }
+      }
+    }
+  `;
 
   const result = await graphql(schema, query);
 
