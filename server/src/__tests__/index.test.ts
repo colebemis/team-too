@@ -80,3 +80,36 @@ test("orders query", async () => {
 
   expect(result).toMatchSnapshot();
 });
+
+test("order query", async () => {
+  const query = `
+    query {
+      order(where: { id: "test-id" }) {
+        status
+        subtotal
+        tax
+        total
+        customer {
+          name
+        }
+        products {
+          title
+        }
+        shippingAddress {
+          line1
+        }
+        billingAddress {
+          line1
+        }
+        payment {
+          number
+        }
+      }
+    }
+  `;
+
+  const result = await graphql(schema, query);
+
+  expect(result).toMatchSnapshot();
+});
+

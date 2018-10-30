@@ -13,6 +13,9 @@ const resolvers = {
   Query: {
     users: (root, args, context: Context, info) => context.db.users(args),
     products: (root, args, context: Context, info) => context.db.products(args),
+    order: (root, args, context: Context, info) => {
+      return context.db.order({ id: args.where.id });
+    },
     orders: (root, args, context: Context, info) => context.db.orders(args),
   },
   Order: {
