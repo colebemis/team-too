@@ -3,7 +3,8 @@
     <div class="main image">
       <img alt="Main photo" src="https://images.wallpaperscraft.com/image/peugeot_bike_sport_113690_3840x2160.jpg" width=100%>
       <h1>FIND YOUR RIDE.</h1>
-      <h2>Unleash your cycling passion with our premium selection of bikes</h2>
+      <!-- <h2>Unleash your cycling passion with our premium selection of bikes</h2> 
+      <h2>UNLEASH YOUR CYCLING PASSION WITH OUR PREMIUM SELECTION OF BIKES</h2> -->
     </div>
     <!-- <div class="about">
       <h1>
@@ -43,6 +44,7 @@
       font-family: 'Work sans', 'Avenir', Helvetica, Arial, sans-serif;
       margin-block-end: 5px;
       margin-block-start: 30px;
+      font-weight: lighter;
       font-size: 70px;
   }
 
@@ -51,7 +53,7 @@
       margin-block-end: 0px;
       margin-block-start: 0px;
       font-weight: normal;
-      font-size: 20px;
+      font-size: 17px;
   }
 
   p {
