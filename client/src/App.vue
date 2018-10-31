@@ -5,7 +5,7 @@
         <span style= "float:left;" class="small_font"><router-link to="/shop">SHOP</router-link></span>
         <span style= "float:center;" class="large_font"><router-link to="/">FOXCYCLE</router-link></span>
         <span style= "float:right;" class="small_font"><router-link to="/cart">CART</router-link></span> 
-        <p style= "text-align:center;">EST 2018</p>
+        <h3 style= "text-align:center;">EST 2018</h3>
       </header>
     </div>
     <router-view/>
@@ -22,9 +22,13 @@ export default {
 a:link {
     text-decoration: none;
 }
-p {
-  margin-block-start: 0px;
-  margin-block-end: 0px;
+
+h3 {
+    font-family: 'Work sans', 'Avenir', Helvetica, Arial, sans-serif;
+    margin-block-end: 0px;
+    margin-block-start: 0px;
+    font-weight: normal;
+    font-size: 15px;
 }
 
 .large_font{
