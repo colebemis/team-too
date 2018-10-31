@@ -25,3 +25,19 @@ it("returns user name and email", async () => {
 
   expect(result).toMatchSnapshot();
 });
+
+it("returns product title, description, and price", async () => {
+  const query = `
+    query  {
+      products {
+        title,
+        description,
+        price
+      }
+    }
+  `;
+
+  const result = await graphql(schema, query);
+
+  expect(result).toMatchSnapshot();
+});
