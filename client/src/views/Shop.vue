@@ -7,95 +7,68 @@
     >
       <template slot-scope="{ result: { loading, error, data } }">
         <!-- Result -->
-        <div v-for="product of data.products" :key="product.name">This product is named {{ product.name }}. Its price is ${{product.price}}</div>
+        <div class = "images">
+        <div v-bind:id="product.id" v-for="product of data.products" :key="product.name" class="product" v-on:click="routeToProduct">
+          <img v-bind:src="product.image">
+          <div  class="imageInfo">
+            
+            <p>${{product.price}}</p>
+             <p>{{product.name}}</p>
+          </div>
+        </div>
+        </div>
       </template>
     </ApolloQuery>
-
-    <el-row :gutter="20">
-      <el-col :span="4" :offset="6"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="4" :offset="6"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="4" :offset="6"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-    </el-row>
+    
   </div>
 </template>
 
 <style>
-  .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
+  img {
+    width: 90%;
+    height:175px;
+    margin: 2%;
+    object-fit: scale-down;
+    
   }
-  .el-col {
-    border-radius: 4px;
+  div.product {
+    border: 5px solid #f1f1f1;
+    margin: 1.66%;
+    height: auto;
+
   }
-  .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
+  div.imageInfo {
     text-align: center;
-    line-height: 60px;
-  }
-  
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
-  }
-  
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-  }
-  
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-  
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
-  
-  .el-container:nth-child(7) .el-aside {
-    line-height: 320px;
+    font-family: "PT Sans";
+    line-height:0.5;
+    padding-bottom: 20px;
+
   }
 
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
+  div.images {
+    border: 3px solid gray;
+    float: right;
+    
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: 80%;
+    margin-right: 30px;
   }
 </style>
-
 <script>
 export default {
   name: 'shop',
+
+  methods: {
+    routeToProduct(event) {
+      var idd = event.currentTarget.id;
+      console.log(event.target);
+      this.$router.push({path: '/productInfo', query: {productId: idd}})
+    }
+  }
 }
 </script>
+
+
 
 

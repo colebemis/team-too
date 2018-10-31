@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns product name and price 1`] = `
+Object {
+  "data": Object {
+    "products": Array [
+      Object {
+        "name": "Hello World",
+        "price": 51.834346450561696,
+      },
+      Object {
+        "name": "Hello World",
+        "price": 49.81798219554122,
+      },
+    ],
+  },
+}
+`;
+
+exports[`returns user name and email 1`] = `
+Object {
+  "data": Object {
+    "users": Array [
+      Object {
+        "email": "Hello World",
+        "name": "Hello World",
+      },
+      Object {
+        "email": "Hello World",
+        "name": "Hello World",
+      },
+    ],
+  },
+}
+`;

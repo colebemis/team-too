@@ -21,5 +21,14 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/Shop.vue'),
     },
+    {
+      path: '/productInfo',
+      name: 'productInfo',
+      component: () => import('./views/ProductInfo.vue'),
+      props: (route) => ({
+        productId: route.query.productId
+      }),
+
+    }
   ],
 });
