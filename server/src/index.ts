@@ -18,6 +18,17 @@ const resolvers = {
     },
     orders: (root, args, context: Context, info) => context.db.orders(args),
   },
+  Mutation: {
+    createOrder: (root, args, context: Context, info) => {
+      return context.db.createOrder(args.data);
+    },
+    updateOrder: (root, args, context: Context, info) => {
+      return context.db.updateOrder(args);
+    },
+    deleteOrder: (root, args, context: Context, info) => {
+      return context.db.deleteOrder(args.where);
+    },
+  },
   Order: {
     customer: (root, args, context: Context, info) => {
       return context.db.order({ id: root.id }).customer();
