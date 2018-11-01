@@ -19,7 +19,8 @@ const resolvers = {
 
   Mutation: {
     createUser: (root, args, context: Context, info) => context.db.createUser(args.data),
-    deleteUser: (root, args, context: Context, info) => context.db.deleteUser(args.where)
+    deleteUser: (root, args, context: Context, info) => context.db.deleteUser(args.where),
+    updateUser: (root, args, context: Context, info) => context.db.updateUser(args)
   }
 
 };
