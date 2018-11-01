@@ -11,7 +11,11 @@ const typeDefs = gql(importSchema(path.resolve(__dirname, "schema.graphql")));
 
 const resolvers = {
   Query: {
+    user: (root, args, context: Context, info) => context.db.user(args),
     users: (root, args, context: Context, info) => context.db.users(args),
+    product: (root, args, context: Context, info) => {
+      return context.db.product(args.where);
+    },
     products: (root, args, context: Context, info) => context.db.products(args),
     order: (root, args, context: Context, info) => {
       return context.db.order({ id: args.where.id });
@@ -19,6 +23,15 @@ const resolvers = {
     orders: (root, args, context: Context, info) => context.db.orders(args),
   },
   Mutation: {
+    createUser: (root, args, context: Context, info) => {
+      return context.db.createUser(args.data);
+    },
+    deleteUser: (root, args, context: Context, info) => {
+      return context.db.deleteUser(args.where);
+    },
+    updateUser: (root, args, context: Context, info) => {
+      return context.db.updateUser(args);
+    },
     createOrder: (root, args, context: Context, info) => {
       return context.db.createOrder(args.data);
     },

@@ -1,14 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <header class="header">
-        <p style="text-align:left;" class="large_font"> FOXCYCLE 
-          <span style= "float:right;" class="small_font">
-            <router-link to="/">HOME</router-link>
-            <router-link to="/shop">SHOP</router-link>
-            <router-link to="/cart">CART</router-link>
-          </span> 
-        </p>
+      <header class="header"> 
+        <span style= "float:left;" class="small_font"><router-link to="/shop">SHOP</router-link></span>
+        <span style= "float:center;" class="large_font"><router-link to="/">FOXCYCLE</router-link></span>
+        <span style= "float:right;" class="small_font"><router-link to="/cart">CART</router-link></span> 
+        <h3 style= "text-align:center;">EST 2018</h3>
       </header>
     </div>
     <router-view/>
@@ -22,10 +19,20 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+a:link {
+    text-decoration: none;
+}
+
+h3 {
+    font-family: 'Work sans', 'Avenir', Helvetica, Arial, sans-serif;
+    margin-block-end: 0px;
+    margin-block-start: 0px;
+    font-weight: normal;
+    font-size: 15px;
+}
+
 .large_font{
-  padding-left: 30px;
-	font-size: 25pt;
+	font-size: 30pt;
 }
 
 .small_font{
@@ -34,16 +41,16 @@ export default {
 
 .header {
   padding: 10px;
-  background: #1abc9c;
-  color: white;
+  background: white;
+  color: black;
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Work sans', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: black;
 }
 
 #nav {
@@ -52,11 +59,10 @@ export default {
 
 #nav a {
   padding: 10px;
-  font-weight: bold;
-  color: #00717394;
+  color: black;
 }
 
 #nav a.router-link-exact-active {
-  color: #004173;
+  color: black;
 }
 </style>

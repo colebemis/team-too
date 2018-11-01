@@ -3,9 +3,9 @@ query
     products
     {
         id
-        info
-        name
+        description
+        title
         price
-        image
+        imageURL
     }
 }
