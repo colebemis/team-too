@@ -11,18 +11,54 @@ const typeDefs = gql(importSchema(path.resolve(__dirname, "schema.graphql")));
 
 const resolvers = {
   Query: {
+    user: (root, args, context: Context, info) => context.db.user(args),
     users: (root, args, context: Context, info) => context.db.users(args),
+    product: (root, args, context: Context, info) => {
+      return context.db.product(args.where);
+    },
     products: (root, args, context: Context, info) => context.db.products(args),
-    product: (root, args, context: Context, info) => context.db.product(args.where),
-    user: (root, args, context: Context, info) => context.db.user(args)
+    order: (root, args, context: Context, info) => {
+      return context.db.order({ id: args.where.id });
+    },
+    orders: (root, args, context: Context, info) => context.db.orders(args),
   },
-
   Mutation: {
-    createUser: (root, args, context: Context, info) => context.db.createUser(args.data),
-    deleteUser: (root, args, context: Context, info) => context.db.deleteUser(args.where),
-    updateUser: (root, args, context: Context, info) => context.db.updateUser(args)
-  }
-
+    createUser: (root, args, context: Context, info) => {
+      return context.db.createUser(args.data);
+    },
+    deleteUser: (root, args, context: Context, info) => {
+      return context.db.deleteUser(args.where);
+    },
+    updateUser: (root, args, context: Context, info) => {
+      return context.db.updateUser(args);
+    },
+    createOrder: (root, args, context: Context, info) => {
+      return context.db.createOrder(args.data);
+    },
+    updateOrder: (root, args, context: Context, info) => {
+      return context.db.updateOrder(args);
+    },
+    deleteOrder: (root, args, context: Context, info) => {
+      return context.db.deleteOrder(args.where);
+    },
+  },
+  Order: {
+    customer: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).customer();
+    },
+    products: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).products();
+    },
+    shippingAddress: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).shippingAddress();
+    },
+    billingAddress: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).billingAddress();
+    },
+    payment: (root, args, context: Context, info) => {
+      return context.db.order({ id: root.id }).payment();
+    },
+  },
 };
 
 const server = new ApolloServer({
