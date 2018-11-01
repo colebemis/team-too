@@ -13,7 +13,14 @@ const resolvers = {
   Query: {
     users: (root, args, context: Context, info) => context.db.users(args),
     products: (root, args, context: Context, info) => context.db.products(args),
+    product: (root, args, context: Context, info) => context.db.product(args.where),
+    user: (root, args, context: Context, info) => context.db.user(args)
   },
+
+  Mutation: {
+    createUser: (root, args, context: Context, info) => context.db.createUser(args.data),
+    deleteUser: (root, args, context: Context, info) => context.db.deleteUser(args.where)
+  }
 
 };
 

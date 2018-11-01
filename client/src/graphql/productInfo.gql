@@ -1,0 +1,11 @@
+
+query productInfo($id: ProductWhereUniqueInput!) {
+    product(where: $id)
+    {
+        title
+        imageURL
+        description
+        price
+
+    }
+}

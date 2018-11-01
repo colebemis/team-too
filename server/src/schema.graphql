@@ -1,7 +1,14 @@
-# import User, UserWhereInput, Product, ProductWhereInput from "./generated/prisma.graphql"
+# import User, UserWhereInput, Product, ProductWhereInput, ProductWhereUniqueInput, UserCreateInput, UserWhereUniqueInput from "./generated/prisma.graphql"
 
 type Query {
   users(where: UserWhereInput): [User]
   products(where: ProductWhereInput): [Product]
+  product(where: ProductWhereUniqueInput!): Product
+  user(where: UserWhereUniqueInput!): User
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
 }
 
