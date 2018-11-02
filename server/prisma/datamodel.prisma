@@ -11,14 +11,14 @@ type Order {
   createdAt: DateTime!
   updatedAt: DateTime!
 
-  products: [OrderProduct!]!
+  products: [OrderProduct!]! @relation(name: "ProductsOfOrder", onDelete:CASCADE)
 
-  status: String!
-  customer: Customer!
+  status: String! 
+  customer: Customer! @relation(name: "OrderByCustomer", onDelete:CASCADE)
   shippingAddress: Address @relation(name: "ShippingAddress", onDelete:CASCADE)
   billingAddress: Address @relation(name: "BillingAddress", onDelete:CASCADE)
   
-  payment: CreditCard
+  payment: CreditCard @relation(name: "CreditCardOfOrder", onDelete: CASCADE)
 
   subtotal: Float!
   tax: Float!
@@ -43,6 +43,14 @@ type Product {
   title: String!
   description: String!
   price: Float!
+  stock: Int!
+  categories: [Category!]! @relation(name: "ProductsWithCategory")
+}
+
+type Category {
+  id: ID! @unique
+  name: String!
+  products: [Product!]! @relation(name: "ProductsWithCategory", onDelete: CASCADE)
 }
 
 type Address {
