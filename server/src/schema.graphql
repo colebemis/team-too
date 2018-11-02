@@ -1,10 +1,11 @@
-# import User, UserWhereInput, Product, ProductWhereInput, ProductWhereUniqueInput, UserCreateInput, UserWhereUniqueInput, UserUpdateInput from "./generated/prisma.graphql"
+# import CategoryWhereInput, User, UserWhereInput, Product, ProductWhereInput, ProductWhereUniqueInput, UserCreateInput, UserWhereUniqueInput, UserUpdateInput from "./generated/prisma.graphql"
 
 type Query {
   users(where: UserWhereInput): [User]
   products(where: ProductWhereInput): [Product]
   product(where: ProductWhereUniqueInput!): Product
   user(where: UserWhereUniqueInput!): User
+  categories(where: CategoryWhereInput): [Category]
 }
 
 type Mutation {

@@ -11,9 +11,10 @@ type Order {
   createdAt: DateTime!
   updatedAt: DateTime!
 
-  products: [OrderProduct!]! @relation(name: "ProductsOfOrder", onDelete:CASCADE)
 
   status: String! 
+  
+  products: [OrderProduct!]! @relation(name: "ProductsOfOrder", onDelete:CASCADE)
   customer: Customer! @relation(name: "OrderByCustomer", onDelete:CASCADE)
   shippingAddress: Address @relation(name: "ShippingAddress", onDelete:CASCADE)
   billingAddress: Address @relation(name: "BillingAddress", onDelete:CASCADE)
@@ -29,7 +30,6 @@ type OrderProduct {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
-
   title: String!
   imageURL: String!
   description: String!

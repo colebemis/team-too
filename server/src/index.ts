@@ -14,7 +14,8 @@ const resolvers = {
     users: (root, args, context: Context, info) => context.db.users(args),
     products: (root, args, context: Context, info) => context.db.products(args),
     product: (root, args, context: Context, info) => context.db.product(args.where),
-    user: (root, args, context: Context, info) => context.db.user(args)
+    user: (root, args, context: Context, info) => context.db.user(args),
+    categories: (root, args, context: Context, info) => context.db.categories(args)
   },
 
   Mutation: {

@@ -226,6 +226,10 @@ type AggregateAddress {
   count: Int!
 }
 
+type AggregateCategory {
+  count: Int!
+}
+
 type AggregateCreditCard {
   count: Int!
 }
@@ -252,6 +256,141 @@ type AggregateUser {
 
 type BatchPayload {
   count: Long!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product!]
+}
+
+type CategoryConnection {
+  pageInfo: PageInfo!
+  edges: [CategoryEdge]!
+  aggregate: AggregateCategory!
+}
+
+input CategoryCreateInput {
+  name: String!
+  products: ProductCreateManyWithoutCategoriesInput
+}
+
+input CategoryCreateManyWithoutProductsInput {
+  create: [CategoryCreateWithoutProductsInput!]
+  connect: [CategoryWhereUniqueInput!]
+}
+
+input CategoryCreateWithoutProductsInput {
+  name: String!
+}
+
+type CategoryEdge {
+  node: Category!
+  cursor: String!
+}
+
+enum CategoryOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type CategoryPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type CategorySubscriptionPayload {
+  mutation: MutationType!
+  node: Category
+  updatedFields: [String!]
+  previousValues: CategoryPreviousValues
+}
+
+input CategorySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CategoryWhereInput
+  AND: [CategorySubscriptionWhereInput!]
+  OR: [CategorySubscriptionWhereInput!]
+  NOT: [CategorySubscriptionWhereInput!]
+}
+
+input CategoryUpdateInput {
+  name: String
+  products: ProductUpdateManyWithoutCategoriesInput
+}
+
+input CategoryUpdateManyWithoutProductsInput {
+  create: [CategoryCreateWithoutProductsInput!]
+  delete: [CategoryWhereUniqueInput!]
+  connect: [CategoryWhereUniqueInput!]
+  disconnect: [CategoryWhereUniqueInput!]
+  update: [CategoryUpdateWithWhereUniqueWithoutProductsInput!]
+  upsert: [CategoryUpsertWithWhereUniqueWithoutProductsInput!]
+}
+
+input CategoryUpdateWithoutProductsDataInput {
+  name: String
+}
+
+input CategoryUpdateWithWhereUniqueWithoutProductsInput {
+  where: CategoryWhereUniqueInput!
+  data: CategoryUpdateWithoutProductsDataInput!
+}
+
+input CategoryUpsertWithWhereUniqueWithoutProductsInput {
+  where: CategoryWhereUniqueInput!
+  update: CategoryUpdateWithoutProductsDataInput!
+  create: CategoryCreateWithoutProductsInput!
+}
+
+input CategoryWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  products_every: ProductWhereInput
+  products_some: ProductWhereInput
+  products_none: ProductWhereInput
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
+}
+
+input CategoryWhereUniqueInput {
+  id: ID
 }
 
 type CreditCard {
@@ -579,6 +718,12 @@ type Mutation {
   upsertAddress(where: AddressWhereUniqueInput!, create: AddressCreateInput!, update: AddressUpdateInput!): Address!
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteManyAddresses(where: AddressWhereInput): BatchPayload!
+  createCategory(data: CategoryCreateInput!): Category!
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
+  updateManyCategories(data: CategoryUpdateInput!, where: CategoryWhereInput): BatchPayload!
+  upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
+  deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
   updateManyCreditCards(data: CreditCardUpdateInput!, where: CreditCardWhereInput): BatchPayload!
@@ -631,8 +776,8 @@ type Order {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  products(where: OrderProductWhereInput, orderBy: OrderProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderProduct!]
   status: String!
+  products(where: OrderProductWhereInput, orderBy: OrderProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderProduct!]
   customer: Customer!
   shippingAddress: Address
   billingAddress: Address
@@ -649,8 +794,8 @@ type OrderConnection {
 }
 
 input OrderCreateInput {
-  products: OrderProductCreateManyInput
   status: String!
+  products: OrderProductCreateManyInput
   customer: CustomerCreateOneInput!
   shippingAddress: AddressCreateOneInput
   billingAddress: AddressCreateOneInput
@@ -928,8 +1073,8 @@ input OrderSubscriptionWhereInput {
 }
 
 input OrderUpdateInput {
-  products: OrderProductUpdateManyInput
   status: String
+  products: OrderProductUpdateManyInput
   customer: CustomerUpdateOneRequiredInput
   shippingAddress: AddressUpdateOneInput
   billingAddress: AddressUpdateOneInput
@@ -970,9 +1115,6 @@ input OrderWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  products_every: OrderProductWhereInput
-  products_some: OrderProductWhereInput
-  products_none: OrderProductWhereInput
   status: String
   status_not: String
   status_in: [String!]
@@ -987,6 +1129,9 @@ input OrderWhereInput {
   status_not_starts_with: String
   status_ends_with: String
   status_not_ends_with: String
+  products_every: OrderProductWhereInput
+  products_some: OrderProductWhereInput
+  products_none: OrderProductWhereInput
   customer: CustomerWhereInput
   shippingAddress: AddressWhereInput
   billingAddress: AddressWhereInput
@@ -1037,6 +1182,8 @@ type Product {
   title: String!
   description: String!
   price: Float!
+  stock: Int!
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
 }
 
 type ProductConnection {
@@ -1050,6 +1197,21 @@ input ProductCreateInput {
   title: String!
   description: String!
   price: Float!
+  stock: Int!
+  categories: CategoryCreateManyWithoutProductsInput
+}
+
+input ProductCreateManyWithoutCategoriesInput {
+  create: [ProductCreateWithoutCategoriesInput!]
+  connect: [ProductWhereUniqueInput!]
+}
+
+input ProductCreateWithoutCategoriesInput {
+  imageURL: String!
+  title: String!
+  description: String!
+  price: Float!
+  stock: Int!
 }
 
 type ProductEdge {
@@ -1068,6 +1230,8 @@ enum ProductOrderByInput {
   description_DESC
   price_ASC
   price_DESC
+  stock_ASC
+  stock_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1080,6 +1244,7 @@ type ProductPreviousValues {
   title: String!
   description: String!
   price: Float!
+  stock: Int!
 }
 
 type ProductSubscriptionPayload {
@@ -1105,6 +1270,36 @@ input ProductUpdateInput {
   title: String
   description: String
   price: Float
+  stock: Int
+  categories: CategoryUpdateManyWithoutProductsInput
+}
+
+input ProductUpdateManyWithoutCategoriesInput {
+  create: [ProductCreateWithoutCategoriesInput!]
+  delete: [ProductWhereUniqueInput!]
+  connect: [ProductWhereUniqueInput!]
+  disconnect: [ProductWhereUniqueInput!]
+  update: [ProductUpdateWithWhereUniqueWithoutCategoriesInput!]
+  upsert: [ProductUpsertWithWhereUniqueWithoutCategoriesInput!]
+}
+
+input ProductUpdateWithoutCategoriesDataInput {
+  imageURL: String
+  title: String
+  description: String
+  price: Float
+  stock: Int
+}
+
+input ProductUpdateWithWhereUniqueWithoutCategoriesInput {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateWithoutCategoriesDataInput!
+}
+
+input ProductUpsertWithWhereUniqueWithoutCategoriesInput {
+  where: ProductWhereUniqueInput!
+  update: ProductUpdateWithoutCategoriesDataInput!
+  create: ProductCreateWithoutCategoriesInput!
 }
 
 input ProductWhereInput {
@@ -1172,6 +1367,17 @@ input ProductWhereInput {
   price_lte: Float
   price_gt: Float
   price_gte: Float
+  stock: Int
+  stock_not: Int
+  stock_in: [Int!]
+  stock_not_in: [Int!]
+  stock_lt: Int
+  stock_lte: Int
+  stock_gt: Int
+  stock_gte: Int
+  categories_every: CategoryWhereInput
+  categories_some: CategoryWhereInput
+  categories_none: CategoryWhereInput
   AND: [ProductWhereInput!]
   OR: [ProductWhereInput!]
   NOT: [ProductWhereInput!]
@@ -1185,6 +1391,9 @@ type Query {
   address(where: AddressWhereUniqueInput!): Address
   addresses(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Address]!
   addressesConnection(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AddressConnection!
+  category(where: CategoryWhereUniqueInput!): Category
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
+  categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
   creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
@@ -1208,6 +1417,7 @@ type Query {
 
 type Subscription {
   address(where: AddressSubscriptionWhereInput): AddressSubscriptionPayload
+  category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
   customer(where: CustomerSubscriptionWhereInput): CustomerSubscriptionPayload
   order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
