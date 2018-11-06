@@ -19,7 +19,7 @@
         <p> {{data.product.title}} </p>
         <p>{{data.product.description}}</p>
         <p>{{data.product.price}}</p>
-
+        <p>In Stock: {{data.product.stock}}</p>
       </template>
     </ApolloQuery>
 

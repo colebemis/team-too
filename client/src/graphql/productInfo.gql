@@ -6,6 +6,6 @@ query productInfo($id: ProductWhereUniqueInput!) {
         imageURL
         description
         price
-
+        stock
     }
 }
