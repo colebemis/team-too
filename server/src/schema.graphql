@@ -1,9 +1,11 @@
-# import User, UserWhereInput, UserWhereUniqueInput, UserUpdateInput, UserCreateInput, Product, ProductWhereInput, ProductWhereUniqueInput, Order, OrderWhereInput, OrderWhereUniqueInput, OrderOrderByInput, OrderCreateInput, OrderUpdateInput from "./generated/prisma.graphql"
+
+# import CategoryWhereInput, User, UserWhereInput, Product, ProductWhereInput, ProductWhereUniqueInput, UserCreateInput, UserWhereUniqueInput, UserUpdateInput, Order, OrderWhereInput, OrderWhereUniqueInput, OrderOrderByInput, OrderCreateInput, OrderUpdateInput from "./generated/prisma.graphql"
 
 type Query {
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput): [User]
   product(where: ProductWhereUniqueInput!): Product
+  categories(where: CategoryWhereInput): [Category]
   products(where: ProductWhereInput): [Product],
   order(where: OrderWhereUniqueInput!): Order,
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
