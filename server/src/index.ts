@@ -2,6 +2,7 @@ import { ApolloServer, gql } from "apollo-server";
 import { importSchema } from "graphql-import";
 import * as path from "path";
 import { prisma, Prisma } from "./generated";
+import { isContext } from "vm";
 
 interface Context {
   db: Prisma;
@@ -41,6 +42,15 @@ const resolvers = {
     deleteOrder: (root, args, context: Context, info) => {
       return context.db.deleteOrder(args.where);
     },
+    createProduct: (root, args, context: Context, info) => {
+      return context.db.createProduct(args.data);
+    },
+    updateProduct: (root, args, context: Context, info) => {
+      return context.db.updateProduct(args);
+    },
+    deleteProduct: (root, args, context: Context, info) => {
+      return context.db.deleteProduct(args.where)
+    }
   },
   Order: {
     customer: (root, args, context: Context, info) => {
