@@ -1,32 +1,130 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`returns product name and price 1`] = `
+exports[`order query 1`] = `
 Object {
   "data": Object {
-    "products": Array [
-      Object {
+    "order": Object {
+      "billingAddress": Object {
+        "line1": "Hello World",
+      },
+      "customer": Object {
         "name": "Hello World",
-        "price": 51.834346450561696,
+      },
+      "payment": Object {
+        "number": "Hello World",
+      },
+      "products": Array [
+        Object {
+          "title": "Hello World",
+        },
+        Object {
+          "title": "Hello World",
+        },
+      ],
+      "shippingAddress": Object {
+        "line1": "Hello World",
+      },
+      "status": "Hello World",
+      "subtotal": 22.1,
+      "tax": 22.1,
+      "total": 22.1,
+    },
+  },
+}
+`;
+
+exports[`orders query 1`] = `
+Object {
+  "data": Object {
+    "orders": Array [
+      Object {
+        "billingAddress": Object {
+          "line1": "Hello World",
+        },
+        "customer": Object {
+          "name": "Hello World",
+        },
+        "payment": Object {
+          "number": "Hello World",
+        },
+        "products": Array [
+          Object {
+            "title": "Hello World",
+          },
+          Object {
+            "title": "Hello World",
+          },
+        ],
+        "shippingAddress": Object {
+          "line1": "Hello World",
+        },
+        "status": "Hello World",
+        "subtotal": 22.1,
+        "tax": 22.1,
+        "total": 22.1,
       },
       Object {
-        "name": "Hello World",
-        "price": 49.81798219554122,
+        "billingAddress": Object {
+          "line1": "Hello World",
+        },
+        "customer": Object {
+          "name": "Hello World",
+        },
+        "payment": Object {
+          "number": "Hello World",
+        },
+        "products": Array [
+          Object {
+            "title": "Hello World",
+          },
+          Object {
+            "title": "Hello World",
+          },
+        ],
+        "shippingAddress": Object {
+          "line1": "Hello World",
+        },
+        "status": "Hello World",
+        "subtotal": 22.1,
+        "tax": 22.1,
+        "total": 22.1,
       },
     ],
   },
 }
 `;
 
-exports[`returns user name and email 1`] = `
+exports[`products query 1`] = `
+Object {
+  "data": Object {
+    "products": Array [
+      Object {
+        "description": "Hello World",
+        "price": 22.1,
+        "title": "Hello World",
+      },
+      Object {
+        "description": "Hello World",
+        "price": 22.1,
+        "title": "Hello World",
+      },
+    ],
+  },
+}
+`;
+
+exports[`users query 1`] = `
 Object {
   "data": Object {
     "users": Array [
       Object {
         "email": "Hello World",
+        "id": "test-id",
         "name": "Hello World",
       },
       Object {
         "email": "Hello World",
+        "id": "test-id",
         "name": "Hello World",
       },
     ],
