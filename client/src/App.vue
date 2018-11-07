@@ -19,6 +19,8 @@ export default {
 </script>
 
 <style>
+ @import url('https://fonts.googleapis.com/css?family=Work+Sans');
+
 a:link {
     text-decoration: none;
 }
