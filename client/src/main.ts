@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import './plugins/element.js';
 import { createProvider } from './vue-apollo';
+import '@/assets/css/tailwind.css'
 
 Vue.config.productionTip = false;
 

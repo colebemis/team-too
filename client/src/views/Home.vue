@@ -60,6 +60,7 @@
       font-family: 'Work sans', 'Avenir', Helvetica, Arial, sans-serif;
       font-size: 20px;
   }
+  
   .center-fit {
       width: 100%;
       height: auto;

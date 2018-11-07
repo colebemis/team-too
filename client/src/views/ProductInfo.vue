@@ -6,61 +6,71 @@
     >
       <template slot-scope="{ result: { loading, error, data } }">
         <!-- Result -->
-      <el-row :gutter="20">
-        <el-col :span="14">
-          <div class="grid-content bg-purple">
-            <img v-bind:src="data.product.imageURL" alt="yolo" class="productImg">
+
+        <!-- Two columns -->
+        <div class="flex mb-4 mx-20">
+
+          <div class="w-1/2 h-120">
+              <img v-bind:src="data.product.imageURL" alt="bike" class="productImg">
           </div>
-        </el-col>
-        <el-col :span="10"><div class="grid-content bg-purple"></div></el-col>
 
-      </el-row>
-      <p>{{data.product.imageURL}}</p>
-        <p> {{data.product.title}} </p>
-        <p>{{data.product.description}}</p>
-        <p>{{data.product.price}}</p>
-        <p>In Stock: {{data.product.stock}}</p>
+          <div class="w-1/2 bg-grey-light h-120">
+
+              <h1 class = "mx-24 mt-10 text-5xl flex justify-start items-start pb-2 font-extrabold"> {{data.product.title}} </h1>
+
+              <p class =  "mx-24 flex justify-start items-start text-xl pb-5 font-light"> ${{data.product.price}} </p>
+
+              <p class =  "mx-24 flex justify-start text-left text-xl italic font-medium"> 
+                  {{data.product.description}} This bike is lit as shit and runs like a horse in the dirt of the swamp like a racehorse in the storm, without any lack of speed. This powerful mammoth by the famed corporate corporation will never let you down in the roughest of freeways and trails. What a guy. Thanks.
+              </p> 
+
+
+              <!-- Two columns -->
+             <div class="flex flex-end mt-20 relative pin-b">
+
+                 <div class="w-1/2 bg-blue-light h-12">
+                   <p class = "text-xl mt-3 font-light"> {{data.product.stock}} in stock </p> 
+                </div>              
+                
+                <div class="w-1/2 bg-grey h-12">
+                  <div class="flex mb-4">
+                      <div class="w-1/2 bg-grey-light h-12">
+                          <button class="bg-black hover:bg-blue-light text-grey-lightest font-bold mt-2 py-2 px-4 rounded inline-flex items-center mb-10">
+                            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                            <span>Add to Cart</span>
+                          </button>
+                      </div>
+                      <div class="w-1/2 bg-grey h-12">
+                      </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+
+          </div>
+        </div>
+
       </template>
-    </ApolloQuery>
 
-    <p> Your product has an ID of {{productId}} </p>
+    </ApolloQuery>
+  
   </div>
+
 </template>
 
+
+
 <style>
+ 
   div img.productImg {
     margin: 0;
-    width: 100%;
-    height: 100%;
+    width: 75%;
     object-fit: contain;
   }
-  .el-row {
-    margin-bottom: 20px;
-    padding: 0px 30px;
-    height: 500px;
-  }
-  .el-col {
-    border-radius: 4px;
-    height: 100%;
 
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    height:100%;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
+ 
 
 </style>
 
@@ -74,9 +84,6 @@ export default {
     return {
     id: {id: this.productId}
     }
-
   }
- 
-
 }
 </script>
