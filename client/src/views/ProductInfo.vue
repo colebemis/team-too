@@ -9,7 +9,7 @@
       <el-row :gutter="20">
         <el-col :span="14">
           <div class="grid-content bg-purple">
-            <img v-bind:src="data.product.imageURL" alt="yolo" class="productImg">
+            <img v-bind:src="data.product.imageURL" alt="yolo" class="infoImg">
           </div>
         </el-col>
         <el-col :span="10"><div class="grid-content bg-purple"></div></el-col>
@@ -28,7 +28,7 @@
 </template>
 
 <style>
-  div img.productImg {
+  div img.infoImg {
     margin: 0;
     width: 100%;
     height: 100%;
