@@ -7,5 +7,6 @@ query
         title
         price
         imageURL
+        stock
     }
 }

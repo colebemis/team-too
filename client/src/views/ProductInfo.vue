@@ -48,7 +48,6 @@
                 </div>
 
               </div>
-
           </div>
         </div>
 
@@ -63,7 +62,6 @@
 
 
 <style>
- 
   div img.productImg {
     margin: 0;
     width: 75%;

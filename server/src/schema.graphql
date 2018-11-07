@@ -5,8 +5,8 @@ type Query {
   users(where: UserWhereInput): [User]
   product(where: ProductWhereUniqueInput!): Product
   categories(where: CategoryWhereInput): [Category]
-  products(where: ProductWhereInput): [Product],
-  order(where: OrderWhereUniqueInput!): Order,
+  products(where: ProductWhereInput): [Product]
+  order(where: OrderWhereUniqueInput!): Order
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
 }
 
