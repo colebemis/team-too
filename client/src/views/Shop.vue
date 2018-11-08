@@ -112,7 +112,6 @@
   }
   div.categories {
     width: 15%;
-  
     float: left;
     border: 1px solid blue;
     display: grid;
@@ -165,6 +164,8 @@ setTimeout(function() {
     out[i].parentNode.classList.remove("product");
   }
 }, 500);
+
+
 
 </script>
 

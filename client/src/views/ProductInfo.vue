@@ -53,8 +53,11 @@
 
       </template>
 
+
     </ApolloQuery>
-  
+      <p> Your product has an ID of {{productId}} </p>
+    <button @click="addToCart"> Add to Cart</button>
+
   </div>
 
 </template>
@@ -82,6 +85,21 @@ export default {
     return {
     id: {id: this.productId}
     }
+  },
+  methods: {
+    addToCart() {
+      const cart = JSON.parse(localStorage.getItem("cart") || "{}");
+
+      if (this.productId in cart) {
+        cart[this.productId] += 1;
+      } else {
+        cart[this.productId] = 1;
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }
-}
+
+  }
+
 </script>
