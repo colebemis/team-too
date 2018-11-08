@@ -1,34 +1,60 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Home from './views/Home.vue';
+import Vue from "vue";
+import Router from "vue-router";
+import Home from "./views/Home.vue";
 
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: "/",
       component: Home,
     },
     {
-      path: '/shop',
-      name: 'shop',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Shop.vue'),
+      path: "/shop",
+      component: () => import("./views/Shop.vue"),
     },
     {
-      path: '/productInfo',
-      name: 'productInfo',
-      component: () => import('./views/ProductInfo.vue'),
-      props: (route) => ({
-        productId: route.query.productId
-      }),
-
-    }
+      path: "/product/:id",
+      component: () => import("./views/Product.vue"),
+    },
+    {
+      path: "/cart",
+      component: () => import("./views/Cart.vue"),
+    },
+    {
+      path: "/checkout",
+      component: () => import("./views/Checkout.vue"),
+    },
+    {
+      path: "/login",
+      component: () => import("./views/Login.vue"),
+    },
+    {
+      path: "/admin/orders",
+      component: () => import("./views/Orders.vue"),
+    },
+    {
+      path: "/admin/order/:id",
+      component: () => import("./views/Order.vue"),
+    },
+    {
+      path: "/admin/inventory",
+      component: () => import("./views/Inventory.vue"),
+    },
+    {
+      path: "/admin/product/:id",
+      component: () => import("./views/EditProduct.vue"),
+    },
+    {
+      path: "/admin/accounts",
+      component: () => import("./views/Accounts.vue"),
+    },
+    {
+      path: "/admin/info",
+      component: () => import("./views/Info.vue"),
+    },
   ],
 });
