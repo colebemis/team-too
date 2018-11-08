@@ -1,6 +1,6 @@
 <template>
   <header class="bg-topography">
-    <div class="container mx-auto py-8 px-4 flex justify-between items-center">
+    <div class="container mx-auto py-8 px-8 sm:px-4 flex justify-between items-center">
       <router-link
         to="/shop"
         class="text-white font-semibold uppercase tracking-wide leading-tight"
