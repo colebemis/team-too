@@ -32,6 +32,7 @@ import Button from "@/components/Button.vue";
 
 export default {
   components: { Button },
+  props: { id: String },
   data() {
     return {
       product: null,
@@ -52,13 +53,22 @@ export default {
             }
           }
         `,
-        variables: { id: this.$route.params.id },
+        variables: { id: this.id },
       };
     },
   },
   methods: {
     addToCart() {
-      console.log("add to cart");
+      const cart = JSON.parse(localStorage.getItem("cart") || "{}");
+
+      if (this.id in cart) {
+        cart[this.id] += 1;
+      } else {
+        cart[this.id] = 1;
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      this.$router.push("/cart");
     },
   },
 };
