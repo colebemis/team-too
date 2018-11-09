@@ -2,7 +2,6 @@ import { ApolloServer, gql } from "apollo-server";
 import { importSchema } from "graphql-import";
 import * as path from "path";
 import { prisma, Prisma } from "./generated";
-import { isContext } from "vm";
 
 interface Context {
   db: Prisma;
@@ -12,17 +11,27 @@ const typeDefs = gql(importSchema(path.resolve(__dirname, "schema.graphql")));
 
 const resolvers = {
   Query: {
-    user: (root, args, context: Context, info) => context.db.user(args),
-    users: (root, args, context: Context, info) => context.db.users(args),
+    user: (root, args, context: Context, info) => {
+      return context.db.user(args);
+    },
+    users: (root, args, context: Context, info) => {
+      return context.db.users(args);
+    },
     product: (root, args, context: Context, info) => {
       return context.db.product(args.where);
     },
-    products: (root, args, context: Context, info) => context.db.products(args),
-    categories: (root, args, context: Context, info) => context.db.categories(args),
-    order: (root, args, context: Context, info) => {
-      return context.db.order({ id: args.where.id });
+    products: (root, args, context: Context, info) => {
+      return context.db.products(args);
     },
-    orders: (root, args, context: Context, info) => context.db.orders(args)
+    categories: (root, args, context: Context, info) => {
+      return context.db.categories(args);
+    },
+    order: (root, args, context: Context, info) => {
+      return context.db.order(args.where);
+    },
+    orders: (root, args, context: Context, info) => {
+      return context.db.orders(args);
+    },
   },
   Mutation: {
     createUser: (root, args, context: Context, info) => {
@@ -50,8 +59,8 @@ const resolvers = {
       return context.db.updateProduct(args);
     },
     deleteProduct: (root, args, context: Context, info) => {
-      return context.db.deleteProduct(args.where)
-    }
+      return context.db.deleteProduct(args.where);
+    },
   },
   Order: {
     customer: (root, args, context: Context, info) => {
@@ -68,6 +77,16 @@ const resolvers = {
     },
     payment: (root, args, context: Context, info) => {
       return context.db.order({ id: root.id }).payment();
+    },
+  },
+  Product: {
+    categories: (root, args, context: Context, info) => {
+      return context.db.product({ id: root.id }).categories();
+    },
+  },
+  Category: {
+    products: (root, args, context: Context, info) => {
+      return context.db.category({ id: root.id }).products();
     },
   },
 };
