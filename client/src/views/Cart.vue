@@ -1,21 +1,34 @@
 <template>
-  <div class="about">
+  <div class="about mb-20">
     <div class="pageHead">
       <span> Cart </span>
       <hr />
     </div>
 
-    <div class="container mx-auto">
-      <div class="gridHeader border border-solid border-grey-dark">
+    <div class="container mx-auto mb-10">
+      <div class="gridHeader bg-grey-darkest text-white border border-solid border-grey-dark">
         <div>PRODUCT</div>
         <div>QUANTITY</div>
         <div>PRICE</div>
       </div>
 
       <div class="gridRow" :key="product.id" v-for="product in products">
-        <div>   {{ product.title }} </div>
-        <div>   {{ cart[product.id] }} </div>
-        <div> $ {{ product.price }} </div>
+
+        <!-- Product image and title - 2 columns -->
+        <div class="flex mb-4">
+          <div class="w-1/2 h-12">
+              <div class="bg-image relative border border-solid border-grey-dark" :style="`background-image: url(${product.imageURL});`">   
+
+              </div>
+          </div>
+
+          <div class="w-1/2 text-left bg-grey font-semibold ml-5 h-12">
+              <div class = "mt-3">   {{ product.title }} </div>
+          </div>
+        </div>
+
+        <div class = "bg-grey-darker">   {{ cart[product.id] }} </div>
+        <div class = "bg-grey-darkest"> $ {{ product.price }} </div>
       </div>
     </div>
     
@@ -36,9 +49,16 @@
   font-weight: bold;
 }
 
+.bg-image {
+  padding-bottom: 67%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .gridRow {
   display: grid;
-  padding: 10px;
+  padding: 50px;
   grid-template-columns: repeat(3, 1fr);
   font-weight: regular;
 }
