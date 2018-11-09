@@ -1,48 +1,53 @@
 <template>
-  <div class="container mx-auto my-12 px-4">
-    <div class="grid">
-      <router-link
-        class="block text-center hover:opacity-75"
-        v-for="product in products"
-        :key="product.id"
-        :to="`/product/${product.id}`"
-      >
-        <div class="flex flex-col">
-          <div
-            class="bg-image relative"
-            :style="`background-image: url(${product.imageURL});`"
-          >
+  <div>
+    <PageHeader>Shop</PageHeader>
+    <div class="container mx-auto my-12 px-4">
+      <div class="grid">
+        <router-link
+          class="block text-center hover:opacity-75"
+          v-for="product in products"
+          :key="product.id"
+          :to="`/product/${product.id}`"
+        >
+          <div class="flex flex-col">
             <div
-              v-if="product.stock == 0"
-              class="absolute pin bg-white opacity-75"
-            />
-            <div
-              v-if="product.stock == 0"
-              class="absolute pin flex items-center justify-center"
+              class="bg-image relative"
+              :style="`background-image: url(${product.imageURL});`"
             >
-              <span
-                class="bg-black text-white text-sm tracking-wide font-semibold py-2 px-3 uppercase"
+              <div
+                v-if="product.stock == 0"
+                class="absolute pin bg-white opacity-75"
+              />
+              <div
+                v-if="product.stock == 0"
+                class="absolute pin flex items-center justify-center"
               >
-                Out of stock
-              </span>
+                <span
+                  class="bg-black text-white text-sm tracking-wide font-semibold py-2 px-3 uppercase"
+                >
+                  Out of stock
+                </span>
+              </div>
             </div>
+            <span class="mt-4 text-black font-semibold leading-normal">
+              {{ product.title }}
+            </span>
+            <span class="text-grey-darkest leading-normal">
+              ${{ product.price.toFixed(2) }}
+            </span>
           </div>
-          <span class="mt-4 text-black font-semibold leading-normal">
-            {{ product.title }}
-          </span>
-          <span class="text-grey-darkest leading-normal">
-            ${{ product.price.toFixed(2) }}
-          </span>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import gql from "graphql-tag";
+import PageHeader from "@/components/PageHeader.vue";
 
 export default {
+  components: { PageHeader },
   data() {
     return {
       products: [],
