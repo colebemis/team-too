@@ -1,10 +1,6 @@
 <template>
-  <div class="about">
-    <div class="pageHead">
-      <span> Cart </span>
-      <hr />
-    </div>
-
+  <div>
+    <PageHeader>Cart</PageHeader>
     <div class="container mx-auto">
       <div class="gridHeader border border-solid border-grey-dark">
         <div>PRODUCT</div>
@@ -62,7 +58,10 @@ hr {
 </style>
 
 <script>
+import PageHeader from "@/components/PageHeader.vue";
+
 export default {
+  components: { PageHeader },
   data() {
     const cart = JSON.parse(localStorage.getItem("cart") || "{}");
     return {
