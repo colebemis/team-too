@@ -11,7 +11,7 @@
         <span
           class="text-white text-2xl font-bold uppercase tracking-wide leading-tight"
         >
-          Foxcyle
+          Foxycle
         </span>
         <span
           class="text-grey-light text-sm uppercase tracking-wide leading-normal"

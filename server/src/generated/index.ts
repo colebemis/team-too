@@ -844,6 +844,7 @@ export interface CategoryUpdateWithoutProductsDataInput {
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  email?: String;
 }>;
 
 export interface CategoryUpdateManyWithoutProductsInput {
