@@ -34,8 +34,8 @@ const resolvers = {
     },
   },
   Mutation: {
-    createUser: (root, args, context: Context, info) => {
-      return context.db.createUser(args.data);
+    createUser: async(root, args, context: Context, info) => {
+      return await context.db.createUser(args.data);
     },
     deleteUser: (root, args, context: Context, info) => {
       return context.db.deleteUser(args.where);
@@ -43,8 +43,8 @@ const resolvers = {
     updateUser: (root, args, context: Context, info) => {
       return context.db.updateUser(args);
     },
-    createOrder: (root, args, context: Context, info) => {
-      return context.db.createOrder(args.data);
+    createOrder: async(root, args, context: Context, info) => {
+      return await context.db.createOrder(args.data);
     },
     updateOrder: (root, args, context: Context, info) => {
       return context.db.updateOrder(args);
@@ -52,8 +52,8 @@ const resolvers = {
     deleteOrder: (root, args, context: Context, info) => {
       return context.db.deleteOrder(args.where);
     },
-    createProduct: (root, args, context: Context, info) => {
-      return context.db.createProduct(args.data);
+    createProduct: async(root, args, context: Context, info) => {
+      return await context.db.createProduct(args.data);
     },
     updateProduct: (root, args, context: Context, info) => {
       return context.db.updateProduct(args);
