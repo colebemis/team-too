@@ -1,11 +1,28 @@
 <template>
   <div>
     <PageHeader>Shop</PageHeader>
-    <div class="container mx-auto my-12 px-4">
-      <div class="grid">
+    <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
+      <div class="md:w-1/5 mb-4 md:mb-0">
+        <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
+          Categories
+        </h2>
+        <div class="my-4" :key="category.id" v-for="category in categories">
+          <input
+            type="checkbox"
+            class="checkbox hidden"
+            :id="category.name"
+            :value="category.name"
+            v-model="selectedCategories"
+          />
+          <label :for="category.name" class="relative">
+            <span class="ml-2 leading-none">{{category.name}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="grid md:w-4/5">
         <router-link
           class="block text-center hover:opacity-75"
-          v-for="product in products"
+          v-for="product in filteredProducts"
           :key="product.id"
           :to="`/product/${product.id}`"
         >
@@ -51,7 +68,22 @@ export default {
   data() {
     return {
       products: [],
+      categories: [],
+      selectedCategories: [],
     };
+  },
+  computed: {
+    filteredProducts() {
+      if (this.selectedCategories.length == 0) {
+        return this.products;
+      }
+
+      return this.products.filter(product =>
+        product.categories.some(category =>
+          this.selectedCategories.includes(category.name),
+        ),
+      );
+    },
   },
   apollo: {
     products: gql`
@@ -63,6 +95,17 @@ export default {
           price
           imageURL
           stock
+          categories {
+            name
+          }
+        }
+      }
+    `,
+    categories: gql`
+      query categories {
+        categories {
+          id
+          name
         }
       }
     `,
@@ -75,7 +118,38 @@ export default {
   display: grid;
   column-gap: 24px;
   row-gap: 48px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.checkbox + label::before {
+  content: "";
+  display: inline-block;
+  vertical-align: top;
+  height: 16px;
+  width: 16px;
+  border: 1px solid #b8c2cc;
+}
+
+.checkbox + label::after {
+  position: absolute;
+  left: 2px;
+  top: 4px;
+  content: none;
+  display: inline-block;
+  height: 6px;
+  width: 12px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg);
+}
+
+.checkbox:checked + label::before {
+  background-color: #22292f;
+  border-color: #22292f;
+}
+
+.checkbox:checked + label::after {
+  content: "";
 }
 
 .bg-image {
