@@ -14,10 +14,12 @@ vue<template>
 
       <div class="flex mt-10 text-center" :key="product.id" v-for="product in products" :to="`../product/${product.id}`">
 
-        <hr>
-
         <!-- Product Info: image and title - 2 columns -->
-        <div class="flex items-center w-1/3 mt-10 align-left">
+
+        <router-link
+          class="flex items-center w-1/3 mt-10 align-left hover:opacity-75"
+          :to="`/product/${product.id}`"
+        >
 
             <!-- Image -->
             <div class="w-1/2 h-12">
@@ -31,7 +33,7 @@ vue<template>
                 {{ product.title }}
             </div>
 
-        </div>
+        </router-link>
 
         <!-- Product Quantity -->
         <div class = "bg-grey-lighter flex items-center justify-center w-1/3 mt-10">   {{ cart[product.id] }} </div>
@@ -47,21 +49,21 @@ vue<template>
       <div class="flex items-center justify-center mt-10">
         <div class="w-1/3 h-12"></div>
         <div class="w-1/3 text-center bg-grey border border-solid border-grey-dark h-12 pt-3"> SUBTOTAL </div>
-        <div class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"> $ </div>
+        <div class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"> ${{ subtotal.toFixed(2) }} </div>
       </div>
 
       <!-- Tax -->
       <div class="flex items-center justify-center">
         <div class="w-1/3 h-12"></div>
         <div class="w-1/3 bg-grey border border-solid border-grey-dark text-center h-12 pt-3"> TAX </div>
-        <div class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"> $ </div>
+        <div class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"> $ {{ (subtotal * 0.0725).toFixed(2) }} </div>
       </div>
 
     <!-- Total Price -->
       <div class="flex mt-5 items-center justify-center">
         <div class="w-1/3 h-12"></div>
         <div class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"> TOTAL </div>
-        <div class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"> $ </div>
+        <div class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"> $ {{ (subtotal * 0.0725 + subtotal).toFixed(2) }} </div>
       </div>
     </div>
     
@@ -141,5 +143,12 @@ export default {
       };
     },
   },
+
+  computed: {
+    subtotal() { 
+      return this.products.reduce(((subtotal, currentProduct) => subtotal + currentProduct.price), 0)
+    }
+  }
 };
+
 </script>
