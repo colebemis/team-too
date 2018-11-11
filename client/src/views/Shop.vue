@@ -62,31 +62,29 @@ export default {
       selectedCategories: []
     };
   },
+  methods: {
+    checkCategories: function(product) {
+      var hasCategory = false;
+      for (var j = 0; j  < product.categories.length; j++) {
+        if (this.selectedCategories.includes(product.categories[j].name)) {
+          hasCategory = true;
+          break;  
+          }
+      }
+      return hasCategory;
+  }
+  },
 
   computed: {
     filteredProducts: function() {
       if (this.selectedCategories.length > 0) {
-        var productss = [];
-        for (var i = 0; i < this.products.length; i++) {
-          var hasCategory = false;
-          for (var j = 0; j  < this.products[i].categories.length; j++) {
-            if (this.selectedCategories.includes(this.products[i].categories[j].name)) {
-              hasCategory = true;
-              break;
-            }
-          }
-          if (hasCategory) {
-            productss.push(this.products[i]);
-          }
-        }
-        return productss;
+        return this.products.filter(this.checkCategories);
       }
       else
       {
         return this.products;
       }
-
-  }
+    }
   },
   apollo: {
     products: gql`
