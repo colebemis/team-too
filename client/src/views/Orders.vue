@@ -94,25 +94,21 @@ export default {
       // if no filters are selected or all filters are selected...
       if (this.selectedStatuses.length == 0 && this.selectedDeliveryTypes.length == 0 ||
           this.selectedStatuses.length == this.statuses.length && this.selectedDeliveryTypes.length == this.deliveryTypes.length) {
-        console.log("filter none");
         return this.orders;
       }
       // no statuses are selected or all statuses are selected...
       else if(this.selectedStatuses.length == 0 || this.selectedStatuses.length == this.statuses.length){
-        console.log("filter delivery types");
         return this.orders.filter(order =>
           this.selectedDeliveryTypes.includes(order.shippingAddress == null ? "Store Pick-Up" : "Delivery")
         );
       }
-      // no delivery types are selected or all delivery types are selected
+      // no delivery types are selected or all delivery types are selected...
       else if(this.selectedDeliveryTypes.length == 0 || this.selectedDeliveryTypes.length == this.deliveryTypes.length){
-        console.log("filter statuses");
         return this.orders.filter(order =>
           this.selectedStatuses.includes(order.status)
         );
       }
 
-      console.log("filter full");
       return this.orders.filter(order =>
         this.selectedStatuses.includes(order.status) && this.selectedDeliveryTypes.includes(order.shippingAddress == null ? "Store Pick-Up" : "Delivery")
       );
