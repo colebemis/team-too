@@ -2,10 +2,17 @@
   <div>
     <PageHeader>Shop</PageHeader>
     <div class="container mx-auto my-12 px-4">
-      <div class="grid">
+      <div class="float-left">
+        <h2 class="uppercase">Categories</h2>
+        <div class="my-3" :key="category.id" v-for="category in categories">
+            <input type="checkbox" class="check opacity-0" :id="category.name" :value="category.name" v-model="selectedCategories">
+          <label :for="category.name" class="mx-1"> {{category.name}}  </label>
+        </div>
+      </div>
+      <div class="grid float-right">
         <router-link
           class="block text-center hover:opacity-75"
-          v-for="product in products"
+          v-for="product in filteredProducts"
           :key="product.id"
           :to="`/product/${product.id}`"
         >
@@ -51,7 +58,35 @@ export default {
   data() {
     return {
       products: [],
+      categories: [],
+      selectedCategories: []
     };
+  },
+
+  computed: {
+    filteredProducts: function() {
+      if (this.selectedCategories.length > 0) {
+        var productss = [];
+        for (var i = 0; i < this.products.length; i++) {
+          var hasCategory = false;
+          for (var j = 0; j  < this.products[i].categories.length; j++) {
+            if (this.selectedCategories.includes(this.products[i].categories[j].name)) {
+              hasCategory = true;
+              break;
+            }
+          }
+          if (hasCategory) {
+            productss.push(this.products[i]);
+          }
+        }
+        return productss;
+      }
+      else
+      {
+        return this.products;
+      }
+
+  }
   },
   apollo: {
     products: gql`
@@ -63,11 +98,22 @@ export default {
           price
           imageURL
           stock
+          categories {
+            name
+          }
         }
       }
     `,
+    categories: gql`
+      query categories {
+        categories {
+          id
+          name
+        }
+      }`
   },
-};
+}
+
 </script>
 
 <style scoped>
@@ -75,8 +121,45 @@ export default {
   display: grid;
   column-gap: 24px;
   row-gap: 48px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  width: 80%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+
+label {
+  position: relative;
+}
+
+.check + label::before {
+    content: "";
+    display:inline-block;
+    height: 13px;
+    width: 13px;
+    border: 1px solid black;
+}
+
+.check + label::after {
+  position: absolute;
+  left: 2.5px;
+  top: 5.5px;
+  content: none;
+  display: inline-block;
+  height: 5px;
+  width: 8px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  
+  transform: rotate(-45deg);
+
+}
+
+.check:checked + label::before {
+  background: black;
+}
+
+.check:checked + label::after {
+  content: ""
+}
+
 
 .bg-image {
   padding-bottom: 67%;
