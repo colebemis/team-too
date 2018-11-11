@@ -1,17 +1,16 @@
 <template>
   <div>
     <PageHeader>Orders</PageHeader>
-
-    <table>
-      <tr>
-        <th>Order</th>
+    <table class="table-auto w-full">
+      <tr class="bg-grey-light pb-8">
+        <th>Order ID</th>
         <th>Status</th>
         <th>Type</th>
         <th>Date</th>
         <th>Customer</th>
       </tr>
 
-      <tr v-for="order in orders" :key="order.id">
+      <tr v-for="order in orders" :key="order.id" class="hover:bg-grey-lighter mt-10 text-center">
         <td>
           <router-link :to="{ path: `/admin/order/${order.id}` }">
             {{ order.id }}
