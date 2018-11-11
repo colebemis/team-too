@@ -18,7 +18,7 @@
           </router-link>
         </td>
         <td>{{ order.status }}</td>
-        <td>{{ order.status }}</td>
+        <td>{{ (order.shippingAddress == null ? "In-Store" : "Delivery") }}</td>
         <td>{{ formatDate(order.createdAt, "MM/DD/YYYY hh:mm A") }}</td>
         <td>{{ order.customer.name }}</td>
       </tr>
@@ -45,7 +45,8 @@ export default {
           id,
           status,
           createdAt,
-          customer{name}
+          customer{name},
+          shippingAddress{id}
         }
       }
     `,
