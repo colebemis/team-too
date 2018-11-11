@@ -19,7 +19,7 @@
         </td>
         <td>{{ order.status }}</td>
         <td>{{ order.status }}</td>
-        <td>{{ order.createdAt }}</td>
+        <td>{{ formatDate(order.createdAt, "MM/DD/YYYY hh:mm A") }}</td>
         <td>{{ order.customer.name }}</td>
       </tr>
     </table>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import format from 'date-fns/format'
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 
@@ -49,6 +50,9 @@ export default {
       }
     `,
   },
+  methods: {
+    formatDate:format
+  }
 };
 </script>
 
