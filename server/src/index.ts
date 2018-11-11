@@ -1,11 +1,15 @@
 import { ApolloServer, gql } from "apollo-server";
 import { importSchema } from "graphql-import";
 import * as path from "path";
+import { hash, compare } from "bcrypt";
+import { sign } from "jsonwebtoken";
 import { prisma, Prisma } from "./generated";
 
 interface Context {
   db: Prisma;
 }
+
+const APP_SECRET = 'appsecret321'
 
 const typeDefs = gql(importSchema(path.resolve(__dirname, "schema.graphql")));
 
@@ -34,8 +38,16 @@ const resolvers = {
     },
   },
   Mutation: {
-    createUser: async(root, args, context: Context, info) => {
-      return await context.db.createUser(args.data);
+    createUser: async (root, args, context: Context, info) => {
+      const user = await context.db.createUser({
+        ...args.data,
+        password: await hash(args.data.password, 10),
+      });
+
+      return {
+        token: sign({ userId: user.id }, APP_SECRET),
+        user,
+      };
     },
     deleteUser: (root, args, context: Context, info) => {
       return context.db.deleteUser(args.where);
@@ -89,6 +101,9 @@ const resolvers = {
       return context.db.category({ id: root.id }).products();
     },
   },
+  AuthPayload: {
+    user: root => root.user
+  }
 };
 
 const server = new ApolloServer({

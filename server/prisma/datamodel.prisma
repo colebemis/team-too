@@ -5,7 +5,7 @@ type User {
   name: String!
   email: String! @unique
   password: String!
-  isAdmin: Boolean
+  isAdmin: Boolean! @default(value: "false")
 }
 
 type Order {
@@ -13,10 +13,10 @@ type Order {
   createdAt: DateTime!
   updatedAt: DateTime!
   status: String!
-  products: [OrderProduct!]! @relation(name: "ProductsOfOrder", onDelete:CASCADE)
-  customer: Customer! @relation(name: "OrderByCustomer", onDelete:CASCADE)
-  shippingAddress: Address @relation(name: "ShippingAddress", onDelete:CASCADE)
-  billingAddress: Address @relation(name: "BillingAddress", onDelete:CASCADE)
+  products: [OrderProduct!]! @relation(name: "ProductsOfOrder", onDelete: CASCADE)
+  customer: Customer! @relation(name: "OrderByCustomer", onDelete: CASCADE)
+  shippingAddress: Address @relation(name: "ShippingAddress", onDelete: CASCADE)
+  billingAddress: Address @relation(name: "BillingAddress", onDelete: CASCADE)
   payment: CreditCard @relation(name: "CreditCardOfOrder", onDelete: CASCADE)
   subtotal: Float!
   tax: Float!
@@ -36,6 +36,8 @@ type OrderProduct {
 
 type Product {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   imageURL: String!
   title: String!
   description: String!

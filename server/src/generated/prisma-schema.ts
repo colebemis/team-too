@@ -100,6 +100,15 @@ input AddressUpdateInput {
   zip: String
 }
 
+input AddressUpdateManyMutationInput {
+  name: String
+  line1: String
+  line2: String
+  city: String
+  state: String
+  zip: String
+}
+
 input AddressUpdateOneInput {
   create: AddressCreateInput
   update: AddressUpdateDataInput
@@ -328,6 +337,10 @@ input CategoryUpdateInput {
   products: ProductUpdateManyWithoutCategoriesInput
 }
 
+input CategoryUpdateManyMutationInput {
+  name: String
+}
+
 input CategoryUpdateManyWithoutProductsInput {
   create: [CategoryCreateWithoutProductsInput!]
   delete: [CategoryWhereUniqueInput!]
@@ -475,6 +488,13 @@ input CreditCardUpdateDataInput {
 }
 
 input CreditCardUpdateInput {
+  name: String
+  number: String
+  expDate: DateTime
+  cvv: String
+}
+
+input CreditCardUpdateManyMutationInput {
   name: String
   number: String
   expDate: DateTime
@@ -643,6 +663,11 @@ input CustomerUpdateInput {
   email: String
 }
 
+input CustomerUpdateManyMutationInput {
+  name: String
+  email: String
+}
+
 input CustomerUpdateOneRequiredInput {
   create: CustomerCreateInput
   update: CustomerUpdateDataInput
@@ -714,49 +739,49 @@ scalar Long
 type Mutation {
   createAddress(data: AddressCreateInput!): Address!
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
-  updateManyAddresses(data: AddressUpdateInput!, where: AddressWhereInput): BatchPayload!
+  updateManyAddresses(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
   upsertAddress(where: AddressWhereUniqueInput!, create: AddressCreateInput!, update: AddressUpdateInput!): Address!
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteManyAddresses(where: AddressWhereInput): BatchPayload!
   createCategory(data: CategoryCreateInput!): Category!
   updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
-  updateManyCategories(data: CategoryUpdateInput!, where: CategoryWhereInput): BatchPayload!
+  updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
   upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
   deleteCategory(where: CategoryWhereUniqueInput!): Category
   deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
-  updateManyCreditCards(data: CreditCardUpdateInput!, where: CreditCardWhereInput): BatchPayload!
+  updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
   createCustomer(data: CustomerCreateInput!): Customer!
   updateCustomer(data: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer
-  updateManyCustomers(data: CustomerUpdateInput!, where: CustomerWhereInput): BatchPayload!
+  updateManyCustomers(data: CustomerUpdateManyMutationInput!, where: CustomerWhereInput): BatchPayload!
   upsertCustomer(where: CustomerWhereUniqueInput!, create: CustomerCreateInput!, update: CustomerUpdateInput!): Customer!
   deleteCustomer(where: CustomerWhereUniqueInput!): Customer
   deleteManyCustomers(where: CustomerWhereInput): BatchPayload!
   createOrder(data: OrderCreateInput!): Order!
   updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
-  updateManyOrders(data: OrderUpdateInput!, where: OrderWhereInput): BatchPayload!
+  updateManyOrders(data: OrderUpdateManyMutationInput!, where: OrderWhereInput): BatchPayload!
   upsertOrder(where: OrderWhereUniqueInput!, create: OrderCreateInput!, update: OrderUpdateInput!): Order!
   deleteOrder(where: OrderWhereUniqueInput!): Order
   deleteManyOrders(where: OrderWhereInput): BatchPayload!
   createOrderProduct(data: OrderProductCreateInput!): OrderProduct!
   updateOrderProduct(data: OrderProductUpdateInput!, where: OrderProductWhereUniqueInput!): OrderProduct
-  updateManyOrderProducts(data: OrderProductUpdateInput!, where: OrderProductWhereInput): BatchPayload!
+  updateManyOrderProducts(data: OrderProductUpdateManyMutationInput!, where: OrderProductWhereInput): BatchPayload!
   upsertOrderProduct(where: OrderProductWhereUniqueInput!, create: OrderProductCreateInput!, update: OrderProductUpdateInput!): OrderProduct!
   deleteOrderProduct(where: OrderProductWhereUniqueInput!): OrderProduct
   deleteManyOrderProducts(where: OrderProductWhereInput): BatchPayload!
   createProduct(data: ProductCreateInput!): Product!
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
-  updateManyProducts(data: ProductUpdateInput!, where: ProductWhereInput): BatchPayload!
+  updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
   upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
   deleteProduct(where: ProductWhereUniqueInput!): Product
   deleteManyProducts(where: ProductWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
@@ -945,6 +970,14 @@ input OrderProductUpdateManyInput {
   disconnect: [OrderProductWhereUniqueInput!]
 }
 
+input OrderProductUpdateManyMutationInput {
+  title: String
+  imageURL: String
+  description: String
+  price: Float
+  quantity: Int
+}
+
 input OrderProductUpdateWithWhereUniqueNestedInput {
   where: OrderProductWhereUniqueInput!
   data: OrderProductUpdateDataInput!
@@ -1084,6 +1117,13 @@ input OrderUpdateInput {
   total: Float
 }
 
+input OrderUpdateManyMutationInput {
+  status: String
+  subtotal: Float
+  tax: Float
+  total: Float
+}
+
 input OrderWhereInput {
   id: ID
   id_not: ID
@@ -1178,6 +1218,8 @@ type PageInfo {
 
 type Product {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   imageURL: String!
   title: String!
   description: String!
@@ -1222,6 +1264,10 @@ type ProductEdge {
 enum ProductOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   imageURL_ASC
   imageURL_DESC
   title_ASC
@@ -1232,14 +1278,12 @@ enum ProductOrderByInput {
   price_DESC
   stock_ASC
   stock_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
 }
 
 type ProductPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   imageURL: String!
   title: String!
   description: String!
@@ -1272,6 +1316,14 @@ input ProductUpdateInput {
   price: Float
   stock: Int
   categories: CategoryUpdateManyWithoutProductsInput
+}
+
+input ProductUpdateManyMutationInput {
+  imageURL: String
+  title: String
+  description: String
+  price: Float
+  stock: Int
 }
 
 input ProductUpdateManyWithoutCategoriesInput {
@@ -1317,6 +1369,22 @@ input ProductWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   imageURL: String
   imageURL_not: String
   imageURL_in: [String!]
@@ -1433,7 +1501,7 @@ type User {
   name: String!
   email: String!
   password: String!
-  isAdmin: Boolean
+  isAdmin: Boolean!
 }
 
 type UserConnection {
@@ -1478,7 +1546,7 @@ type UserPreviousValues {
   name: String!
   email: String!
   password: String!
-  isAdmin: Boolean
+  isAdmin: Boolean!
 }
 
 type UserSubscriptionPayload {
@@ -1500,6 +1568,13 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateInput {
+  name: String
+  email: String
+  password: String
+  isAdmin: Boolean
+}
+
+input UserUpdateManyMutationInput {
   name: String
   email: String
   password: String
