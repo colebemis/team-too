@@ -11,6 +11,7 @@ type Query {
 }
 
 type Mutation {
+  logIn(email: String!, password: String!): AuthPayload!
   createUser(data: UserCreateInput!): AuthPayload!
   deleteUser(where: UserWhereUniqueInput!): User
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User

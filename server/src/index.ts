@@ -4,12 +4,11 @@ import * as path from "path";
 import { hash, compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { prisma, Prisma } from "./generated";
+import { APP_SECRET } from './utils'
 
 interface Context {
   db: Prisma;
 }
-
-const APP_SECRET = 'appsecret321'
 
 const typeDefs = gql(importSchema(path.resolve(__dirname, "schema.graphql")));
 
@@ -38,6 +37,24 @@ const resolvers = {
     },
   },
   Mutation: {
+    logIn: async (root, args, context: Context, info) => {
+      const user = await context.db.user({ email: args.email })
+
+      if (!user) {
+        throw new Error(`No user found for email: ${args.email}`)
+      }
+
+      const valid = await compare(args.password, user.password)
+
+      if (!valid) {
+        throw new Error('Invalid password')
+      }
+
+      return {
+        token: sign({ userId: user.id }, APP_SECRET),
+        user,
+      }
+    },
     createUser: async (root, args, context: Context, info) => {
       const user = await context.db.createUser({
         ...args.data,
@@ -109,7 +126,7 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: { db: prisma },
+  context: ({ req }) => ({ request: req, db: prisma }),
 });
 
 server.listen().then(({ url }) => {
