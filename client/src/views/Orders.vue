@@ -71,11 +71,9 @@ const statusDisplayNames ={
   "RECEIVED" : "Received",
   "PROCESSING" : "Processing",
   "READY_TO_SHIP" : "Ready To Ship",
-  "READY_TO_PICK_UP" : "Ready To Pick-Up",
+  "READY_FOR_PICK_UP" : "Ready For Pick-Up",
   "COMPLETE" : "Complete",
-  "CANCELLED" : "Cancelled",
-  "PENDING" : "Pending Caps",
-  "pending" : "Pending Lower"
+  "CANCELLED" : "Cancelled"
 }
 
 export default {
@@ -83,7 +81,7 @@ export default {
   data() {
     return {
       orders: [],
-      statuses: ["RECEIVED", "PROCESSING", "READY_TO_SHIP","READY_TO_PICK_UP", "COMPLETE","CANCELLED","PENDING", "pending"],
+      statuses: ["RECEIVED", "PROCESSING", "READY_TO_SHIP","READY_FOR_PICK_UP", "COMPLETE","CANCELLED"],
       deliveryTypes:["Delivery", "Store Pick-Up"],
       selectedStatuses: [],
       selectedDeliveryTypes: []
