@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import format from 'date-fns/format'
+import format from 'date-fns/format';
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 
@@ -57,18 +57,6 @@ export default {
 </script>
 
 <style scoped>
-.gridHeader {
-  display: grid;
-  padding: 10px;
-  grid-template-columns: repeat(10, 1fr);
-  font-weight: bold;
-}
 
-.gridHeader > div:nth-child(2) {
-  grid-column: 7;
-}
 
-.gridHeader > div:nth-child(3) {
-  grid-column: 10;
-}
 </style>
