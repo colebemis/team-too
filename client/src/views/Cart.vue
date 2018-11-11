@@ -15,12 +15,10 @@ vue<template>
       <div class="flex mt-10 text-center" :key="product.id" v-for="product in products" :to="`../product/${product.id}`">
 
         <!-- Product Info: image and title - 2 columns -->
-
         <router-link
           class="flex items-center w-1/3 mt-10 align-left hover:opacity-75"
           :to="`/product/${product.id}`"
         >
-
             <!-- Image -->
             <div class="w-1/2 h-12">
                 <div class="items-center relative">
@@ -36,7 +34,23 @@ vue<template>
         </router-link>
 
         <!-- Product Quantity -->
-        <div class = "bg-grey-lighter flex items-center justify-center w-1/3 mt-10">   {{ cart[product.id] }} </div>
+        <div class="bg-grey-lighter flex items-center justify-center w-1/3 mt-10">
+          <div class="w-1/2 h-12 pt-3">
+              {{ cart[product.id] }}
+          </div>
+          
+          <!-- +/- Buttons -->
+          <div class="w-1/2 h-12">
+              <div :id="product.id" class="inline-flex">
+                <button v-on:click="incrementQuantity" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l">
+                  +
+                </button>
+                <button v-on:click="decrementQuantity" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-r">
+                  -
+                </button>
+              </div>
+          </div>
+        </div>
 
         <!-- Product Price -->
         <div class = "bg-grey flex items-center justify-end w-1/3 mt-10 pr-5"> {{ cart[product.id] }} at ${{ product.price.toFixed(2) }} each = &#32;
@@ -49,7 +63,7 @@ vue<template>
       <div class="flex items-center justify-center mt-10">
         <div class="w-1/3 h-12"></div>
         <div class="w-1/3 text-center bg-grey border border-solid border-grey-dark h-12 pt-3"> SUBTOTAL </div>
-        <div class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"> ${{ subtotal.toFixed(2) }} </div>
+        <div class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"> $ {{ subtotal.toFixed(2) }} </div>
       </div>
 
       <!-- Tax -->
@@ -146,7 +160,30 @@ export default {
 
   computed: {
     subtotal() { 
-      return this.products.reduce(((subtotal, currentProduct) => subtotal + currentProduct.price), 0)
+      return this.products.reduce(((subtotal, currentProduct) => subtotal + currentProduct.price * this.cart[currentProduct.id]), 0)
+    }
+  },
+
+    // define methods under the `methods` object
+  methods: {
+    incrementQuantity: function (event) {
+
+      console.log(event.currentTarget.parentNode.id);
+      console.log('click')
+
+      //const cart = JSON.parse(localStorage.getItem("cart") || "{}");
+      this.cart[event.currentTarget.parentNode.id] += 1;
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+    },
+
+    decrementQuantity: function (event) {
+
+      console.log(event.currentTarget.parentNode.id);
+      console.log('click')
+
+      //const cart = JSON.parse(localStorage.getItem("cart") || "{}");
+      this.cart[event.currentTarget.parentNode.id] -= 1;
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     }
   }
 };
