@@ -1,34 +1,67 @@
-<template>
-  <div class="about mb-20">
+vue<template>
+  <div class="about mt-10 mb-20">
     <div class="pageHead">
-      <span> Cart </span>
+      <span> YOUR SHOPPING CART </span>
       <hr />
     </div>
 
     <div class="container mx-auto mb-10">
       <div class="gridHeader bg-grey-darkest text-white border border-solid border-grey-dark">
-        <div>PRODUCT</div>
-        <div>QUANTITY</div>
-        <div>PRICE</div>
+        <div class = "">PRODUCT</div>
+        <div class = "text-center">QUANTITY</div>
+        <div class = "text-right">PRICE</div>
       </div>
 
-      <div class="gridRow" :key="product.id" v-for="product in products">
+      <div class="flex mt-10 text-center" :key="product.id" v-for="product in products" :to="`../product/${product.id}`">
 
-        <!-- Product image and title - 2 columns -->
-        <div class="flex mb-4">
-          <div class="w-1/2 h-12">
-              <div class="bg-image relative border border-solid border-grey-dark" :style="`background-image: url(${product.imageURL});`">   
+        <hr>
 
-              </div>
-          </div>
+        <!-- Product Info: image and title - 2 columns -->
+        <div class="flex items-center w-1/3 mt-10 align-left">
 
-          <div class="w-1/2 text-left bg-grey font-semibold ml-5 h-12">
-              <div class = "mt-3">   {{ product.title }} </div>
-          </div>
+            <!-- Image -->
+            <div class="w-1/2 h-12">
+                <div class="items-center relative">
+                  <img width="70%" :src="product.imageURL" :alt="product.title" />
+                </div>
+            </div>
+
+            <!-- Title -->
+            <div class="items-center w-1/2 text-left font-semibold mt-10 h-12">
+                {{ product.title }}
+            </div>
+
         </div>
 
-        <div class = "bg-grey-darker">   {{ cart[product.id] }} </div>
-        <div class = "bg-grey-darkest"> $ {{ product.price }} </div>
+        <!-- Product Quantity -->
+        <div class = "bg-grey-lighter flex items-center justify-center w-1/3 mt-10">   {{ cart[product.id] }} </div>
+
+        <!-- Product Price -->
+        <div class = "bg-grey flex items-center justify-end w-1/3 mt-10 pr-5"> {{ cart[product.id] }} at ${{ product.price.toFixed(2) }} each = &#32;
+            <span class = "ml-2 font-semibold"> &#32; ${{ (product.price * cart[product.id]).toFixed(2) }}  </span>
+        </div>
+
+      </div>
+
+      <!-- Subtotal -->
+      <div class="flex items-center justify-center mt-10">
+        <div class="w-1/3 h-12"></div>
+        <div class="w-1/3 text-center bg-grey border border-solid border-grey-dark h-12 pt-3"> SUBTOTAL </div>
+        <div class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"> $ </div>
+      </div>
+
+      <!-- Tax -->
+      <div class="flex items-center justify-center">
+        <div class="w-1/3 h-12"></div>
+        <div class="w-1/3 bg-grey border border-solid border-grey-dark text-center h-12 pt-3"> TAX </div>
+        <div class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"> $ </div>
+      </div>
+
+    <!-- Total Price -->
+      <div class="flex mt-5 items-center justify-center">
+        <div class="w-1/3 h-12"></div>
+        <div class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"> TOTAL </div>
+        <div class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"> $ </div>
       </div>
     </div>
     
@@ -61,18 +94,6 @@
   padding: 50px;
   grid-template-columns: repeat(3, 1fr);
   font-weight: regular;
-}
-
-.gridHeader > div:nth-child(1) {
-  grid-column: 1;
-}
-
-.gridHeader > div:nth-child(2) {
-  grid-column: 2;
-}
-
-.gridHeader > div:nth-child(3) {
-  grid-column: 3;
 }
 
 hr {
