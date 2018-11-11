@@ -5,6 +5,22 @@
 
       <div class="md:w-1/5 mb-4 md:mb-0">
           <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
+            Order Type
+          </h2>
+          <div class="my-4" :key="deliveryType" v-for="deliveryType in deliveryTypes">
+            <input
+              type="checkbox"
+              class="checkbox hidden"
+              :id="deliveryType"
+              :value="deliveryType"
+              v-model="selectedDeliveryTypes"
+            />
+            <label :for="deliveryType" class="relative">
+              <span class="ml-2 leading-none">{{deliveryType}}</span>
+            </label>
+          </div>
+          
+          <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
             Order Status
           </h2>
           <div class="my-4" :key="status" v-for="status in statuses">
@@ -37,7 +53,7 @@
             </router-link>
           </td>
           <td>{{ formatOrderStatus(order.status) }}</td>
-          <td>{{ (order.shippingAddress == null ? "In-Store" : "Delivery") }}</td>
+          <td>{{ (order.shippingAddress == null ? "Store Pick-Up" : "Delivery") }}</td>
           <td>{{ formatDate(order.createdAt, "MM/DD/YYYY hh:mm A") }}</td>
           <td>{{ order.customer.name }}</td>
         </tr>
@@ -55,7 +71,7 @@ const statusDisplayNames ={
   "RECEIVED" : "Received",
   "PROCESSING" : "Processing",
   "READY_TO_SHIP" : "Ready To Ship",
-  "READY_TO_PICK_UP" : "Ready To Pick Up",
+  "READY_TO_PICK_UP" : "Ready To Pick-Up",
   "COMPLETE" : "Complete",
   "CANCELLED" : "Cancelled",
   "PENDING" : "Pending Caps",
@@ -68,17 +84,37 @@ export default {
     return {
       orders: [],
       statuses: ["RECEIVED", "PROCESSING", "READY_TO_SHIP","READY_TO_PICK_UP", "COMPLETE","CANCELLED","PENDING", "pending"],
-      selectedStatuses: []
+      deliveryTypes:["Delivery", "Store Pick-Up"],
+      selectedStatuses: [],
+      selectedDeliveryTypes: []
     };
   },
   computed: {
     filteredOrders() {
-      if (this.selectedStatuses.length == 0) {
+      // if no filters are selected or all filters are selected...
+      if (this.selectedStatuses.length == 0 && this.selectedDeliveryTypes.length == 0 ||
+          this.selectedStatuses.length == this.statuses.length && this.selectedDeliveryTypes.length == this.deliveryTypes.length) {
+        console.log("filter none");
         return this.orders;
       }
+      // no statuses are selected or all statuses are selected...
+      else if(this.selectedStatuses.length == 0 || this.selectedStatuses.length == this.statuses.length){
+        console.log("filter delivery types");
+        return this.orders.filter(order =>
+          this.selectedDeliveryTypes.includes(order.shippingAddress == null ? "Store Pick-Up" : "Delivery")
+        );
+      }
+      // no delivery types are selected or all delivery types are selected
+      else if(this.selectedDeliveryTypes.length == 0 || this.selectedDeliveryTypes.length == this.deliveryTypes.length){
+        console.log("filter statuses");
+        return this.orders.filter(order =>
+          this.selectedStatuses.includes(order.status)
+        );
+      }
 
+      console.log("filter full");
       return this.orders.filter(order =>
-        this.selectedStatuses.includes(order.status),
+        this.selectedStatuses.includes(order.status) && this.selectedDeliveryTypes.includes(order.shippingAddress == null ? "Store Pick-Up" : "Delivery")
       );
     },
   },
