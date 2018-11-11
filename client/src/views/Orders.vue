@@ -1,46 +1,48 @@
 <template>
   <div>
     <PageHeader>Orders</PageHeader>
+      <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
 
-     <div class="md:w-1/5 mb-4 md:mb-0">
-        <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
-          Order Status
-        </h2>
-        <div class="my-4" :key="status" v-for="status in statuses">
-          <input
-            type="checkbox"
-            class="checkbox hidden"
-            :id="status"
-            :value="status"
-            v-model="selectedStatuses"
-          />
-          <label :for="status" class="relative">
-            <span class="ml-2 leading-none">{{status}}</span>
-          </label>
+      <div class="md:w-1/5 mb-4 md:mb-0">
+          <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
+            Order Status
+          </h2>
+          <div class="my-4" :key="status" v-for="status in statuses">
+            <input
+              type="checkbox"
+              class="checkbox hidden"
+              :id="status"
+              :value="status"
+              v-model="selectedStatuses"
+            />
+            <label :for="status" class="relative">
+              <span class="ml-2 leading-none">{{formatOrderStatus(status)}}</span>
+            </label>
+          </div>
         </div>
-      </div>
 
-    <table class="table-auto w-full">
-      <tr class="bg-grey-light pb-8">
-        <th>Order ID</th>
-        <th>Status</th>
-        <th>Type</th>
-        <th>Date</th>
-        <th>Customer</th>
-      </tr>
+      <table class="table-auto md:w-4/5">
+        <tr class="bg-grey-light pb-8">
+          <th>Order ID</th>
+          <th>Status</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Customer</th>
+        </tr>
 
-      <tr v-for="order in filteredOrders" :key="order.id" class="hover:bg-grey-lighter mt-10 text-center">
-        <td>
-          <router-link :to="{ path: `/admin/order/${order.id}` }">
-            {{ order.id }}
-          </router-link>
-        </td>
-        <td>{{ order.status }}</td>
-        <td>{{ (order.shippingAddress == null ? "In-Store" : "Delivery") }}</td>
-        <td>{{ formatDate(order.createdAt, "MM/DD/YYYY hh:mm A") }}</td>
-        <td>{{ order.customer.name }}</td>
-      </tr>
-    </table>
+        <tr v-for="order in filteredOrders" :key="order.id" class="hover:bg-grey-lighter mt-10 text-center">
+          <td>
+            <router-link :to="{ path: `/admin/order/${order.id}` }">
+              {{ order.id }}
+            </router-link>
+          </td>
+          <td>{{ formatOrderStatus(order.status) }}</td>
+          <td>{{ (order.shippingAddress == null ? "In-Store" : "Delivery") }}</td>
+          <td>{{ formatDate(order.createdAt, "MM/DD/YYYY hh:mm A") }}</td>
+          <td>{{ order.customer.name }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -49,12 +51,23 @@ import format from 'date-fns/format';
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 
+const statusDisplayNames ={
+  "RECEIVED" : "Received",
+  "PROCESSING" : "Processing",
+  "READY_TO_SHIP" : "Ready To Ship",
+  "READY_TO_PICK_UP" : "Ready To Pick Up",
+  "COMPLETE" : "Complete",
+  "CANCELLED" : "Cancelled",
+  "PENDING" : "Pending Caps",
+  "pending" : "Pending Lower"
+}
+
 export default {
   components: { PageHeader },
   data() {
     return {
       orders: [],
-      statuses: ["RECEIVED", "PROCESSING", "READY_TO_SHIP","COMPLETE","CANCELLED","PENDING", "pending"],
+      statuses: ["RECEIVED", "PROCESSING", "READY_TO_SHIP","READY_TO_PICK_UP", "COMPLETE","CANCELLED","PENDING", "pending"],
       selectedStatuses: []
     };
   },
@@ -83,7 +96,10 @@ export default {
     `,
   },
   methods: {
-    formatDate:format
+    formatDate:format,
+    formatOrderStatus(status){
+      return statusDisplayNames[status];
+    }
   }
 };
 </script>
