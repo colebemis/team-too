@@ -1,9 +1,6 @@
-vue<template>
+<template>
   <div class="about mt-10 mb-20">
-    <div class="pageHead">
-      <span> YOUR SHOPPING CART </span>
-      <hr />
-    </div>
+    <PageHeader>YOUR SHOPPING CART</PageHeader>
 
     <div class="container mx-auto mb-10">
       <div class="gridHeader bg-grey-darkest text-white border border-solid border-grey-dark">
@@ -12,7 +9,7 @@ vue<template>
         <div class = "text-right">PRICE</div>
       </div>
 
-      <div class="flex mt-10 text-center" :key="product.id" v-for="product in products" :to="`../product/${product.id}`">
+      <div class="flex mt-10 text-center" :key="product.id" v-for="product in products" v-if="cart[product.id] > 0">
 
         <!-- Product Info: image and title - 2 columns -->
         <router-link
@@ -128,8 +125,10 @@ hr {
 
 <script>
 import gql from "graphql-tag";
+import PageHeader from "@/components/PageHeader.vue"
 
 export default {
+  components: { PageHeader },
   data() {
     return {
       cart: JSON.parse(localStorage.getItem("cart") || "{}"),
@@ -167,22 +166,28 @@ export default {
     // define methods under the `methods` object
   methods: {
     incrementQuantity: function (event) {
-
-      console.log(event.currentTarget.parentNode.id);
-      console.log('click')
-
-      //const cart = JSON.parse(localStorage.getItem("cart") || "{}");
+      // Modify the local instance of the cart to update the front-end values
       this.cart[event.currentTarget.parentNode.id] += 1;
+
+      // Update the actual cart in local storage
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
 
     decrementQuantity: function (event) {
+      // Modify the local instance of the cart to update the front-end values
 
-      console.log(event.currentTarget.parentNode.id);
-      console.log('click')
+      var remove = true;
 
-      //const cart = JSON.parse(localStorage.getItem("cart") || "{}");
-      this.cart[event.currentTarget.parentNode.id] -= 1;
+      if(this.cart[event.currentTarget.parentNode.id] == 1){
+        remove = window.confirm("Are you sure you want to remove this item from your cart?");
+        console.log(remove);
+      }
+
+      if(remove && this.cart[event.currentTarget.parentNode.id] != 0){
+          this.cart[event.currentTarget.parentNode.id] -= 1;
+      } 
+
+      // Update the actual cart in local storage
       localStorage.setItem("cart", JSON.stringify(this.cart));
     }
   }
