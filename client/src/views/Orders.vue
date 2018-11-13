@@ -91,22 +91,28 @@ export default {
     filteredOrders() {
       // if no filters are selected or all filters are selected...
       if (this.selectedStatuses.length == 0 && this.selectedDeliveryTypes.length == 0 ||
-          this.selectedStatuses.length == this.statuses.length && this.selectedDeliveryTypes.length == this.deliveryTypes.length) {
-        return this.orders;
+          this.selectedStatuses.length == this.statuses.length && this.selectedDeliveryTypes.length == this.deliveryTypes.length ||
+          this.selectedStatuses.length == this.statuses.length && this.selectedDeliveryTypes.length == 0 ||
+          this.selectedStatuses.length == 0 && this.selectedDeliveryTypes.length == this.deliveryTypes.length) {
+          // console.log("zero/all filters selected; returning all orders");
+          return this.orders;
       }
       // no statuses are selected or all statuses are selected...
       else if(this.selectedStatuses.length == 0 || this.selectedStatuses.length == this.statuses.length){
+        // console.log("zero/all order statuses selected; filtering by delivery types");
         return this.orders.filter(order =>
           this.selectedDeliveryTypes.includes(order.shippingAddress == null ? "Store Pick-Up" : "Delivery")
         );
       }
       // no delivery types are selected or all delivery types are selected...
       else if(this.selectedDeliveryTypes.length == 0 || this.selectedDeliveryTypes.length == this.deliveryTypes.length){
+        // console.log("zero/all delivery types selected; filtering by order status");
         return this.orders.filter(order =>
           this.selectedStatuses.includes(order.status)
         );
       }
 
+      console.log("filtering all orders");
       return this.orders.filter(order =>
         this.selectedStatuses.includes(order.status) && this.selectedDeliveryTypes.includes(order.shippingAddress == null ? "Store Pick-Up" : "Delivery")
       );
