@@ -1,7 +1,7 @@
 <template>
   <div>
     <PageHeader>Orders</PageHeader>
-      <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
+    <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
 
       <div class="md:w-1/5 mb-4 md:mb-0">
           <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
