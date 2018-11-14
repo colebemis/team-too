@@ -81,7 +81,7 @@ export default {
   data() {
     return {
       orders: [],
-      statuses: ["RECEIVED", "PROCESSING", "READY_TO_SHIP","READY_FOR_PICK_UP", "COMPLETE","CANCELLED"],
+      statuses: ["RECEIVED", "PROCESSING", "READY_TO_SHIP", "READY_FOR_PICK_UP", "COMPLETE","CANCELLED"],
       deliveryTypes: ["Delivery", "Store Pick-Up"],
       selectedStatuses: [],
       selectedDeliveryTypes: []
