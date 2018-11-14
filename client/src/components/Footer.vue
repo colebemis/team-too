@@ -8,22 +8,26 @@
         <h1 class="font-bold text-sm leading-loose uppercase">Hours</h1>
         <p class="text-grey-darker text-base leading-normal">
           Mon-Sat 9am-4pm
-          <br>Sun Closed
+          <br>
+          Sun Closed
         </p>
       </div>
       <div class="w-1/4 h-24">
         <h1 class="font-bold text-sm leading-loose uppercase">Store</h1>
         <p class="text-grey-darker text-base leading-normal">
           1 Grand Avenue
-          <br>San Luis Obispo, CA
-          <br>93407
+          <br>
+          San Luis Obispo, CA
+          <br>
+          93407
         </p>
       </div>
       <div class="w-1/4 h-24">
         <h1 class="font-bold text-sm leading-loose uppercase">Contact</h1>
         <p class="text-grey-darker text-base leading-normal">
           (805) 123-4567
-          <br>contact@foxycle.com
+          <br>
+          contact@foxycle.com
         </p>
       </div>
     </div>
