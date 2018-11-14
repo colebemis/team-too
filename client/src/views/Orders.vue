@@ -1,7 +1,7 @@
 <template>
   <div>
     <PageHeader>Orders</PageHeader>
-      <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
+    <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
 
       <div class="md:w-1/5 mb-4 md:mb-0">
           <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
@@ -16,7 +16,7 @@
               v-model="selectedDeliveryTypes"
             />
             <label :for="deliveryType" class="relative">
-              <span class="ml-2 leading-none">{{deliveryType}}</span>
+              <span class="ml-2 leading-none">{{ deliveryType }}</span>
             </label>
           </div>
           
@@ -32,7 +32,7 @@
               v-model="selectedStatuses"
             />
             <label :for="status" class="relative">
-              <span class="ml-2 leading-none">{{formatOrderStatus(status)}}</span>
+              <span class="ml-2 leading-none">{{ formatOrderStatus(status) }}</span>
             </label>
           </div>
         </div>
@@ -53,7 +53,7 @@
             </router-link>
           </td>
           <td>{{ formatOrderStatus(order.status) }}</td>
-          <td>{{ (order.shippingAddress == null ? "Store Pick-Up" : "Delivery") }}</td>
+          <td>{{ (order.shippingAddress ? "Delivery" : "Store Pick-Up") }}</td>
           <td>{{ formatDate(order.createdAt, "MM/DD/YYYY hh:mm A") }}</td>
           <td>{{ order.customer.name }}</td>
         </tr>
@@ -121,7 +121,6 @@ export default {
         );
       }
 
-      console.log("filtering all orders");
       return this.orders.filter(order =>
         this.selectedStatuses.includes(order.status) && this.selectedDeliveryTypes.includes(order.shippingAddress == null ? "Store Pick-Up" : "Delivery")
       );
@@ -145,8 +144,8 @@ export default {
     `,
   },
   methods: {
-    formatDate:format,
-    formatOrderStatus(status){
+    formatDate: format,
+    formatOrderStatus(status) {
       return statusDisplayNames[status];
     }
   }
