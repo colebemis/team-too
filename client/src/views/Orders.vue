@@ -112,7 +112,6 @@ export default {
         );
       }
 
-      console.log("filtering all orders");
       return this.orders.filter(order =>
         this.selectedStatuses.includes(order.status) && this.selectedDeliveryTypes.includes(order.shippingAddress == null ? "Store Pick-Up" : "Delivery")
       );
