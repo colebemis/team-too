@@ -91,22 +91,14 @@
 import format from 'date-fns/format';
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
-
-const statusDisplayNames ={
-  "RECEIVED" : "Received",
-  "PROCESSING" : "Processing",
-  "READY_TO_SHIP" : "Ready To Ship",
-  "READY_FOR_PICK_UP" : "Ready For Pick-Up",
-  "COMPLETE" : "Complete",
-  "CANCELLED" : "Cancelled"
-}
+import { statuses, statusDisplayNames } from "@/utils";
 
 export default {
   components: { PageHeader },
   data() {
     return {
       order: null,
-      statuses: ["RECEIVED", "PROCESSING", "READY_TO_SHIP","READY_FOR_PICK_UP", "COMPLETE","CANCELLED"]
+      statuses: Object.keys(statuses)
     };
   },
   apollo: {
