@@ -5,7 +5,7 @@
         <h1 class="font-bold text-xl">FOXYCLE</h1>
       </div>
       <div class="w-1/4 h-24">
-        <h1 class="font-bold text-sm leading-loose">HOURS</h1>
+        <h1 class="font-bold text-sm leading-loose uppercase">Hours</h1>
         <p class="text-grey-darker text-base leading-normal">
           Mon-Sat 9am-4pm
           <br>Sun Closed
