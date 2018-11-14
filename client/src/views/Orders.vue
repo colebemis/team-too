@@ -16,7 +16,7 @@
               v-model="selectedDeliveryTypes"
             />
             <label :for="deliveryType" class="relative">
-              <span class="ml-2 leading-none">{{deliveryType}}</span>
+              <span class="ml-2 leading-none">{{ deliveryType }}</span>
             </label>
           </div>
           
