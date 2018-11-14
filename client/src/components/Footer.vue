@@ -2,7 +2,7 @@
   <header class="bg-topography py-8 px-8 relative pin-b pin-l">
     <div class="container mx-auto py-8 flex border-b border-grey-light text-left">
       <div class="w-1/4 h-24">
-        <h1 class="font-bold text-xl">FOXYCLE</h1>
+        <h1 class="font-bold text-xl uppercase">foxycle</h1>
       </div>
       <div class="w-1/4 h-24">
         <h1 class="font-bold text-sm leading-loose uppercase">Hours</h1>
@@ -12,7 +12,7 @@
         </p>
       </div>
       <div class="w-1/4 h-24">
-        <h1 class="font-bold text-sm leading-loose">STORE</h1>
+        <h1 class="font-bold text-sm leading-loose uppercase">Store</h1>
         <p class="text-grey-darker text-base leading-normal">
           1 Grand Avenue
           <br>San Luis Obispo, CA
@@ -20,7 +20,7 @@
         </p>
       </div>
       <div class="w-1/4 h-24">
-        <h1 class="font-bold text-sm leading-loose">CONTACT</h1>
+        <h1 class="font-bold text-sm leading-loose uppercase">Contact</h1>
         <p class="text-grey-darker text-base leading-normal">
           (805) 123-4567
           <br>contact@foxycle.com
