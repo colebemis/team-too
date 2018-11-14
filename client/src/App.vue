@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="font-sans">
-    <div id="nav"><SiteHeader /></div>
+    <SiteHeader />
     <router-view />
     <Footer />
   </div>
