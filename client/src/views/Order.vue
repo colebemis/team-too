@@ -107,30 +107,47 @@ export default {
         query: gql`
           query order($id: ID!) {
             order(where: { id: $id }) {
-              id,
-              createdAt,
-              status,
-              customer{name,email},
-              billingAddress{name,line1,line2,city,state,zip},
-              shippingAddress{name,line1,line2,city,state,zip},
-              products{id,title,quantity,price},
-              payment{name,number,expDate},
-              subtotal,
-              tax,
+              id
+              createdAt
+              status
+              customer {
+                name
+                email
+              }
+              billingAddress {
+                name
+                line1
+                line2
+                city
+                state
+                zip
+              }
+              shippingAddress {
+                name
+                line1
+                line2
+                city
+                state
+                zip
+              }
+              products {
+                id
+                title
+                quantity
+                price
+              }
+              payment {
+                name
+                number
+                expDate
+              }
+              subtotal
+              tax
               total
             }
           }
         `,
-        variables: { id: this.$route.params.id }/*,
-        orderProduct: gql`
-          query orderProduct {
-            orderProduct {
-              name,
-              quantity,
-              price
-            }
-          }
-       `,*/
+        variables: { id: this.$route.params.id }
       };
     },
   },
