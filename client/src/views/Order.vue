@@ -12,7 +12,7 @@
 
           <div class="pb-8">
             <h2>STATUS</h2>
-            <select>
+            <select @change="handleStatusChange">
               <option v-for="status in statuses" :key="status" :selected="status === order.status" :value="status">{{ formatOrderStatus(status) }}</option>
             </select>
           </div>
@@ -149,6 +149,9 @@ export default {
     },
     showLastFour(cardNumber){
       return "**** ".repeat(3)+cardNumber.slice(-4);
+    },
+    handleStatusChange(event){
+      return event.target.value;
     }
   }
 };
