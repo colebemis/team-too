@@ -92,6 +92,9 @@ import format from 'date-fns/format';
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import { statuses, statusDisplayNames } from "@/utils";
+import ORDER_UPDATE_STATUS from "../graphql/OrderUpdateStatus.gql";
+import ORDER_INFO from "../graphql/OrderInfo.gql";
+import ORDERS from "../graphql/Orders.gql";
 
 export default {
   components: { PageHeader },
@@ -104,50 +107,10 @@ export default {
   apollo: {
     order() {
       return {
-        query: gql`
-          query order($id: ID!) {
-            order(where: { id: $id }) {
-              id
-              createdAt
-              status
-              customer {
-                name
-                email
-              }
-              billingAddress {
-                name
-                line1
-                line2
-                city
-                state
-                zip
-              }
-              shippingAddress {
-                name
-                line1
-                line2
-                city
-                state
-                zip
-              }
-              products {
-                id
-                title
-                quantity
-                price
-              }
-              payment {
-                name
-                number
-                expDate
-              }
-              subtotal
-              tax
-              total
-            }
-          }
-        `,
-        variables: { id: this.$route.params.id }
+        query: ORDER_INFO,
+        variables: {
+          id: { id: this.$route.params.id }
+        }
       };
     },
   },
@@ -160,6 +123,37 @@ export default {
       return "**** ".repeat(3)+cardNumber.slice(-4);
     },
     handleStatusChange(event){
+      this.$apollo.mutate ({
+        mutation: ORDER_UPDATE_STATUS,
+        // Mutation parameters
+        variables: {
+          id: this.order.id,
+          status: event.target.value
+        },
+
+        
+        // Update cache with result
+        update: (store, { data: { handleStatusChange } }) => {
+          // Read the data from our cache for this query.
+          const data = store.readQuery({ query: ORDERS })
+          
+          const index = data.orders.findIndex(order => order.id === handleStatusChange.id);
+          data.orders[index] = handleStatusChange;
+         
+          // Write our data back to the cache.
+          store.writeQuery({ query: ORDERS, data })
+          
+        },
+        
+        optimisticResponse: {
+          __typename: "Mutation",
+          updateOrder: {
+            __typename: "Order",
+            id: this.order.id,
+            status: event.target.value,
+          },
+        },
+      })
       return event.target.value;
     }
   }

@@ -67,6 +67,7 @@ import format from 'date-fns/format';
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import { statuses, statusDisplayNames } from "@/utils";
+import ORDERS from "../graphql/Orders.gql";
 
 export default {
   components: { PageHeader },
@@ -110,21 +111,7 @@ export default {
     },
   },
   apollo: {
-    orders: gql`
-      query orders {
-        orders {
-          id
-          status
-          createdAt
-          customer {
-            name
-          }
-          shippingAddress {
-            id
-          }
-        }
-      }
-    `,
+    orders: ORDERS,
   },
   methods: {
     formatDate: format,
