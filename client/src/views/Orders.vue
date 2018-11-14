@@ -32,7 +32,7 @@
               v-model="selectedStatuses"
             />
             <label :for="status" class="relative">
-              <span class="ml-2 leading-none">{{formatOrderStatus(status)}}</span>
+              <span class="ml-2 leading-none">{{ formatOrderStatus(status) }}</span>
             </label>
           </div>
         </div>
