@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     formatDate: format,
-    formatOrderStatus(status){
+    formatOrderStatus(status) {
       return statusDisplayNames[status];
     }
   }
