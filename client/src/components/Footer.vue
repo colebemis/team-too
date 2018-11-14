@@ -1,40 +1,46 @@
 <template>
-  <header class="bg-topography py-8 px-8 relative pin-b pin-l">
-    <div class="container mx-auto py-8 flex border-b border-grey-light text-left">
-      <div class="w-1/4 h-24">
-        <h1 class="font-bold text-xl">FOXYCLE</h1>
+  <header class="bg-topography">
+    <div class="container mx-auto py-8 px-8 relative pin-b">
+      <div class="container mx-auto py-8 flex flex-col md:flex-row text-center md:text-left border-b border-grey-light">
+        <div class="w-full md:w-1/4 h-auto">
+          <h1 class="font-bold text-xl uppercase">foxycle</h1>
+        </div>
+        <div class="w-full md:w-1/4 h-auto">
+          <h1 class="font-bold text-sm leading-loose uppercase">hours</h1>
+          <p class="text-grey-darker text-base leading-normal">
+            Mon-Sat 9am-4pm
+            <br>
+            Sun Closed
+          </p>
+        </div>
+        <div class="w-full md:w-1/4 h-auto">
+          <h1 class="font-bold text-sm leading-loose uppercase">store</h1>
+          <p class="text-grey-darker text-base leading-normal">
+            1 Grand Avenue
+            <br>
+            San Luis Obispo, CA
+            <br>
+            93407
+          </p>
+        </div>
+        <div class="w-full md:w-1/4 h-auto">
+          <h1 class="font-bold text-sm leading-loose uppercase">contact</h1>
+          <p class="text-grey-darker text-base leading-normal">
+            (805) 123-4567
+            <br>
+            contact@foxycle.com
+          </p>
+        </div>
       </div>
-      <div class="w-1/4 h-24">
-        <h1 class="font-bold text-sm leading-loose">HOURS</h1>
-        <p class="text-grey-darker text-base leading-normal">
-          Mon-Sat 9am-4pm
-          <br>Sun Closed
-        </p>
+      <div class="container mx-auto pt-8 flex justify-between">
+        <div class="text-grey-darker text-left text-sm">© Foxycle 2018</div>
+        <router-link
+          to="/login"
+          class="text-grey-darker text-right text-sm"
+        >
+          Login
+        </router-link>
       </div>
-      <div class="w-1/4 h-24">
-        <h1 class="font-bold text-sm leading-loose">STORE</h1>
-        <p class="text-grey-darker text-base leading-normal">
-          1 Grand Avenue
-          <br>San Luis Obispo, CA
-          <br>93407
-        </p>
-      </div>
-      <div class="w-1/4 h-24">
-        <h1 class="font-bold text-sm leading-loose">CONTACT</h1>
-        <p class="text-grey-darker text-base leading-normal">
-          (805) 123-4567
-          <br>contact@foxycle.com
-        </p>
-      </div>
-    </div>
-    <div class="container mx-auto pt-8 flex justify-between">
-      <div class="text-grey-darker text-left text-sm">© Foxycle 2018</div>
-      <router-link
-        to="/login"
-        class="text-grey-darker text-right text-sm"
-      >
-        Login
-      </router-link>
     </div>
   </header>
 </template>
