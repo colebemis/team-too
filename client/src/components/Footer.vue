@@ -29,7 +29,12 @@
     </div>
     <div class="container mx-auto pt-8 flex justify-between">
       <div class="text-grey-darker text-left text-sm">© Foxycle 2018</div>
-      <div class="text-grey-darker text-right text-sm">Login</div>
+      <router-link
+        to="/login"
+        class="text-grey-darker text-right text-sm"
+      >
+        Login
+      </router-link>
     </div>
   </header>
 </template>
