@@ -2,14 +2,16 @@
   <div id="app" class="font-sans">
     <div id="nav"><SiteHeader /></div>
     <router-view />
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import SiteHeader from "@/components/SiteHeader.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
-  components: { SiteHeader },
+  components: { SiteHeader, Footer },
 };
 </script>
 

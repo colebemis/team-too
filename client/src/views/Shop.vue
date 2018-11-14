@@ -39,7 +39,6 @@
         </router-link>
       </div>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
