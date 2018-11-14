@@ -53,7 +53,7 @@
             </router-link>
           </td>
           <td>{{ formatOrderStatus(order.status) }}</td>
-          <td>{{ (order.shippingAddress == null ? "Store Pick-Up" : "Delivery") }}</td>
+          <td>{{ (order.shippingAddress ? "Delivery" : "Store Pick-Up") }}</td>
           <td>{{ formatDate(order.createdAt, "MM/DD/YYYY hh:mm A") }}</td>
           <td>{{ order.customer.name }}</td>
         </tr>
