@@ -13,8 +13,7 @@
           <div class="pb-8">
             <h2>STATUS</h2>
             <select>
-              <option v-for="status in statuses" :key="status" v-if="status==order.status" selected="selected" value=status>{{ formatOrderStatus(status) }}</option>
-              <option v-for="status in statuses" :key="status" v-if="status!=order.status" value=status>{{ formatOrderStatus(status) }}</option>
+              <option v-for="status in statuses" :key="status" :selected="status === order.status" :value="status">{{ formatOrderStatus(status) }}</option>
             </select>
           </div>
 
