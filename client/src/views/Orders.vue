@@ -1,7 +1,7 @@
 <template>
   <div>
     <PageHeader>Orders</PageHeader>
-      <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
+    <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
 
       <div class="md:w-1/5 mb-4 md:mb-0">
           <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
@@ -16,7 +16,7 @@
               v-model="selectedDeliveryTypes"
             />
             <label :for="deliveryType" class="relative">
-              <span class="ml-2 leading-none">{{deliveryType}}</span>
+              <span class="ml-2 leading-none">{{ deliveryType }}</span>
             </label>
           </div>
           
@@ -32,7 +32,7 @@
               v-model="selectedStatuses"
             />
             <label :for="status" class="relative">
-              <span class="ml-2 leading-none">{{formatOrderStatus(status)}}</span>
+              <span class="ml-2 leading-none">{{ formatOrderStatus(status) }}</span>
             </label>
           </div>
         </div>
@@ -53,7 +53,7 @@
             </router-link>
           </td>
           <td>{{ formatOrderStatus(order.status) }}</td>
-          <td>{{ (order.shippingAddress == null ? "Store Pick-Up" : "Delivery") }}</td>
+          <td>{{ (order.shippingAddress ? "Delivery" : "Store Pick-Up") }}</td>
           <td>{{ formatDate(order.createdAt, "MM/DD/YYYY hh:mm A") }}</td>
           <td>{{ order.customer.name }}</td>
         </tr>
@@ -67,13 +67,22 @@ import format from 'date-fns/format';
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 
-const statusDisplayNames ={
-  "RECEIVED" : "Received",
-  "PROCESSING" : "Processing",
-  "READY_TO_SHIP" : "Ready To Ship",
-  "READY_FOR_PICK_UP" : "Ready For Pick-Up",
-  "COMPLETE" : "Complete",
-  "CANCELLED" : "Cancelled"
+export const statuses = {
+  RECEIVED: "RECEIVED",
+  PROCESSING: "PROCESSING",
+  READY_TO_SHIP: "READY_TO_SHIP",
+  READY_FOR_PICK_UP: "READY_FOR_PICK_UP",
+  COMPLETE: "COMPLETE",
+  CANCELLED: "CANCELLED",
+};
+
+export const statusDisplayNames = {
+  [statuses.RECEIVED]: "Received",
+  [statuses.PROCESSING]: "Processing",
+  [statuses.READY_TO_SHIP] : "Ready To Ship",
+  [statuses.READY_FOR_PICK_UP] : "Ready For Pick-Up",
+  [statuses.COMPLETE] : "Complete",
+  [statuses.CANCELLED] : "Cancelled"
 }
 
 export default {
@@ -81,8 +90,8 @@ export default {
   data() {
     return {
       orders: [],
-      statuses: ["RECEIVED", "PROCESSING", "READY_TO_SHIP","READY_FOR_PICK_UP", "COMPLETE","CANCELLED"],
-      deliveryTypes:["Delivery", "Store Pick-Up"],
+      deliveryTypes: ["Delivery", "Store Pick-Up"],
+      statuses: Object.keys(statuses),
       selectedStatuses: [],
       selectedDeliveryTypes: []
     };
@@ -91,17 +100,22 @@ export default {
     filteredOrders() {
       // if no filters are selected or all filters are selected...
       if (this.selectedStatuses.length == 0 && this.selectedDeliveryTypes.length == 0 ||
-          this.selectedStatuses.length == this.statuses.length && this.selectedDeliveryTypes.length == this.deliveryTypes.length) {
-        return this.orders;
+          this.selectedStatuses.length == this.statuses.length && this.selectedDeliveryTypes.length == this.deliveryTypes.length ||
+          this.selectedStatuses.length == this.statuses.length && this.selectedDeliveryTypes.length == 0 ||
+          this.selectedStatuses.length == 0 && this.selectedDeliveryTypes.length == this.deliveryTypes.length) {
+          // console.log("zero/all filters selected; returning all orders");
+          return this.orders;
       }
       // no statuses are selected or all statuses are selected...
       else if(this.selectedStatuses.length == 0 || this.selectedStatuses.length == this.statuses.length){
+        // console.log("zero/all order statuses selected; filtering by delivery types");
         return this.orders.filter(order =>
           this.selectedDeliveryTypes.includes(order.shippingAddress == null ? "Store Pick-Up" : "Delivery")
         );
       }
       // no delivery types are selected or all delivery types are selected...
       else if(this.selectedDeliveryTypes.length == 0 || this.selectedDeliveryTypes.length == this.deliveryTypes.length){
+        // console.log("zero/all delivery types selected; filtering by order status");
         return this.orders.filter(order =>
           this.selectedStatuses.includes(order.status)
         );
@@ -116,18 +130,22 @@ export default {
     orders: gql`
       query orders {
         orders {
-          id,
-          status,
-          createdAt,
-          customer{name},
-          shippingAddress{id}
+          id
+          status
+          createdAt
+          customer {
+            name
+          }
+          shippingAddress {
+            id
+          }
         }
       }
     `,
   },
   methods: {
-    formatDate:format,
-    formatOrderStatus(status){
+    formatDate: format,
+    formatOrderStatus(status) {
       return statusDisplayNames[status];
     }
   }
