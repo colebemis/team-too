@@ -24,8 +24,8 @@
           </label>
 
           <div class="flex mb-4" v-if="product.stock > 0">
-            <div class="w-1/2 h-12">
-              <input id="quantity" pattern="\d{1,5}" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white " type="text" placeholder="Enter Quantity">
+            <div class="w-1/2 h-12 pr-4">
+              <input id="quantity" pattern="\d{1,5}" placeholder="Quantity (Optional)" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white " type="text">
             </div>
 
             <div class="w-1/2 h-12">
@@ -52,8 +52,8 @@ input:invalid {
   border: 1px dashed red;
 }
 
-input:invalid {
-  border: 1px grey;
+input:valid {
+  border: 1px solid #F1F5F8;
 }
 
 </style>
