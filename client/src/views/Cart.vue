@@ -1,7 +1,9 @@
 <template>
   <div class="about mt-10 mb-20">
-    <PageHeader>YOUR SHOPPING CART</PageHeader>
+    <PageHeader v-if="subtotal > 0"> YOUR SHOPPING CART </PageHeader>
+    <PageHeader v-else> YOUR SHOPPING CART IS EMPTY! </PageHeader>
 
+    <!-- <div class="container mx-auto mb-10" v-if="subtotal > 0"> -->
     <div class="container mx-auto mb-10">
       <div class="gridHeader bg-grey-darkest text-white border border-solid border-grey-dark">
         <div class = "">PRODUCT</div>
@@ -32,20 +34,33 @@
 
         <!-- Product Quantity -->
         <div class="bg-grey-lighter flex items-center justify-center w-1/3 mt-10">
-          <div class="w-1/2 h-12 pt-3">
+
+          <!-- Quantity -->
+          <div class="w-1/3 h-12 pt-4">
               {{ cart[product.id] }}
+          </div>
+
+          <!-- Maximum Stock Warning -->
+          <div v-if="cart[product.id] == product.stock" class="bg-red-lightest border border-red-light text-red-dark px-4 py-3 rounded relative" role="alert">
+          <span class="block sm:inline">Maximum product stock reached.</span>
           </div>
           
           <!-- +/- Buttons -->
-          <div class="w-1/2 h-12">
-              <div :id="product.id" class="inline-flex">
-                <button v-on:click="incrementQuantity" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l">
+          <div class="w-1/3 h-12">
+              <div :id="product.id" class="inline-flex mt-2">
+                <button v-on:click="incrementQuantity" :id="product.stock" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l">
                   +
                 </button>
                 <button v-on:click="decrementQuantity" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-r">
                   -
                 </button>
               </div>
+          </div>
+
+          <div :id="product.id" class="w-1/3 h-12">
+              <button v-on:click="removeItem" :id="product.id" class="bg-grey-dark hover:bg-grey text-grey-lightest font-bold mt-2 py-2 px-4 rounded-full">
+                x
+              </button>
           </div>
         </div>
 
@@ -77,8 +92,15 @@
         <div class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"> $ {{ (subtotal * 0.0725 + subtotal).toFixed(2) }} </div>
       </div>
     </div>
-    
+
+    <!--
+    <div class="container mx-auto mt-5 mb-10 text-center" v-else>
+      Check out the shop to add items to your cart!
+    </div>
+    -->
+
   </div>
+  
 </template>
 
 <style>
@@ -166,30 +188,64 @@ export default {
     // define methods under the `methods` object
   methods: {
     incrementQuantity: function (event) {
-      // Modify the local instance of the cart to update the front-end values
-      this.cart[event.currentTarget.parentNode.id] += 1;
 
-      // Update the actual cart in local storage
-      localStorage.setItem("cart", JSON.stringify(this.cart));
+      // Modify the local instance of the cart to update the front-end values
+
+      console.log(event.currentTarget.id);
+
+      if(this.cart[event.currentTarget.parentNode.id] + 1 > event.currentTarget.id){
+        console.log('out of stock');
+      } else {
+        this.cart[event.currentTarget.parentNode.id] += 1;
+
+        // Update the actual cart in local storage
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      }
     },
 
     decrementQuantity: function (event) {
       // Modify the local instance of the cart to update the front-end values
 
+      var productID = event.currentTarget.parentNode.id;
       var remove = true;
 
-      if(this.cart[event.currentTarget.parentNode.id] == 1){
+      console.log(this.cart.type);
+
+      if(this.cart[productID] == 1){
         remove = window.confirm("Are you sure you want to remove this item from your cart?");
-        console.log(remove);
       }
 
-      if(remove && this.cart[event.currentTarget.parentNode.id] != 0){
-          this.cart[event.currentTarget.parentNode.id] -= 1;
+      if(remove){
+        this.cart[productID] -= 1;
       } 
 
+      if(this.cart[productID] <= 0){
+        delete this.cart[productID];
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+        //this.cart[productID] = 0;
+      } else {
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      }
+
       // Update the actual cart in local storage
-      localStorage.setItem("cart", JSON.stringify(this.cart));
+    },
+
+    removeItem: function(event){
+
+      var productID = event.currentTarget.id;
+      console.log(productID);
+      var remove = window.confirm("Are you sure you want to remove this item from your cart?");
+
+      if(remove){
+        this.cart[productID] = 0;
+        delete this.cart[productID];
+        //console.log(this.products);
+        //console.log(this.products[0]);
+        //console.log(this.products[productID]);
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      }
     }
+
   }
 };
 
