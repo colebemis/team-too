@@ -239,9 +239,6 @@ export default {
       if(remove){
         this.cart[productID] = 0;
         delete this.cart[productID];
-        //console.log(this.products);
-        //console.log(this.products[0]);
-        //console.log(this.products[productID]);
         localStorage.setItem("cart", JSON.stringify(this.cart));
       }
     }

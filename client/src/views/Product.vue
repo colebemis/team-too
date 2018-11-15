@@ -96,7 +96,7 @@ export default {
       const inputValue = (document.getElementById("quantity") as HTMLInputElement).value;
       const quantity = Number(inputValue);
 
-      if(isNaN(quantity)){
+      if(isNaN(quantity) || quantity < 0){
         
           alert("Please enter a valid quantity.");
 
