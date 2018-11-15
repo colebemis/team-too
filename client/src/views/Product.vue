@@ -17,14 +17,46 @@
           {{ product.description }}
         </p>
 
-        <Button v-if="product.stock > 0" @click.native="addToCart">
-          Add to cart
-        </Button>
-        <span v-else class="text-red">Out of stock</span>
+        <!-- Add to Cart -->
+        <span>
+          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="quantity">
+            {{ product.stock }} currently in stock
+          </label>
+
+          <div class="flex mb-4" v-if="product.stock > 0">
+            <div class="w-1/2 h-12">
+              <input id="quantity" pattern="\d{1,5}" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white " type="text" placeholder="Enter Quantity">
+            </div>
+
+            <div class="w-1/2 h-12">
+              <Button @click.native="addToCart">
+                Add to cart
+              </Button>
+            </div>
+          </div>
+
+          <Button v-else class = "cursor-not-allowed bg-red">
+            Out of stock
+          </Button>
+
+        </span>
+        
       </div>
     </div>
   </div>
 </template>
+
+<style>
+
+input:invalid {
+  border: 1px dashed red;
+}
+
+input:invalid {
+  border: 1px grey;
+}
+
+</style>
 
 <script lang="ts">
 import gql from "graphql-tag";
@@ -61,14 +93,37 @@ export default {
     addToCart() {
       const cart = JSON.parse(localStorage.getItem("cart") || "{}");
 
-      if (this.id in cart) {
-        cart[this.id] += 1;
-      } else {
-        cart[this.id] = 1;
-      }
+      const inputValue = (document.getElementById("quantity") as HTMLInputElement).value;
+      const quantity = Number(inputValue);
 
-      localStorage.setItem("cart", JSON.stringify(cart));
-      this.$router.push("/cart");
+      if(isNaN(quantity)){
+        
+          alert("Please enter a valid quantity.");
+
+      } else {
+
+        if (this.id in cart) {
+
+          if(cart[this.id] + quantity > this.product.stock){
+            alert("You cannot add more than the current stock available.");
+          } else {
+            cart[this.id] += quantity;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            this.$router.push("/cart");
+          }
+
+        } else {
+
+          if(quantity > this.product.stock){
+            alert("You cannot add more than the current stock available.");
+          } else {
+            cart[this.id] = quantity;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            this.$router.push("/cart");
+          }
+
+        }
+      }
     },
   },
 };
