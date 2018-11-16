@@ -39,6 +39,8 @@ type OrderProduct {
 
 type Product {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   imageURL: String!
   title: String!
   description: String!

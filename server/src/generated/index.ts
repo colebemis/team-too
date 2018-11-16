@@ -404,6 +404,10 @@ export interface ClientConstructor<T> {
 export type ProductOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
   | "imageURL_ASC"
   | "imageURL_DESC"
   | "title_ASC"
@@ -413,11 +417,7 @@ export type ProductOrderByInput =
   | "price_ASC"
   | "price_DESC"
   | "stock_ASC"
-  | "stock_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | "stock_DESC";
 
 export type CategoryOrderByInput =
   | "id_ASC"
@@ -585,6 +585,22 @@ export interface ProductWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
   imageURL?: String;
   imageURL_not?: String;
   imageURL_in?: String[] | String;
@@ -656,41 +672,21 @@ export interface CustomerUpsertNestedInput {
   create: CustomerCreateInput;
 }
 
-export interface CategoryWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  products_every?: ProductWhereInput;
-  products_some?: ProductWhereInput;
-  products_none?: ProductWhereInput;
-  AND?: CategoryWhereInput[] | CategoryWhereInput;
-  OR?: CategoryWhereInput[] | CategoryWhereInput;
-  NOT?: CategoryWhereInput[] | CategoryWhereInput;
+export interface OrderProductSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: OrderProductWhereInput;
+  AND?:
+    | OrderProductSubscriptionWhereInput[]
+    | OrderProductSubscriptionWhereInput;
+  OR?:
+    | OrderProductSubscriptionWhereInput[]
+    | OrderProductSubscriptionWhereInput;
+  NOT?:
+    | OrderProductSubscriptionWhereInput[]
+    | OrderProductSubscriptionWhereInput;
 }
 
 export interface CustomerUpdateDataInput {
@@ -748,12 +744,9 @@ export interface OrderProductUpsertWithWhereUniqueNestedInput {
   create: OrderProductCreateInput;
 }
 
-export interface UserUpdateInput {
-  name?: String;
-  email?: String;
-  password?: String;
-  isAdmin?: Boolean;
-}
+export type CreditCardWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
 
 export interface OrderProductUpdateDataInput {
   title?: String;
@@ -1219,21 +1212,41 @@ export interface AddressCreateInput {
   zip: String;
 }
 
-export interface OrderProductSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: OrderProductWhereInput;
-  AND?:
-    | OrderProductSubscriptionWhereInput[]
-    | OrderProductSubscriptionWhereInput;
-  OR?:
-    | OrderProductSubscriptionWhereInput[]
-    | OrderProductSubscriptionWhereInput;
-  NOT?:
-    | OrderProductSubscriptionWhereInput[]
-    | OrderProductSubscriptionWhereInput;
+export interface CategoryWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  products_every?: ProductWhereInput;
+  products_some?: ProductWhereInput;
+  products_none?: ProductWhereInput;
+  AND?: CategoryWhereInput[] | CategoryWhereInput;
+  OR?: CategoryWhereInput[] | CategoryWhereInput;
+  NOT?: CategoryWhereInput[] | CategoryWhereInput;
 }
 
 export interface AddressUpdateInput {
@@ -1466,9 +1479,12 @@ export type CustomerWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export type CreditCardWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
+export interface UserUpdateInput {
+  name?: String;
+  email?: String;
+  password?: String;
+  isAdmin?: Boolean;
+}
 
 export interface ProductSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
@@ -1633,22 +1649,115 @@ export interface AggregateAddressSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface CreditCardEdgeNode {
+export interface CreditCardNode {
+  id: ID_Output;
+  name: String;
+  number: String;
+  expDate: DateTimeOutput;
+  cvv: String;
+}
+
+export interface CreditCard extends Promise<CreditCardNode>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  number: () => Promise<String>;
+  expDate: () => Promise<DateTimeOutput>;
+  cvv: () => Promise<String>;
+}
+
+export interface CreditCardSubscription
+  extends Promise<AsyncIterator<CreditCardNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  number: () => Promise<AsyncIterator<String>>;
+  expDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  cvv: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BatchPayloadNode {
+  count: Long;
+}
+
+export interface BatchPayload extends Promise<BatchPayloadNode>, Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayloadNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface AggregateCategoryNode {
+  count: Int;
+}
+
+export interface AggregateCategory
+  extends Promise<AggregateCategoryNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCategorySubscription
+  extends Promise<AsyncIterator<AggregateCategoryNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UserEdgeNode {
   cursor: String;
 }
 
-export interface CreditCardEdge
-  extends Promise<CreditCardEdgeNode>,
-    Fragmentable {
-  node: <T = CreditCard>() => T;
+export interface UserEdge extends Promise<UserEdgeNode>, Fragmentable {
+  node: <T = User>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface CreditCardEdgeSubscription
-  extends Promise<AsyncIterator<CreditCardEdgeNode>>,
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdgeNode>>,
     Fragmentable {
-  node: <T = CreditCardSubscription>() => T;
+  node: <T = UserSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CategoryNode {
+  id: ID_Output;
+  name: String;
+}
+
+export interface Category extends Promise<CategoryNode>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  products: <T = FragmentableArray<ProductNode>>(
+    args?: {
+      where?: ProductWhereInput;
+      orderBy?: ProductOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface CategorySubscription
+  extends Promise<AsyncIterator<CategoryNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  products: <T = Promise<AsyncIterator<ProductSubscription>>>(
+    args?: {
+      where?: ProductWhereInput;
+      orderBy?: ProductOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface OrderProductPreviousValuesNode {
@@ -1688,67 +1797,36 @@ export interface OrderProductPreviousValuesSubscription
   quantity: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface CreditCardConnectionNode {}
+export interface AggregateUserNode {
+  count: Int;
+}
 
-export interface CreditCardConnection
-  extends Promise<CreditCardConnectionNode>,
+export interface AggregateUser
+  extends Promise<AggregateUserNode>,
     Fragmentable {
-  pageInfo: <T = PageInfo>() => T;
-  edges: <T = FragmentableArray<CreditCardEdgeNode>>() => T;
-  aggregate: <T = AggregateCreditCard>() => T;
+  count: () => Promise<Int>;
 }
 
-export interface CreditCardConnectionSubscription
-  extends Promise<AsyncIterator<CreditCardConnectionNode>>,
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUserNode>>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<CreditCardEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateCreditCardSubscription>() => T;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface BatchPayloadNode {
-  count: Long;
+export interface CategoryEdgeNode {
+  cursor: String;
 }
 
-export interface BatchPayload extends Promise<BatchPayloadNode>, Fragmentable {
-  count: () => Promise<Long>;
+export interface CategoryEdge extends Promise<CategoryEdgeNode>, Fragmentable {
+  node: <T = Category>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayloadNode>>,
+export interface CategoryEdgeSubscription
+  extends Promise<AsyncIterator<CategoryEdgeNode>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface ProductPreviousValuesNode {
-  id: ID_Output;
-  imageURL: String;
-  title: String;
-  description: String;
-  price: Float;
-  stock: Int;
-}
-
-export interface ProductPreviousValues
-  extends Promise<ProductPreviousValuesNode>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  imageURL: () => Promise<String>;
-  title: () => Promise<String>;
-  description: () => Promise<String>;
-  price: () => Promise<Float>;
-  stock: () => Promise<Int>;
-}
-
-export interface ProductPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProductPreviousValuesNode>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  imageURL: () => Promise<AsyncIterator<String>>;
-  title: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-  price: () => Promise<AsyncIterator<Float>>;
-  stock: () => Promise<AsyncIterator<Int>>;
+  node: <T = CategorySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserConnectionNode {}
@@ -1769,20 +1847,20 @@ export interface UserConnectionSubscription
   aggregate: <T = AggregateUserSubscription>() => T;
 }
 
-export interface AggregateUserNode {
-  count: Int;
+export interface ProductEdgeNode {
+  cursor: String;
 }
 
-export interface AggregateUser
-  extends Promise<AggregateUserNode>,
-    Fragmentable {
-  count: () => Promise<Int>;
+export interface ProductEdge extends Promise<ProductEdgeNode>, Fragmentable {
+  node: <T = Product>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUserNode>>,
+export interface ProductEdgeSubscription
+  extends Promise<AsyncIterator<ProductEdgeNode>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  node: <T = ProductSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserNode {
@@ -1809,64 +1887,6 @@ export interface UserSubscription
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   isAdmin: () => Promise<AsyncIterator<Boolean>>;
-}
-
-export interface CreditCardNode {
-  id: ID_Output;
-  name: String;
-  number: String;
-  expDate: DateTimeOutput;
-  cvv: String;
-}
-
-export interface CreditCard extends Promise<CreditCardNode>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  number: () => Promise<String>;
-  expDate: () => Promise<DateTimeOutput>;
-  cvv: () => Promise<String>;
-}
-
-export interface CreditCardSubscription
-  extends Promise<AsyncIterator<CreditCardNode>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  number: () => Promise<AsyncIterator<String>>;
-  expDate: () => Promise<AsyncIterator<DateTimeOutput>>;
-  cvv: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ProductEdgeNode {
-  cursor: String;
-}
-
-export interface ProductEdge extends Promise<ProductEdgeNode>, Fragmentable {
-  node: <T = Product>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProductEdgeSubscription
-  extends Promise<AsyncIterator<ProductEdgeNode>>,
-    Fragmentable {
-  node: <T = ProductSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateCategoryNode {
-  count: Int;
-}
-
-export interface AggregateCategory
-  extends Promise<AggregateCategoryNode>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateCategorySubscription
-  extends Promise<AsyncIterator<AggregateCategoryNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface AggregateOrderProductNode {
@@ -2043,20 +2063,22 @@ export interface OrderProductSubscription
   quantity: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface CategoryEdgeNode {
-  cursor: String;
-}
+export interface CategoryConnectionNode {}
 
-export interface CategoryEdge extends Promise<CategoryEdgeNode>, Fragmentable {
-  node: <T = Category>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface CategoryEdgeSubscription
-  extends Promise<AsyncIterator<CategoryEdgeNode>>,
+export interface CategoryConnection
+  extends Promise<CategoryConnectionNode>,
     Fragmentable {
-  node: <T = CategorySubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<CategoryEdgeNode>>() => T;
+  aggregate: <T = AggregateCategory>() => T;
+}
+
+export interface CategoryConnectionSubscription
+  extends Promise<AsyncIterator<CategoryConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CategoryEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCategorySubscription>() => T;
 }
 
 export interface OrderNode {
@@ -2197,22 +2219,41 @@ export interface AddressConnectionSubscription
   aggregate: <T = AggregateAddressSubscription>() => T;
 }
 
-export interface CategoryConnectionNode {}
-
-export interface CategoryConnection
-  extends Promise<CategoryConnectionNode>,
-    Fragmentable {
-  pageInfo: <T = PageInfo>() => T;
-  edges: <T = FragmentableArray<CategoryEdgeNode>>() => T;
-  aggregate: <T = AggregateCategory>() => T;
+export interface ProductPreviousValuesNode {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  imageURL: String;
+  title: String;
+  description: String;
+  price: Float;
+  stock: Int;
 }
 
-export interface CategoryConnectionSubscription
-  extends Promise<AsyncIterator<CategoryConnectionNode>>,
+export interface ProductPreviousValues
+  extends Promise<ProductPreviousValuesNode>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<CategoryEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateCategorySubscription>() => T;
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  imageURL: () => Promise<String>;
+  title: () => Promise<String>;
+  description: () => Promise<String>;
+  price: () => Promise<Float>;
+  stock: () => Promise<Int>;
+}
+
+export interface ProductPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProductPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  imageURL: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<Float>>;
+  stock: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface AggregateCreditCardNode {
@@ -2254,27 +2295,22 @@ export interface CreditCardSubscriptionPayloadSubscription
   previousValues: <T = CreditCardPreviousValuesSubscription>() => T;
 }
 
-export interface UserSubscriptionPayloadNode {
-  mutation: MutationType;
-  updatedFields?: String[];
+export interface CreditCardConnectionNode {}
+
+export interface CreditCardConnection
+  extends Promise<CreditCardConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<CreditCardEdgeNode>>() => T;
+  aggregate: <T = AggregateCreditCard>() => T;
 }
 
-export interface UserSubscriptionPayload
-  extends Promise<UserSubscriptionPayloadNode>,
+export interface CreditCardConnectionSubscription
+  extends Promise<AsyncIterator<CreditCardConnectionNode>>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = User>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValues>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayloadNode>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CreditCardEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCreditCardSubscription>() => T;
 }
 
 export interface CreditCardPreviousValuesNode {
@@ -2323,27 +2359,61 @@ export interface ProductConnectionSubscription
   aggregate: <T = AggregateProductSubscription>() => T;
 }
 
-export interface ProductSubscriptionPayloadNode {
-  mutation: MutationType;
-  updatedFields?: String[];
+export interface ProductNode {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  imageURL: String;
+  title: String;
+  description: String;
+  price: Float;
+  stock: Int;
 }
 
-export interface ProductSubscriptionPayload
-  extends Promise<ProductSubscriptionPayloadNode>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = Product>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProductPreviousValues>() => T;
+export interface Product extends Promise<ProductNode>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  imageURL: () => Promise<String>;
+  title: () => Promise<String>;
+  description: () => Promise<String>;
+  price: () => Promise<Float>;
+  stock: () => Promise<Int>;
+  categories: <T = FragmentableArray<CategoryNode>>(
+    args?: {
+      where?: CategoryWhereInput;
+      orderBy?: CategoryOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
-export interface ProductSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProductSubscriptionPayloadNode>>,
+export interface ProductSubscription
+  extends Promise<AsyncIterator<ProductNode>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProductSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProductPreviousValuesSubscription>() => T;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  imageURL: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<Float>>;
+  stock: () => Promise<AsyncIterator<Int>>;
+  categories: <T = Promise<AsyncIterator<CategorySubscription>>>(
+    args?: {
+      where?: CategoryWhereInput;
+      orderBy?: CategoryOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
 export interface AggregateOrderNode {
@@ -2385,43 +2455,27 @@ export interface CustomerSubscriptionPayloadSubscription
   previousValues: <T = CustomerPreviousValuesSubscription>() => T;
 }
 
-export interface CategoryNode {
-  id: ID_Output;
-  name: String;
+export interface UserSubscriptionPayloadNode {
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
-export interface Category extends Promise<CategoryNode>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  products: <T = FragmentableArray<ProductNode>>(
-    args?: {
-      where?: ProductWhereInput;
-      orderBy?: ProductOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface CategorySubscription
-  extends Promise<AsyncIterator<CategoryNode>>,
+export interface UserSubscriptionPayload
+  extends Promise<UserSubscriptionPayloadNode>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  products: <T = Promise<AsyncIterator<ProductSubscription>>>(
-    args?: {
-      where?: ProductWhereInput;
-      orderBy?: ProductOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  mutation: () => Promise<MutationType>;
+  node: <T = User>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValues>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
 export interface CustomerPreviousValuesNode {
@@ -2464,70 +2518,37 @@ export interface CustomerConnectionSubscription
   aggregate: <T = AggregateCustomerSubscription>() => T;
 }
 
-export interface ProductNode {
-  id: ID_Output;
-  imageURL: String;
-  title: String;
-  description: String;
-  price: Float;
-  stock: Int;
-}
-
-export interface Product extends Promise<ProductNode>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  imageURL: () => Promise<String>;
-  title: () => Promise<String>;
-  description: () => Promise<String>;
-  price: () => Promise<Float>;
-  stock: () => Promise<Int>;
-  categories: <T = FragmentableArray<CategoryNode>>(
-    args?: {
-      where?: CategoryWhereInput;
-      orderBy?: CategoryOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface ProductSubscription
-  extends Promise<AsyncIterator<ProductNode>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  imageURL: () => Promise<AsyncIterator<String>>;
-  title: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-  price: () => Promise<AsyncIterator<Float>>;
-  stock: () => Promise<AsyncIterator<Int>>;
-  categories: <T = Promise<AsyncIterator<CategorySubscription>>>(
-    args?: {
-      where?: CategoryWhereInput;
-      orderBy?: CategoryOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface UserEdgeNode {
+export interface AddressEdgeNode {
   cursor: String;
 }
 
-export interface UserEdge extends Promise<UserEdgeNode>, Fragmentable {
-  node: <T = User>() => T;
+export interface AddressEdge extends Promise<AddressEdgeNode>, Fragmentable {
+  node: <T = Address>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdgeNode>>,
+export interface AddressEdgeSubscription
+  extends Promise<AsyncIterator<AddressEdgeNode>>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
+  node: <T = AddressSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CreditCardEdgeNode {
+  cursor: String;
+}
+
+export interface CreditCardEdge
+  extends Promise<CreditCardEdgeNode>,
+    Fragmentable {
+  node: <T = CreditCard>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface CreditCardEdgeSubscription
+  extends Promise<AsyncIterator<CreditCardEdgeNode>>,
+    Fragmentable {
+  node: <T = CreditCardSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
@@ -2572,20 +2593,27 @@ export interface OrderProductSubscriptionPayloadSubscription
   previousValues: <T = OrderProductPreviousValuesSubscription>() => T;
 }
 
-export interface AddressEdgeNode {
-  cursor: String;
+export interface ProductSubscriptionPayloadNode {
+  mutation: MutationType;
+  updatedFields?: String[];
 }
 
-export interface AddressEdge extends Promise<AddressEdgeNode>, Fragmentable {
-  node: <T = Address>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface AddressEdgeSubscription
-  extends Promise<AsyncIterator<AddressEdgeNode>>,
+export interface ProductSubscriptionPayload
+  extends Promise<ProductSubscriptionPayloadNode>,
     Fragmentable {
-  node: <T = AddressSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  mutation: () => Promise<MutationType>;
+  node: <T = Product>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProductPreviousValues>() => T;
+}
+
+export interface ProductSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProductSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProductSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ProductPreviousValuesSubscription>() => T;
 }
 
 export interface OrderPreviousValuesNode {
@@ -2716,16 +2744,6 @@ export interface AggregateCustomerSubscription
 }
 
 /*
-DateTime scalar input type, allowing Date
-*/
-export type DateTimeInput = Date | string;
-
-/*
-DateTime scalar output type, which is always a string
-*/
-export type DateTimeOutput = string;
-
-/*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number;
@@ -2752,6 +2770,16 @@ export type Boolean = boolean;
 The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
 */
 export type Float = number;
+
+/*
+DateTime scalar input type, allowing Date
+*/
+export type DateTimeInput = Date | string;
+
+/*
+DateTime scalar output type, which is always a string
+*/
+export type DateTimeOutput = string;
 
 /**
  * Type Defs

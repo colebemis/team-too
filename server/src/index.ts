@@ -32,6 +32,12 @@ const resolvers = {
     orders: (root, args, context: Context, info) => {
       return context.db.orders(args);
     },
+    orderProduct: (root, args, context: Context, info) => {
+      return context.db.orderProduct(args.where);
+    },
+    orderProducts: (root, args, context: Context, info) => {
+      return context.db.orderProducts(args);
+    }
   },
   Mutation: {
     createUser: async(root, args, context: Context, info) => {

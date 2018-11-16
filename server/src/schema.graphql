@@ -1,4 +1,4 @@
-# import User, UserWhereInput, UserWhereUniqueInput, UserUpdateInput, UserCreateInput, Product, ProductWhereInput, ProductWhereUniqueInput, ProductCreateInput, ProductUpdateInput, Order, OrderWhereInput, OrderWhereUniqueInput, OrderOrderByInput, OrderCreateInput, OrderUpdateInput from "./generated/prisma.graphql"
+# import OrderProductWhereUniqueInput, OrderProductWhereInput, OrderProductOrderByInput, User, UserWhereInput, UserWhereUniqueInput, UserUpdateInput, UserCreateInput, Product, ProductWhereInput, ProductWhereUniqueInput, ProductCreateInput, ProductUpdateInput, Order, OrderWhereInput, OrderWhereUniqueInput, OrderOrderByInput, OrderCreateInput, OrderUpdateInput from "./generated/prisma.graphql"
 
 type Query {
   user(where: UserWhereUniqueInput!): User
@@ -8,6 +8,8 @@ type Query {
   products(where: ProductWhereInput): [Product]
   order(where: OrderWhereUniqueInput!): Order
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
+  orderProduct(where: OrderProductWhereUniqueInput!): OrderProduct
+  orderProducts(where: OrderProductWhereInput, orderBy: OrderProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderProduct]!
 }
 
 type Mutation {

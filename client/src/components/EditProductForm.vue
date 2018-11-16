@@ -1,8 +1,5 @@
 <template>
-  <div v-if="product">
-    <PageHeader> Item </PageHeader>
-    <div class="w-4/5 mt-10 mx-auto py-8 px-6">
-      <form class="mb-5" @submit.prevent="updateProduct">
+       <form class="mb-5" @submit.prevent="updateProduct">
         <div class="mb-3">
           <label
             for="quantity"
@@ -12,7 +9,7 @@
           <input
             type="text"
             id="quantity"
-            v-model.number="product.stock"
+            v-model="product.stock"
             class="border border-black p-2 mr-5 min-w-0"
           />
           <div class="inline-flex flex-row mt-5 md:mt-0">
@@ -82,78 +79,14 @@
           <Button @click.native="returnToInventory">Cancel</Button>
         </div>
       </form>
-    </div>
-  </div>
 </template>
 
-<script lang="ts">
-import gql from "graphql-tag";
-import PageHeader from "@/components/PageHeader.vue";
+<script>
 import Button from "@/components/Button.vue";
-import PRODUCTS from "@/graphql/Products.gql";
-import PRODUCT from "@/graphql/Product.gql";
-
 export default {
-  components: { PageHeader, Button },
-  data() {
-    return {
-      product: null,
-    };
-  },
-  apollo: {
-    product() {
-      return {
-        query: PRODUCT,
-        variables: { id: this.$route.params.id },
-      };
-    },
-  },
-  methods: {
-    updateProduct() {
-      this.$apollo.mutate({
-        // Mutation
-        mutation: gql`
-          mutation($data: ProductUpdateInput!, $id: ID!) {
-            updateProduct(data: $data, where: { id: $id }) {
-              id
-              description
-              title
-              price
-              imageURL
-              stock
-              updatedAt
-              categories {
-                name
-              }
-            }
-          }
-        `,
-        variables: {
-          data: {
-            imageURL: this.product.imageURL,
-            title: this.product.title,
-            description: this.product.description,
-            price: this.product.price,
-            stock: this.product.stock,
-          },
-
-          id: this.product.id,
-        },
-        update: (store, { data: { updateProduct } }) => {
-          // Read the data from our cache for this query.
-          const data = store.readQuery({ query: PRODUCTS });
-          // console.log(store.readQuery({query: PRODUCTS}));
-          const index = data.products.findIndex(product => product.id === updateProduct.id);
-          data.products[index] = updateProduct;
-          // Write our data back to the cache.
-          store.writeQuery({ query: PRODUCTS, data });
-        },
-      });
-      this.$router.push({ path: "/admin/inventory"});
-    },
-    returnToInventory() {
-      this.$router.push({ path: "/admin/inventory" });
-    },
-  },
-};
+  props: { 
+      formDefault: {
+         validator: prop => typeof prop === 'Object' || prop === null}
+        }
+}
 </script>
