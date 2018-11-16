@@ -7,6 +7,7 @@
       <div
         class="border p-6 w-full lg:w-2/5  mt-8 lg:mt-0 ml-0 lg:ml-8 flex flex-col"
       >
+
         <h1 class="text-3xl font-semibold leading-none text-black">
           {{ product.title }}
         </h1>
@@ -35,13 +36,18 @@
 
                 <div class="w-1/3 h-12">
                   <div :id="product.id" class="inline-flex mt-2">
-                    <button v-on:click="incrementQuantity" :id="product.stock" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l">
+                    <button v-on:click="incrementQuantity" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l">
                       +
                     </button>
                     <button v-on:click="decrementQuantity" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-r">
                       -
                     </button>
                   </div>
+              </div>
+
+
+              <div class="w-1/3 h-12">
+                  
               </div>
 
             </div>
@@ -58,6 +64,11 @@
           </Button>
 
         </span>
+
+        <!-- Maximum Stock Warning -->
+        <div v-if="userAttemptedToAddTooMany" class="mt-5 bg-red-lightest border border-red-light text-red-dark px-4 py-3 mr-5 text-sm rounded relative" role="alert">
+          <span class="block xs:inline">You cannot add any more - Maximum product stock reached including items in cart.</span>
+        </div>
         
       </div>
     </div>
@@ -87,6 +98,7 @@ export default {
     return {
       product: null,
       quantityToAddToCart: 1,
+      userAttemptedToAddTooMany: false,
     };
   },
   apollo: {
@@ -111,17 +123,32 @@ export default {
   methods: {
 
     incrementQuantity (event) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "{}");
 
-      // The ID value of the element that triggers this function is the product's stock
+        if (this.id in cart) {
 
-      if(this.quantityToAddToCart + 1 <= event.currentTarget.id){
-        this.quantityToAddToCart += 1;
+          if(cart[this.id] + this.quantityToAddToCart + 1 <= this.product.stock){
+              this.quantityToAddToCart += 1;
+              this.userAttemptedToAddTooMany = false;
+          } else {
+            this.userAttemptedToAddTooMany = true;
+          }
+
+        } else {
+
+          if(this.quantityToAddToCart + 1 <= this.product.stock){
+              this.quantityToAddToCart += 1;
+              this.userAttemptedToAddTooMany = false;
+          } else {
+            this.userAttemptedToAddTooMany = true;
+          }
       }
     },
 
     decrementQuantity (event) {
       if(this.quantityToAddToCart > 1){
           this.quantityToAddToCart -= 1;
+          this.userAttemptedToAddTooMany = false;
       }
     },
 
@@ -129,34 +156,27 @@ export default {
       const cart = JSON.parse(localStorage.getItem("cart") || "{}");
       const quantity = this.quantityToAddToCart;
 
-      if(isNaN(quantity) || quantity < 0){
-        
-          alert("Please enter a valid quantity.");
+      if (this.id in cart) {
+
+        if(cart[this.id] + quantity > this.product.stock){
+          alert("You cannot add more than the current stock available.");
+        } else {
+          cart[this.id] += quantity;
+          localStorage.setItem("cart", JSON.stringify(cart));
+          this.$router.push("/cart");
+        }
 
       } else {
 
-        if (this.id in cart) {
-
-          if(cart[this.id] + quantity > this.product.stock){
-            alert("You cannot add more than the current stock available.");
-          } else {
-            cart[this.id] += quantity;
-            localStorage.setItem("cart", JSON.stringify(cart));
-            this.$router.push("/cart");
-          }
-
+        if(quantity > this.product.stock){
+          alert("You cannot add more than the current stock available.");
         } else {
-
-          if(quantity > this.product.stock){
-            alert("You cannot add more than the current stock available.");
-          } else {
-            cart[this.id] = quantity;
-            localStorage.setItem("cart", JSON.stringify(cart));
-            this.$router.push("/cart");
-          }
-
+          cart[this.id] = quantity;
+          localStorage.setItem("cart", JSON.stringify(cart));
+          this.$router.push("/cart");
         }
       }
+      
     },
   },
 };
