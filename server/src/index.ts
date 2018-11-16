@@ -4,7 +4,7 @@ import * as path from "path";
 import { hash, compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { prisma, Prisma } from "./generated";
-import { APP_SECRET } from './utils'
+import { APP_SECRET, verifyRequest } from './utils'
 
 interface Context {
   db: Prisma;
@@ -30,9 +30,11 @@ const resolvers = {
       return context.db.categories(args);
     },
     order: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.order(args.where);
     },
     orders: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.orders(args);
     },
   },
@@ -67,9 +69,11 @@ const resolvers = {
       };
     },
     deleteUser: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.deleteUser(args.where);
     },
     updateUser: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.updateUser(args);
     },
     createOrder: async(root, args, context: Context, info) => {
@@ -82,12 +86,15 @@ const resolvers = {
       return context.db.deleteOrder(args.where);
     },
     createProduct: async(root, args, context: Context, info) => {
+      verifyRequest(context);
       return await context.db.createProduct(args.data);
     },
     updateProduct: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.updateProduct(args);
     },
     deleteProduct: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.deleteProduct(args.where);
     },
   },
