@@ -20,12 +20,30 @@
         <!-- Add to Cart -->
         <span>
           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="quantity">
+            Select a Quantity
+          </label>
+          <label class="block uppercase tracking-wide text-grey text-xs font-bold mb-2" for="quantity">
             {{ product.stock }} currently in stock
           </label>
 
           <div class="flex mb-4" v-if="product.stock > 0">
-            <div class="w-1/2 h-12 pr-4">
-              <input id="quantity" pattern="\d{1,5}" placeholder="Quantity (Optional)" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white " type="text">
+            <div class="flex w-1/2 h-12 pr-4">
+
+                <div class="w-1/3 h-12 pt-4 pl-4">
+                    {{ quantityToAddToCart }}
+                </div>
+
+                <div class="w-1/3 h-12">
+                  <div :id="product.id" class="inline-flex mt-2">
+                    <button v-on:click="incrementQuantity" :id="product.stock" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l">
+                      +
+                    </button>
+                    <button v-on:click="decrementQuantity" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-r">
+                      -
+                    </button>
+                  </div>
+              </div>
+
             </div>
 
             <div class="w-1/2 h-12">
@@ -68,6 +86,7 @@ export default {
   data() {
     return {
       product: null,
+      quantityToAddToCart: 1,
     };
   },
   apollo: {
@@ -90,11 +109,25 @@ export default {
     },
   },
   methods: {
+
+    incrementQuantity (event) {
+
+      // The ID value of the element that triggers this function is the product's stock
+
+      if(this.quantityToAddToCart + 1 <= event.currentTarget.id){
+        this.quantityToAddToCart += 1;
+      }
+    },
+
+    decrementQuantity (event) {
+      if(this.quantityToAddToCart > 1){
+          this.quantityToAddToCart -= 1;
+      }
+    },
+
     addToCart() {
       const cart = JSON.parse(localStorage.getItem("cart") || "{}");
-
-      const inputValue = (document.getElementById("quantity") as HTMLInputElement).value;
-      const quantity = Number(inputValue);
+      const quantity = this.quantityToAddToCart;
 
       if(isNaN(quantity) || quantity < 0){
         

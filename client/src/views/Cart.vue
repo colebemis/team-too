@@ -1,7 +1,7 @@
 <template>
   <div class="about mt-10 mb-20">
-    <PageHeader v-if="subtotal > 0"> YOUR SHOPPING CART </PageHeader>
-    <PageHeader v-else> YOUR SHOPPING CART IS EMPTY! </PageHeader>
+    <PageHeader v-if="subtotal > 0"> YOUR SHOPPING CART     </PageHeader>
+    <PageHeader v-else> YOUR SHOPPING CART IS EMPTY!     </PageHeader>
 
     <!-- <div class="container mx-auto mb-10" v-if="subtotal > 0"> -->
     <div class="container mx-auto mb-10">
@@ -41,8 +41,8 @@
           </div>
 
           <!-- Maximum Stock Warning -->
-          <div v-if="cart[product.id] == product.stock" class="bg-red-lightest border border-red-light text-red-dark px-4 py-3 rounded relative" role="alert">
-          <span class="block sm:inline">Maximum product stock reached.</span>
+          <div v-if="cart[product.id] == product.stock" class="bg-red-lightest border border-red-light text-red-dark px-4 py-3 mr-5 text-xs rounded relative" role="alert">
+             <span class="block xs:inline">Maximum product stock reached.</span>
           </div>
           
           <!-- +/- Buttons -->
@@ -87,7 +87,11 @@
 
     <!-- Total Price -->
       <div class="flex mt-5 items-center justify-center">
-        <div class="w-1/3 h-12"></div>
+        <div class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3">
+            <button v-on:click="clearCart" class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 mb-7 rounded-r">
+                Clear Cart
+            </button>
+        </div>
         <div class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"> TOTAL </div>
         <div class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"> $ {{ (subtotal * 0.0725 + subtotal).toFixed(2) }} </div>
       </div>
@@ -187,6 +191,14 @@ export default {
 
     // define methods under the `methods` object
   methods: {
+
+    clearCart: function (event){
+      console.log('clear');
+      this.cart = {};
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+    },
+
+
     incrementQuantity: function (event) {
 
       // Modify the local instance of the cart to update the front-end values
@@ -209,7 +221,7 @@ export default {
       var productID = event.currentTarget.parentNode.id;
       var remove = true;
 
-      console.log(this.cart.type);
+      console.log(this.cart[productID]);
 
       if(this.cart[productID] == 1){
         remove = window.confirm("Are you sure you want to remove this item from your cart?");
@@ -222,7 +234,6 @@ export default {
       if(this.cart[productID] <= 0){
         delete this.cart[productID];
         localStorage.setItem("cart", JSON.stringify(this.cart));
-        //this.cart[productID] = 0;
       } else {
         localStorage.setItem("cart", JSON.stringify(this.cart));
       }
