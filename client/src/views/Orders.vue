@@ -66,24 +66,8 @@
 import format from 'date-fns/format';
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
-
-export const statuses = {
-  RECEIVED: "RECEIVED",
-  PROCESSING: "PROCESSING",
-  READY_TO_SHIP: "READY_TO_SHIP",
-  READY_FOR_PICK_UP: "READY_FOR_PICK_UP",
-  COMPLETE: "COMPLETE",
-  CANCELLED: "CANCELLED",
-};
-
-export const statusDisplayNames = {
-  [statuses.RECEIVED]: "Received",
-  [statuses.PROCESSING]: "Processing",
-  [statuses.READY_TO_SHIP] : "Ready To Ship",
-  [statuses.READY_FOR_PICK_UP] : "Ready For Pick-Up",
-  [statuses.COMPLETE] : "Complete",
-  [statuses.CANCELLED] : "Cancelled"
-}
+import { statuses, statusDisplayNames } from "@/utils";
+import ORDERS from "../graphql/Orders.gql";
 
 export default {
   components: { PageHeader },
@@ -127,21 +111,7 @@ export default {
     },
   },
   apollo: {
-    orders: gql`
-      query orders {
-        orders {
-          id
-          status
-          createdAt
-          customer {
-            name
-          }
-          shippingAddress {
-            id
-          }
-        }
-      }
-    `,
+    orders: ORDERS,
   },
   methods: {
     formatDate: format,
