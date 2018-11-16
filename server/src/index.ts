@@ -4,7 +4,7 @@ import * as path from "path";
 import { hash, compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { prisma, Prisma } from "./generated";
-import { APP_SECRET, verifyRequest } from './utils'
+import { APP_SECRET, verifyRequest } from "./utils";
 
 interface Context {
   db: Prisma;
@@ -40,22 +40,22 @@ const resolvers = {
   },
   Mutation: {
     logIn: async (root, args, context: Context, info) => {
-      const user = await context.db.user({ email: args.email })
+      const user = await context.db.user({ email: args.email });
 
       if (!user) {
-        throw new Error(`No user found for email: ${args.email}`)
+        throw new Error(`No user found for email: ${args.email}`);
       }
 
-      const valid = await compare(args.password, user.password)
+      const valid = await compare(args.password, user.password);
 
       if (!valid) {
-        throw new Error('Invalid password')
+        throw new Error("Invalid password");
       }
 
       return {
         token: sign({ userId: user.id }, APP_SECRET),
         user,
-      }
+      };
     },
     createUser: async (root, args, context: Context, info) => {
       const user = await context.db.createUser({
@@ -76,7 +76,7 @@ const resolvers = {
       verifyRequest(context);
       return context.db.updateUser(args);
     },
-    createOrder: async(root, args, context: Context, info) => {
+    createOrder: async (root, args, context: Context, info) => {
       return await context.db.createOrder(args.data);
     },
     updateOrder: (root, args, context: Context, info) => {
@@ -85,7 +85,7 @@ const resolvers = {
     deleteOrder: (root, args, context: Context, info) => {
       return context.db.deleteOrder(args.where);
     },
-    createProduct: async(root, args, context: Context, info) => {
+    createProduct: async (root, args, context: Context, info) => {
       verifyRequest(context);
       return await context.db.createProduct(args.data);
     },
@@ -126,8 +126,8 @@ const resolvers = {
     },
   },
   AuthPayload: {
-    user: root => root.user
-  }
+    user: root => root.user,
+  },
 };
 
 const server = new ApolloServer({
