@@ -62,9 +62,10 @@
 <script>
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
-  components: { PageHeader },
+  components: { PageHeader, Footer },
   data() {
     return {
       products: [],
