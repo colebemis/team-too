@@ -1,7 +1,10 @@
 import { ApolloServer, gql } from "apollo-server";
 import { importSchema } from "graphql-import";
 import * as path from "path";
+import { hash, compare } from "bcrypt";
+import { sign } from "jsonwebtoken";
 import { prisma, Prisma } from "./generated";
+import { APP_SECRET, verifyRequest } from "./utils";
 
 interface Context {
   db: Prisma;
@@ -27,23 +30,53 @@ const resolvers = {
       return context.db.categories(args);
     },
     order: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.order(args.where);
     },
     orders: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.orders(args);
     },
   },
   Mutation: {
-    createUser: async(root, args, context: Context, info) => {
-      return await context.db.createUser(args.data);
+    logIn: async (root, args, context: Context, info) => {
+      const user = await context.db.user({ email: args.email });
+
+      if (!user) {
+        throw new Error(`No user found for email: ${args.email}`);
+      }
+
+      const valid = await compare(args.password, user.password);
+
+      if (!valid) {
+        throw new Error("Invalid password");
+      }
+
+      return {
+        token: sign({ userId: user.id }, APP_SECRET),
+        user,
+      };
+    },
+    createUser: async (root, args, context: Context, info) => {
+      const user = await context.db.createUser({
+        ...args.data,
+        password: await hash(args.data.password, 10),
+      });
+
+      return {
+        token: sign({ userId: user.id }, APP_SECRET),
+        user,
+      };
     },
     deleteUser: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.deleteUser(args.where);
     },
     updateUser: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.updateUser(args);
     },
-    createOrder: async(root, args, context: Context, info) => {
+    createOrder: async (root, args, context: Context, info) => {
       return await context.db.createOrder(args.data);
     },
     updateOrder: (root, args, context: Context, info) => {
@@ -52,13 +85,16 @@ const resolvers = {
     deleteOrder: (root, args, context: Context, info) => {
       return context.db.deleteOrder(args.where);
     },
-    createProduct: async(root, args, context: Context, info) => {
+    createProduct: async (root, args, context: Context, info) => {
+      verifyRequest(context);
       return await context.db.createProduct(args.data);
     },
     updateProduct: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.updateProduct(args);
     },
     deleteProduct: (root, args, context: Context, info) => {
+      verifyRequest(context);
       return context.db.deleteProduct(args.where);
     },
   },
@@ -89,12 +125,15 @@ const resolvers = {
       return context.db.category({ id: root.id }).products();
     },
   },
+  AuthPayload: {
+    user: root => root.user,
+  },
 };
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: { db: prisma },
+  context: ({ req }) => ({ request: req, db: prisma }),
 });
 
 server.listen().then(({ url }) => {
