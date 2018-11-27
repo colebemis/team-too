@@ -1,15 +1,17 @@
 <template>
-  <div id="app" class="font-sans">
-    <div id="nav"><SiteHeader /></div>
-    <router-view />
+  <div id="app" class="font-sans flex flex-col min-h-screen">
+    <SiteHeader />
+    <div class="flex-grow"><router-view /></div>
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import SiteHeader from "@/components/SiteHeader.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
-  components: { SiteHeader },
+  components: { SiteHeader, Footer },
 };
 </script>
 

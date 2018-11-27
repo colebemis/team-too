@@ -87,13 +87,14 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import Button from "@/components/Button.vue";
 import PRODUCTS from "@/graphql/Products.gql";
 import PRODUCT from "@/graphql/Product.gql";
 
-export default {
+export default Vue.extend({
   components: { PageHeader, Button },
   data() {
     return {
@@ -155,5 +156,5 @@ export default {
       this.$router.push({ path: "/admin/inventory" });
     },
   },
-};
+});
 </script>

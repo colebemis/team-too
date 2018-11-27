@@ -1,7 +1,11 @@
 <template>
   <div>
     <PageHeader>Shop</PageHeader>
-    <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
+    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
+    <div
+      v-else
+      class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row"
+    >
       <div class="md:w-1/5 mb-4 md:mb-0">
         <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
           Categories
@@ -15,7 +19,7 @@
             v-model="selectedCategories"
           />
           <label :for="category.name" class="relative">
-            <span class="ml-2 leading-none">{{category.name}}</span>
+            <span class="ml-2 leading-none">{{ category.name }}</span>
           </label>
         </div>
       </div>
@@ -59,12 +63,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
+import Footer from "@/components/Footer.vue";
+import Loader from "@/components/Loader.vue";
 
-export default {
-  components: { PageHeader },
+export default Vue.extend({
+  components: { PageHeader, Footer, Loader },
   data() {
     return {
       products: [],
@@ -73,14 +80,16 @@ export default {
     };
   },
   computed: {
-    filteredProducts() {
-      if (this.selectedCategories.length == 0) {
+    filteredProducts(): any {
+      const selectedCategories: string[] = this.selectedCategories;
+
+      if (selectedCategories.length === 0) {
         return this.products;
       }
 
-      return this.products.filter(product =>
-        product.categories.some(category =>
-          this.selectedCategories.includes(category.name),
+      return this.products.filter((product: any) =>
+        product.categories.some((category: any) =>
+          selectedCategories.includes(category.name),
         ),
       );
     },
@@ -110,7 +119,7 @@ export default {
       }
     `,
   },
-};
+});
 </script>
 
 <style scoped>

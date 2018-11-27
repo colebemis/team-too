@@ -17,25 +17,94 @@
           {{ product.description }}
         </p>
 
-        <Button v-if="product.stock > 0" @click.native="addToCart">
-          Add to cart
-        </Button>
-        <span v-else class="text-red">Out of stock</span>
+        <!-- Add to Cart -->
+        <span>
+          <label
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+            for="quantity"
+          >
+            Select a Quantity
+          </label>
+          <label
+            class="block uppercase tracking-wide text-grey text-xs font-bold mb-2"
+            for="quantity"
+          >
+            {{ product.stock }} currently in stock
+          </label>
+
+          <div class="flex mb-4" v-if="product.stock > 0">
+            <div class="flex w-1/2 h-12 pr-4">
+              <div class="w-1/3 h-12 pt-4 pl-4">{{ quantityToAddToCart }}</div>
+
+              <div class="w-1/3 h-12">
+                <div :id="product.id" class="inline-flex mt-2">
+                  <button
+                    v-on:click="incrementQuantity(product.stock);"
+                    class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l"
+                  >
+                    +
+                  </button>
+                  <button
+                    v-on:click="decrementQuantity"
+                    class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-r"
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+
+              <div class="w-1/3 h-12"></div>
+            </div>
+
+            <div class="w-1/2 h-12">
+              <Button @click.native="addToCart(product.stock);">
+                Add to cart
+              </Button>
+            </div>
+          </div>
+
+          <button v-else class="cursor-not-allowed bg-red">Out of stock</button>
+        </span>
+
+        <!-- Maximum Stock Warning -->
+        <div
+          v-if="userAttemptedToAddTooMany"
+          class="mt-5 bg-red-lightest border border-red-light text-red-dark px-4 py-3 mr-5 text-sm rounded relative"
+          role="alert"
+        >
+          <span class="block xs:inline"
+            >You cannot add any more - Maximum product stock reached including
+            items in cart.</span
+          >
+        </div>
       </div>
     </div>
   </div>
 </template>
 
+<style>
+input:invalid {
+  border: 1px dashed red;
+}
+
+input:valid {
+  border: 1px solid #f1f5f8;
+}
+</style>
+
 <script lang="ts">
+import Vue from "vue";
 import gql from "graphql-tag";
 import Button from "@/components/Button.vue";
 
-export default {
+export default Vue.extend({
   components: { Button },
   props: { id: String },
   data() {
     return {
       product: null,
+      quantityToAddToCart: 1,
+      userAttemptedToAddTooMany: false,
     };
   },
   apollo: {
@@ -58,18 +127,55 @@ export default {
     },
   },
   methods: {
-    addToCart() {
+    incrementQuantity(stock: number) {
       const cart = JSON.parse(localStorage.getItem("cart") || "{}");
 
       if (this.id in cart) {
-        cart[this.id] += 1;
+        if (cart[this.id] + this.quantityToAddToCart + 1 <= stock) {
+          this.quantityToAddToCart += 1;
+          this.userAttemptedToAddTooMany = false;
+        } else {
+          this.userAttemptedToAddTooMany = true;
+        }
       } else {
-        cart[this.id] = 1;
+        if (this.quantityToAddToCart + 1 <= stock) {
+          this.quantityToAddToCart += 1;
+          this.userAttemptedToAddTooMany = false;
+        } else {
+          this.userAttemptedToAddTooMany = true;
+        }
       }
+    },
 
-      localStorage.setItem("cart", JSON.stringify(cart));
-      this.$router.push("/cart");
+    decrementQuantity(event: Event) {
+      if (this.quantityToAddToCart > 1) {
+        this.quantityToAddToCart -= 1;
+        this.userAttemptedToAddTooMany = false;
+      }
+    },
+
+    addToCart(stock: number) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "{}");
+      const quantity = this.quantityToAddToCart;
+
+      if (this.id in cart) {
+        if (cart[this.id] + quantity > stock) {
+          alert("You cannot add more than the current stock available.");
+        } else {
+          cart[this.id] += quantity;
+          localStorage.setItem("cart", JSON.stringify(cart));
+          this.$router.push("/cart");
+        }
+      } else {
+        if (quantity > stock) {
+          alert("You cannot add more than the current stock available.");
+        } else {
+          cart[this.id] = quantity;
+          localStorage.setItem("cart", JSON.stringify(cart));
+          this.$router.push("/cart");
+        }
+      }
     },
   },
-};
+});
 </script>

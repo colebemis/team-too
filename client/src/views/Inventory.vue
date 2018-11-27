@@ -54,7 +54,6 @@
 </template>
 
 <style>
-
 .checkbox + label::before {
   content: "";
   display: inline-block;
@@ -87,13 +86,14 @@
 }
 </style>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import gql from "graphql-tag";
 import format from 'date-fns/format';
 import PageHeader from "@/components/PageHeader.vue";
 import PRODUCTS from "@/graphql/Products.gql";
 import CATEGORIES from "@/graphql/Categories.gql";
-export default {
+export default Vue.extend({
   components: { PageHeader },
   data() {
     return {
@@ -110,7 +110,7 @@ export default {
   },
   computed: {
     filteredProducts() {
-      if (this.selectedCategories.length == 0) {
+      if (this.selectedCategories.length === 0) {
         return this.products;
       }
       return this.products.filter(product =>
@@ -124,5 +124,5 @@ export default {
     products: PRODUCTS,
     categories: CATEGORIES
   }
-};
+});
 </script>
