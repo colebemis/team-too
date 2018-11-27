@@ -4,12 +4,12 @@
     <div class="max-w-xs mx-auto mt-16 mb-24">
       <div
         v-if="error"
-        id="error"
+        data-test-id="error"
         class="p-4 text-red-darker leading-normal bg-red-lightest mb-8"
       >
         {{ error.message }}
       </div>
-      <form @submit="logIn">
+      <form id="login-form" @submit="logIn">
         <div class="mb-8">
           <label for="email" class="inline-block font-semibold mb-2">
             Email
@@ -39,7 +39,7 @@
           />
         </div>
         <div class="flex flex-col items-stretch mt-12">
-          <Button>Log in</Button>
+          <Button data-test-id="login-button">Log in</Button>
         </div>
       </form>
     </div>
