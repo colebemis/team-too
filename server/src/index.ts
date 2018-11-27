@@ -5,6 +5,7 @@ import { hash, compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { prisma, Prisma } from "./generated";
 import { APP_SECRET, verifyRequest } from "./utils";
+import { isContext } from "vm";
 
 interface Context {
   db: Prisma;
@@ -36,6 +37,24 @@ const resolvers = {
     orders: (root, args, context: Context, info) => {
       verifyRequest(context);
       return context.db.orders(args);
+    },
+    siteInfo: (root, args, context: Context, info) => {
+      return context.db.siteInfo(args.where);
+    },
+    siteInfoes: (root, args, context: Context, info) => {
+      return context.db.siteInfoes(args);
+    },
+    section: (root, args, context: Context, info) => {
+      return context.db.section(args.where);
+    },
+    sections: (root, args, context: Context, info) => {
+      return context.db.sections(args);
+    },
+    hours: (root, args, context: Context, info) => {
+      return context.db.hours(args.where);
+    },
+    hourses: (root, args, context: Context, info) => {
+      return context.db.hourses(args);
     },
   },
   Mutation: {
@@ -97,6 +116,26 @@ const resolvers = {
       verifyRequest(context);
       return context.db.deleteProduct(args.where);
     },
+    updateSiteInfo: (root, args, context: Context, info) => {
+      // TODO: verifyRequest(context);
+      return context.db.updateSiteInfo(args);
+    },
+    updateSection: (root, args, context: Context, info) => {
+      // TODO: verifyRequest(context);
+      return context.db.updateSection(args);
+    },
+    createHours: async (root, args, context: Context, info) => {
+      // TODO: verifyRequest(context);
+      return await context.db.createHours(args.data);
+    },
+    updateHours: (root, args, context: Context, info) => {
+      // TODO: verifyRequest(context);
+      return context.db.updateHours(args);
+    },
+    deleteHours: (root, args, context: Context, info) => {
+      // TODO: verifyRequest(context);
+      return context.db.deleteHours(args.where);
+    },
   },
   Order: {
     customer: (root, args, context: Context, info) => {
@@ -127,6 +166,20 @@ const resolvers = {
   },
   AuthPayload: {
     user: root => root.user,
+  },
+  SiteInfo: {
+    address: (root, args, context: Context, info) => {
+      return context.db.siteInfo({ id: root.id }).address();
+    },
+    hours: (root, args, context: Context, info) => {
+      return context.db.siteInfo({ id: root.id }).hours();
+    },
+    about: (root, args, context: Context, info) => {
+      return context.db.siteInfo({ id: root.id }).about();
+    },
+    services: (root, args, context: Context, info) => {
+      return context.db.siteInfo({ id: root.id }).services();
+    },
   },
 };
 

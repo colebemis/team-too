@@ -8,6 +8,12 @@ type Query {
   products(where: ProductWhereInput): [Product]
   order(where: OrderWhereUniqueInput!): Order
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
+  siteInfo(where: SiteInfoWhereUniqueInput!): SiteInfo
+  siteInfoes(where: SiteInfoWhereInput): [SiteInfo]
+  section(where: SectionWhereUniqueInput!): Section
+  sections(where: SectionWhereInput): [Section]
+  hours(where: HoursWhereUniqueInput!): Hours
+  hourses(where: HoursWhereInput): [Hours]
 }
 
 type Mutation {
@@ -21,6 +27,11 @@ type Mutation {
   createProduct(data: ProductCreateInput!): Product!
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
   deleteProduct(where: ProductWhereUniqueInput!): Product
+  updateSiteInfo(data: SiteInfoUpdateInput!, where: SiteInfoWhereUniqueInput!): SiteInfo
+  updateSection(data: SectionUpdateInput!, where: SectionWhereUniqueInput!): Section
+  createHours(data: HoursCreateInput!): Hours!
+  updateHours(where: HoursWhereUniqueInput!, data: HoursUpdateInput!): Hours
+  deleteHours(where: HoursWhereUniqueInput!): Hours
 }
 
 type AuthPayload {
