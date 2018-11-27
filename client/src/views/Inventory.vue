@@ -1,13 +1,13 @@
 <template>
  <div>
    <PageHeader> Inventory </PageHeader>
-   <div class="container mx-auto mt-10 px-4 flex flex-row justify-end">
-     <Button @click.native="routeToAdd">Add Item</Button>
-   </div>
+   <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
 
-
-
-   <div class="container mx-auto my-5 md:my-7 px-4 flex flex-col md:flex-row">
+   <div v-else>
+    <div class="container mx-auto mt-10 px-4 flex flex-row justify-end">
+      <Button @click.native="routeToAdd">Add Item</Button>
+    </div>     
+    <div class="container mx-auto my-5 md:my-7 px-4 flex flex-col md:flex-row">
 
      <div class="md:w-1/5 mb-4 md:mb-0">
        <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
@@ -51,6 +51,8 @@
 
      </div>
    </div>
+   </div>
+
  </div>
 </template>
 
@@ -94,10 +96,11 @@ import gql from "graphql-tag";
 import format from 'date-fns/format';
 import PageHeader from "@/components/PageHeader.vue";
 import Button from "@/components/Button.vue";
+import Loader from "@/components/Loader.vue";
 import PRODUCTS from "@/graphql/Products.gql";
 import CATEGORIES from "@/graphql/Categories.gql";
 export default Vue.extend({
- components: { PageHeader, Button },
+ components: { PageHeader, Button, Loader },
  data() {
    return {
      products: [],

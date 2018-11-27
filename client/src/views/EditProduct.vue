@@ -1,7 +1,8 @@
 <template>
  <div>
    <PageHeader> Item </PageHeader>
-   <div class="w-4/5 mt-10 mx-auto py-8 px-6" v-if="!$apollo.loading">
+   <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
+   <div class="w-4/5 mt-10 mx-auto py-8 px-6" v-else>
 
      <EditProductForm :formDefault="this.product" :submitFunction="updateProduct" v-if="product"></EditProductForm>
      <EditProductForm :formDefault="this.productEmpty" :submitFunction="createProduct" v-else></EditProductForm>  
@@ -19,11 +20,12 @@ import Vue from "vue";
 import PageHeader from "@/components/PageHeader.vue";
 import Button from "@/components/Button.vue";
 import EditProductForm from "@/components/EditProductForm.vue";
+import Loader from "@/components/Loader.vue";
 import PRODUCTS from "@/graphql/Products.gql";
 import PRODUCT from "@/graphql/Product.gql";
 
 export default Vue.extend({
- components: { PageHeader, Button, EditProductForm },
+ components: { PageHeader, Button, EditProductForm, Loader },
  data() {
    return {
      product: null,
