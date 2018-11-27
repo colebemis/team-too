@@ -1,7 +1,99 @@
 <template>
-  <div><h1>Login</h1></div>
+  <div>
+    <PageHeader>Login</PageHeader>
+    <div class="max-w-xs mx-auto mt-16 mb-24">
+      <div
+        v-if="error"
+        id="error"
+        class="p-4 text-red-darker leading-normal bg-red-lightest mb-8"
+      >
+        {{ error.message }}
+      </div>
+      <form @submit="logIn">
+        <div class="mb-8">
+          <label for="email" class="inline-block font-semibold mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            v-model="email"
+            placeholder="bill@example.com"
+            class="w-full p-3 border border-grey"
+            required
+          />
+        </div>
+        <div>
+          <label for="password" class="inline-block font-semibold mb-2">
+            Password
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            v-model="password"
+            placeholder="•••••"
+            class="w-full p-3 border border-grey"
+            required
+          />
+        </div>
+        <div class="flex flex-col items-stretch mt-12">
+          <Button>Log in</Button>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {};
+import Vue from "vue";
+import gql from "graphql-tag";
+import PageHeader from "@/components/PageHeader.vue";
+import Button from "@/components/Button.vue";
+import { onLogin } from "../vue-apollo";
+
+export default Vue.extend({
+  components: { PageHeader, Button },
+  data() {
+    return {
+      error: null,
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    logIn(event) {
+      event.preventDefault();
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation logIn($email: String!, $password: String!) {
+              logIn(email: $email, password: $password) {
+                token
+                user {
+                  name
+                  email
+                  isAdmin
+                }
+              }
+            }
+          `,
+          variables: {
+            email: this.email,
+            password: this.password,
+          },
+        })
+        .then(data => {
+          // Save user data in localStorage
+          localStorage.setItem("user", JSON.stringify(data.data.logIn.user));
+          // Apollo will save the token and use it to authorize all future requests
+          onLogin(this.$apollo.provider.defaultClient, data.data.logIn.token);
+          // Redirect to homepage
+          this.$router.push("/");
+        })
+        .catch(error => (this.error = error));
+    },
+  },
+});
 </script>
