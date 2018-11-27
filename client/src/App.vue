@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="font-sans">
+  <div id="app" class="font-sans flex flex-col min-h-screen">
     <SiteHeader />
-    <router-view />
+    <div class="flex-grow"><router-view /></div>
     <Footer />
   </div>
 </template>

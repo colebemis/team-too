@@ -57,9 +57,9 @@
             </div>
 
             <div class="w-1/2 h-12">
-              <button @click.native="addToCart(product.stock);">
+              <Button @click.native="addToCart(product.stock);">
                 Add to cart
-              </button>
+              </Button>
             </div>
           </div>
 
