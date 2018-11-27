@@ -1,7 +1,9 @@
 <template>
   <div>
     <PageHeader>Shop</PageHeader>
+    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
     <div
+      v-else
       class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row"
     >
       <div class="md:w-1/5 mb-4 md:mb-0">
@@ -66,9 +68,10 @@ import Vue from "vue";
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import Footer from "@/components/Footer.vue";
+import Loader from "@/components/Loader.vue";
 
 export default Vue.extend({
-  components: { PageHeader, Footer },
+  components: { PageHeader, Footer, Loader },
   data() {
     return {
       products: [],
