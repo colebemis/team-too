@@ -73,12 +73,10 @@
   },
   "lint-staged": {
     "*.ts": [
-      "prettier --write",
       "vue-cli-service lint",
       "git add"
     ],
     "*.vue": [
-      "prettier --write",
       "vue-cli-service lint",
       "git add"
     ]
