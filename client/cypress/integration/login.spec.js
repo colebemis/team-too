@@ -25,4 +25,13 @@ context('Login', () => {
       expect(localStorage.getItem('apollo-token')).to.exist
     })
   })
+
+
+  it("redirects to homepage after successful login", () => {
+    cy.get("#email").type("bill@example.com").should('have.value', "bill@example.com")
+    cy.get("#password").type("password").should('have.value', "password")
+    cy.get("[data-test-id=login-button]").click()
+    cy.wait(2000) // There must be a less brittle way to do this
+    cy.location("pathname").should("eq", "/")
+  })
 })
