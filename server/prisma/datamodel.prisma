@@ -75,3 +75,27 @@ type CreditCard {
   expDate: DateTime!
   cvv: String!
 }
+
+type SiteInfo {
+  id: ID! @unique
+  address: Address!
+  hours: [Hours!]!
+  phone: String!
+  email: String!
+  about: Section! @relation(name: "AboutSection")
+  services: Section! @relation(name: "ServicesSection")
+}
+
+type Section {
+  id: ID! @unique
+  title: String!
+  content: String!
+}
+
+type Hours {
+  id: ID! @unique
+  index: Int!
+  day: String!
+  open: String!
+  close: String!
+}
