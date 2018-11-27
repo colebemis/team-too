@@ -82,8 +82,8 @@ type SiteInfo {
   hours: [Hours!]!
   phone: String!
   email: String!
-  about: Section! @relation(name: "AboutSection")
-  services: Section! @relation(name: "ServicesSection")
+  about: Section! @relation(name: "AboutSection", onDelete: CASCADE)
+  services: Section! @relation(name: "ServicesSection", onDelete: CASCADE)
 }
 
 type Section {
