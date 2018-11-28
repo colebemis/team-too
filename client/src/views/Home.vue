@@ -38,24 +38,7 @@
         </p>
       </div>
     </div>
-
-<<<<<<< HEAD
-    <div class="flex relative h-80 mb-1">
-      <div class="flex w-2/3 container flex-none items-center justify-center relative mr-1 overflow-hidden">
-        <img 
-          class="max-w-4xl w-auto h-auto bg-center bg-cover"
-          alt="About photo1"
-          src="https://images.unsplash.com/photo-1496147539180-13929f8aa03a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2428df044d72f0be9086d83b8c90f0b6&dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb"
-        />
-        <p class="absolute lg:text-lg text-sm text-center leading-normal font-semibold lg:px-24 px-16">
-          We offer various services for your convenience:<br>
-          <ul class="list-reset">
-            <li>Check tire pressure</li>
-            <li>Check tire wear and tear</li>
-            <li>Clean the frame</li>
-            <li>Check bearing system</li>
-          </ul>
-=======
+    
     <div class="flex h-80 mb-1 overflow-hidden">
       <div
         class="flex w-2/3 flex-none items-center justify-center mr-1 lg:px-24 px-16 bg-cover"
@@ -65,11 +48,12 @@
           class=" lg:text-lg text-sm text-center leading-normal font-semibold"
         >
           We offer various services for your convenience:<br />
-          Check tire pressure<br />
-          Check tire wear and tear<br />
-          Clean the frame<br />
-          Check bearing system
->>>>>>> 5e73d44d89ce98084b9eafbc7bd689537e732a29
+          <ul class="list-reset">
+            <li>Check tire pressure</li>
+            <li>Check tire wear and tear</li>
+            <li>Clean the frame</li>
+            <li>Check bearing system</li>
+          </ul>
         </p>
       </div>
       <div
