@@ -57,7 +57,7 @@
           <div class="w-1/3 h-12">
             <div :id="product.id" class="inline-flex mt-2">
               <button
-                @click="incrementQuantity(product.id);"
+                @click="incrementQuantity(product.id, product.stock);"
                 :id="product.stock"
                 class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l"
               >
@@ -201,6 +201,7 @@ hr {
 import Vue from "vue";
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
+import { Int } from "../../../server/src/generated";
 
 export default Vue.extend({
   components: { PageHeader },
@@ -245,42 +246,37 @@ export default Vue.extend({
       this.cart = {};
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
-    incrementQuantity(productId: string) {
+
+    incrementQuantity(productID: string, productStock: Int) {
       // Modify the local instance of the cart to update the front-end values
-      // if (
-      //   this.cart[event.currentTarget.parentNode.id] + 1 >
-      //   event.currentTarget.id
-      // ) {
-      //   // out of stock
-      // } else {
-      this.cart[productId] += 1;
+      if (this.cart[productID] + 1 > productStock) {
+        // out of stock
+      } else {
+        this.cart[productID] += 1;
+      }
 
       // Update the actual cart in local storage
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
 
-    decrementQuantity(productId: string) {
+    decrementQuantity(productID: string) {
       // Modify the local instance of the cart to update the front-end values
       let remove = true;
 
-      if (this.cart[productId] === 1) {
+      if (this.cart[productID] === 1) {
         remove = window.confirm(
           "Are you sure you want to remove this item from your cart?",
         );
-      }
+      
+          if (remove) {
+            delete this.cart[productID];
+          }
 
-      if (remove) {
-        this.cart[productId] -= 1;
-      }
-
-      if (this.cart[productId] <= 0) {
-        delete this.cart[productId];
-        localStorage.setItem("cart", JSON.stringify(this.cart));
       } else {
-        localStorage.setItem("cart", JSON.stringify(this.cart));
+          this.cart[productID] -= 1;
       }
 
-      // Update the actual cart in local storage
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
 
     removeItem(productId: string) {
