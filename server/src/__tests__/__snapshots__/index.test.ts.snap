@@ -1,74 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SiteInfo query 1`] = `
-Object {
-  "data": Object {
-    "siteInfo": Object {
-      "about": Object {
-        "content": "Hello World",
-        "id": "test-id",
-        "title": "Hello World",
-      },
-      "address": Object {
-        "city": "Hello World",
-        "id": "test-id",
-        "line1": "Hello World",
-        "line2": "Hello World",
-        "state": "Hello World",
-        "zip": "Hello World",
-      },
-      "email": "Hello World",
-      "hours": Array [
-        Object {
-          "close": "Hello World",
-          "day": "Hello World",
-          "id": "test-id",
-          "index": 6,
-          "open": "Hello World",
-        },
-        Object {
-          "close": "Hello World",
-          "day": "Hello World",
-          "id": "test-id",
-          "index": 6,
-          "open": "Hello World",
-        },
-      ],
-      "id": "test-id",
-      "phone": "Hello World",
-      "services": Object {
-        "content": "Hello World",
-        "id": "test-id",
-        "title": "Hello World",
-      },
-    },
-  },
-}
-`;
-
-exports[`hourses query 1`] = `
-Object {
-  "data": Object {
-    "hourses": Array [
-      Object {
-        "close": "Hello World",
-        "day": "Hello World",
-        "id": "test-id",
-        "index": 6,
-        "open": "Hello World",
-      },
-      Object {
-        "close": "Hello World",
-        "day": "Hello World",
-        "id": "test-id",
-        "index": 6,
-        "open": "Hello World",
-      },
-    ],
-  },
-}
-`;
-
 exports[`order query 1`] = `
 Object {
   "data": Object {
@@ -182,21 +113,48 @@ Object {
 }
 `;
 
-exports[`sections query 1`] = `
+exports[`siteInfo query 1`] = `
 Object {
   "data": Object {
-    "sections": Array [
-      Object {
+    "siteInfo": Object {
+      "about": Object {
         "content": "Hello World",
         "id": "test-id",
         "title": "Hello World",
       },
-      Object {
+      "address": Object {
+        "city": "Hello World",
+        "id": "test-id",
+        "line1": "Hello World",
+        "line2": "Hello World",
+        "state": "Hello World",
+        "zip": "Hello World",
+      },
+      "email": "Hello World",
+      "hours": Array [
+        Object {
+          "close": "Hello World",
+          "day": "Hello World",
+          "id": "test-id",
+          "index": 6,
+          "open": "Hello World",
+        },
+        Object {
+          "close": "Hello World",
+          "day": "Hello World",
+          "id": "test-id",
+          "index": 6,
+          "open": "Hello World",
+        },
+      ],
+      "id": "test-id",
+      "phone": "Hello World",
+      "services": Object {
         "content": "Hello World",
         "id": "test-id",
         "title": "Hello World",
       },
-    ],
+    },
   },
 }
 `;

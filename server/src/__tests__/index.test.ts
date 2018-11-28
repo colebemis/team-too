@@ -113,11 +113,10 @@ test("order query", async () => {
   expect(result).toMatchSnapshot();
 });
 
-test("SiteInfo query", async () => {
+test("siteInfo query", async () => {
   const query = `
-    query SiteInfo {
-      siteInfo(where: {id : "cjp08eyiw43x70a07b4sb3eh1"})
-      {
+    query siteInfo {
+      siteInfo {
         id
         phone
         email
@@ -146,41 +145,6 @@ test("SiteInfo query", async () => {
           title
           content
         }
-      }
-    }
-  `;
-
-  const result = await graphql(schema, query);
-
-  expect(result).toMatchSnapshot();
-});
-
-test("hourses query", async () => {
-  const query = `
-    query  {
-      hourses {
-        id
-        index
-        day
-        open
-        close
-
-      }
-    }
-  `;
-
-  const result = await graphql(schema, query);
-
-  expect(result).toMatchSnapshot();
-});
-
-test("sections query", async () => {
-  const query = `
-    query  {
-      sections {
-        id
-        title
-        content
       }
     }
   `;
