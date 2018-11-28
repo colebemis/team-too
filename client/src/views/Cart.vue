@@ -5,7 +5,7 @@
     <div v-else>
 
     <PageHeader v-if="this.products.length > 0"> YOUR SHOPPING CART </PageHeader>
-    <PageHeader v-else> YOUR SHOPPING CART IS EMPTY! </PageHeader>
+    <PageHeader v-else> YOUR SHOPPING CART IS EMPTY </PageHeader>
 
     <!-- <div class="container mx-auto mb-10" v-if="subtotal > 0"> -->
     <div v-if="this.products.length > 0" class="container mx-auto mb-10">
@@ -131,6 +131,7 @@
         <div
           class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
         >
+          
           <!--
           <button
             v-on:click="clearCart"
@@ -139,6 +140,7 @@
             Clear Cart
           </button>
           -->
+        
         </div>
         <div
           class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
@@ -271,7 +273,7 @@ export default Vue.extend({
 
     decrementQuantity(productID: string) {
       // Modify the local instance of the cart to update the front-end values
-      let remove = true;
+      let remove = false;
 
       if (this.cart[productID] === 1) {
         remove = window.confirm(
@@ -280,6 +282,11 @@ export default Vue.extend({
       
           if (remove) {
             delete this.cart[productID];
+
+            const index = this.products.findIndex(p => (p.id === productID));
+            this.products.splice(index, 1);
+
+            localStorage.setItem("cart", JSON.stringify(this.cart));
           }
 
       } else {
@@ -289,15 +296,15 @@ export default Vue.extend({
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
 
-    removeItem(productId: string) {
+    removeItem(productID: string) {
       const remove = window.confirm(
         "Are you sure you want to remove this item from your cart?",
       );
 
       if (remove) {
-        delete this.cart[productId];
+        delete this.cart[productID];
 
-        const index = this.products.findIndex(p => (p.id === productId));
+        const index = this.products.findIndex(p => (p.id === productID));
         this.products.splice(index, 1);
 
         localStorage.setItem("cart", JSON.stringify(this.cart));
