@@ -23,6 +23,7 @@
               Email
             </label>
             <input
+              :disabled="loading"
               id="email"
               name="email"
               type="email"
@@ -37,6 +38,7 @@
               Password
             </label>
             <input
+              :disabled="loading"
               id="password"
               name="password"
               type="password"
@@ -47,7 +49,10 @@
             />
           </div>
           <div class="flex flex-col items-stretch mt-12">
-            <Button data-test-id="login-button">Log in</Button>
+            <Button data-test-id="login-button" :disabled="loading">
+              <span v-if="loading">Loading...</span>
+              <span v-else>Log in</span>
+            </Button>
           </div>
         </form>
       </div>
@@ -60,7 +65,7 @@ import Vue from "vue";
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import Button from "@/components/Button.vue";
-import { logIn, isLoggedIn } from "@/auth.ts";
+import { logIn, isLoggedIn } from "../auth";
 
 export default Vue.extend({
   components: { PageHeader, Button },
@@ -70,6 +75,7 @@ export default Vue.extend({
       email: "",
       password: "",
       isLoggedIn: false,
+      loading: false,
     };
   },
   mounted() {
@@ -77,6 +83,7 @@ export default Vue.extend({
   },
   methods: {
     logIn(event) {
+      this.loading = true;
       event.preventDefault();
       this.$apollo
         .mutate({
@@ -108,7 +115,10 @@ export default Vue.extend({
           // We use window.location instead of $router.push to trigger a page refresh
           // so any components that use localStorage get updated
         })
-        .catch(error => (this.error = error));
+        .catch(error => {
+          this.loading= false;
+          this.error = error;
+        });
     },
   },
 });
