@@ -1,10 +1,14 @@
 <template>
   <div class="about mt-10 mb-20">
-    <PageHeader v-if="subtotal > 0"> YOUR SHOPPING CART </PageHeader>
+    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
+
+    <div v-else>
+
+    <PageHeader v-if="this.products.length > 0"> YOUR SHOPPING CART </PageHeader>
     <PageHeader v-else> YOUR SHOPPING CART IS EMPTY! </PageHeader>
 
     <!-- <div class="container mx-auto mb-10" v-if="subtotal > 0"> -->
-    <div class="container mx-auto mb-10">
+    <div v-if="this.products.length > 0" class="container mx-auto mb-10">
       <div
         class="gridHeader bg-grey-darkest text-white border border-solid border-grey-dark"
       >
@@ -127,12 +131,14 @@
         <div
           class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
         >
+          <!--
           <button
             v-on:click="clearCart"
             class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 mb-7 rounded-r"
           >
             Clear Cart
           </button>
+          -->
         </div>
         <div
           class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
@@ -147,11 +153,13 @@
       </div>
     </div>
 
-    <!--
-      <div class="container mx-auto mt-5 mb-10 text-center" v-else>
-        Check out the shop to add items to your cart!
-      </div>
-    -->
+    
+    <div v-else class="container mx-auto mt-5 mb-10 text-center">
+      Check out the shop to add items to your cart!
+    </div>
+
+    </div>
+    
   </div>
 </template>
 
@@ -201,10 +209,12 @@ hr {
 import Vue from "vue";
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
+import Footer from "@/components/Footer.vue";
+import Loader from "@/components/Loader.vue";
 import { Int } from "../../../server/src/generated";
 
 export default Vue.extend({
-  components: { PageHeader },
+  components: { PageHeader, Footer, Loader },
   data() {
     return {
       cart: JSON.parse(localStorage.getItem("cart") || "{}"),
@@ -285,8 +295,11 @@ export default Vue.extend({
       );
 
       if (remove) {
-        this.cart[productId] = 0;
         delete this.cart[productId];
+
+        const index = this.products.findIndex(p => (p.id === productId));
+        this.products.splice(index, 1);
+
         localStorage.setItem("cart", JSON.stringify(this.cart));
       }
     },
