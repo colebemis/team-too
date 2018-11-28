@@ -117,23 +117,23 @@ const resolvers = {
       return context.db.deleteProduct(args.where);
     },
     updateSiteInfo: (root, args, context: Context, info) => {
-      // TODO: verifyRequest(context);
+      verifyRequest(context);
       return context.db.updateSiteInfo(args);
     },
     updateSection: (root, args, context: Context, info) => {
-      // TODO: verifyRequest(context);
+      verifyRequest(context);
       return context.db.updateSection(args);
     },
     createHours: async (root, args, context: Context, info) => {
-      // TODO: verifyRequest(context);
+      verifyRequest(context);
       return await context.db.createHours(args.data);
     },
     updateHours: (root, args, context: Context, info) => {
-      // TODO: verifyRequest(context);
+      verifyRequest(context);
       return context.db.updateHours(args);
     },
     deleteHours: (root, args, context: Context, info) => {
-      // TODO: verifyRequest(context);
+      verifyRequest(context);
       return context.db.deleteHours(args.where);
     },
   },
