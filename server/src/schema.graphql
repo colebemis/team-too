@@ -22,11 +22,7 @@ type Mutation {
   createProduct(data: ProductCreateInput!): Product!
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
   deleteProduct(where: ProductWhereUniqueInput!): Product
-  updateSiteInfo(data: SiteInfoUpdateInput!, where: SiteInfoWhereUniqueInput!): SiteInfo
-  updateSection(data: SectionUpdateInput!, where: SectionWhereUniqueInput!): Section
-  createHours(data: HoursCreateInput!): Hours!
-  updateHours(where: HoursWhereUniqueInput!, data: HoursUpdateInput!): Hours
-  deleteHours(where: HoursWhereUniqueInput!): Hours
+  updateSiteInfo(data: SiteInfoUpdateInput!): SiteInfo
 }
 
 type AuthPayload {

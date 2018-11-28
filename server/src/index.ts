@@ -39,8 +39,9 @@ const resolvers = {
       return context.db.orders(args);
     },
     siteInfo: async (root, args, context: Context, info) => {
-      const siteInfoes = await context.db.siteInfoes();
-      return await siteInfoes[0]; // There will only ever be 1 SiteInfo object in the DB
+      // There will only ever be one SiteInfo object in the DB
+      const [siteInfo] = await context.db.siteInfoes();
+      return await siteInfo;
     },
   },
   Mutation: {
@@ -102,25 +103,10 @@ const resolvers = {
       verifyRequest(context);
       return context.db.deleteProduct(args.where);
     },
-    updateSiteInfo: (root, args, context: Context, info) => {
+    updateSiteInfo: async (root, args, context: Context, info) => {
       verifyRequest(context);
-      return context.db.updateSiteInfo(args);
-    },
-    updateSection: (root, args, context: Context, info) => {
-      verifyRequest(context);
-      return context.db.updateSection(args);
-    },
-    createHours: async (root, args, context: Context, info) => {
-      verifyRequest(context);
-      return await context.db.createHours(args.data);
-    },
-    updateHours: (root, args, context: Context, info) => {
-      verifyRequest(context);
-      return context.db.updateHours(args);
-    },
-    deleteHours: (root, args, context: Context, info) => {
-      verifyRequest(context);
-      return context.db.deleteHours(args.where);
+      const [siteInfo] =  await context.db.siteInfoes();
+      return context.db.updateSiteInfo({where: {id: siteInfo.id}, data: args.data});
     },
   },
   Order: {
