@@ -19,7 +19,7 @@
         style="background-image: url(http://wallpaperhd.online/upload/images/1527038205118/nature-forest-wallpaper-hd-night-forest-images-night-forest-wallpaper-light-cloud-1280x800.jpg)"
       >
         <h1
-          class="lg:text-6xl sm:text-3xl text-lg font-medium text-center uppercase"
+          class="lg:text-6xl sm:text-3xl text-lg font-normal text-center uppercase"
         >
           About
         </h1>
@@ -61,7 +61,7 @@
         style="background-image: url(https://images.triumphmotorcycles.co.uk/media-library/images/bikes/mountain%20bike/1920x1080-mountain-bike-background.jpg)"
       >
         <h1
-          class="lg:text-6xl sm:text-3xl text-lg font-medium text-center uppercase"
+          class="lg:text-6xl sm:text-3xl text-lg font-normal text-center uppercase"
         >
           Services
         </h1>
