@@ -113,3 +113,79 @@ test("order query", async () => {
   expect(result).toMatchSnapshot();
 });
 
+test("SiteInfo query", async () => {
+  const query = `
+    query SiteInfo {
+      siteInfo(where: {id : "cjp08eyiw43x70a07b4sb3eh1"})
+      {
+        id
+        phone
+        email
+        address {
+          id
+          line1
+          line2
+          city
+          state
+          zip
+        }
+        hours {
+          id
+          index
+          day
+          open
+          close
+        }
+        about {
+          id
+          title
+          content
+        }
+        services {
+          id
+          title
+          content
+        }
+      }
+    }
+  `;
+
+  const result = await graphql(schema, query);
+
+  expect(result).toMatchSnapshot();
+});
+
+test("hourses query", async () => {
+  const query = `
+    query  {
+      hourses {
+        id
+        index
+        day
+        open
+        close
+
+      }
+    }
+  `;
+
+  const result = await graphql(schema, query);
+
+  expect(result).toMatchSnapshot();
+});
+
+test("sections query", async () => {
+  const query = `
+    query  {
+      sections {
+        id
+        title
+        content
+      }
+    }
+  `;
+
+  const result = await graphql(schema, query);
+
+  expect(result).toMatchSnapshot();
+});
