@@ -6,8 +6,9 @@
 
 <script lang="ts">
 import gql from "graphql-tag";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   data() {
     return {
       order: null,
@@ -27,5 +28,5 @@ export default {
       };
     },
   },
-};
+});
 </script>

@@ -9,10 +9,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import gql from "graphql-tag";
 
-export default {
+export default Vue.extend({
   data() {
     return {
       products: [],
@@ -32,5 +33,5 @@ export default {
       }
     `,
   },
-};
+});
 </script>
