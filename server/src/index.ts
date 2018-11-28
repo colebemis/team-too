@@ -38,23 +38,9 @@ const resolvers = {
       verifyRequest(context);
       return context.db.orders(args);
     },
-    siteInfo: (root, args, context: Context, info) => {
-      return context.db.siteInfo(args.where);
-    },
-    siteInfoes: (root, args, context: Context, info) => {
-      return context.db.siteInfoes(args);
-    },
-    section: (root, args, context: Context, info) => {
-      return context.db.section(args.where);
-    },
-    sections: (root, args, context: Context, info) => {
-      return context.db.sections(args);
-    },
-    hours: (root, args, context: Context, info) => {
-      return context.db.hours(args.where);
-    },
-    hourses: (root, args, context: Context, info) => {
-      return context.db.hourses(args);
+    siteInfo: async (root, args, context: Context, info) => {
+      const siteInfoes = await context.db.siteInfoes();
+      return await siteInfoes[0]; // There will only ever be 1 SiteInfo object in the DB
     },
   },
   Mutation: {

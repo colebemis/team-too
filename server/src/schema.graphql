@@ -8,12 +8,7 @@ type Query {
   products(where: ProductWhereInput): [Product]
   order(where: OrderWhereUniqueInput!): Order
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
-  siteInfo(where: SiteInfoWhereUniqueInput!): SiteInfo
-  siteInfoes(where: SiteInfoWhereInput): [SiteInfo]
-  section(where: SectionWhereUniqueInput!): Section
-  sections(where: SectionWhereInput): [Section]
-  hours(where: HoursWhereUniqueInput!): Hours
-  hourses(where: HoursWhereInput): [Hours]
+  siteInfo: SiteInfo
 }
 
 type Mutation {
