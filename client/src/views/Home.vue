@@ -7,7 +7,7 @@
         src="http://www.acyclists.com/wp-content/uploads/2017/10/ONeill-0022-6M3A9750-Edit-DUP1.jpg"
       />
       <h1
-        class="py-32 mx-16 text-left lg:text-7xl md:text-5xl text-3xl font-semibold uppercase absolute pin-x pin-t"
+        class="py-32 mx-16 text-right lg:text-7xl md:text-5xl text-3xl font-normal uppercase absolute pin-x pin-t"
       >
         Find your ride.
       </h1>
@@ -19,7 +19,7 @@
         style="background-image: url(http://wallpaperhd.online/upload/images/1527038205118/nature-forest-wallpaper-hd-night-forest-images-night-forest-wallpaper-light-cloud-1280x800.jpg)"
       >
         <h1
-          class="lg:text-6xl sm:text-3xl text-lg font-semibold text-center uppercase"
+          class="lg:text-6xl sm:text-3xl text-lg font-normal text-center uppercase"
         >
           About
         </h1>
@@ -38,7 +38,7 @@
         </p>
       </div>
     </div>
-    
+
     <div class="flex h-80 mb-1 overflow-hidden">
       <div
         class="flex w-2/3 flex-none items-center justify-center mr-1 lg:px-24 px-16 bg-cover"
@@ -61,7 +61,7 @@
         style="background-image: url(https://images.triumphmotorcycles.co.uk/media-library/images/bikes/mountain%20bike/1920x1080-mountain-bike-background.jpg)"
       >
         <h1
-          class="lg:text-6xl sm:text-3xl text-lg font-semibold text-center uppercase"
+          class="lg:text-6xl sm:text-3xl text-lg font-normal text-center uppercase"
         >
           Services
         </h1>
