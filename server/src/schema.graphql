@@ -1,4 +1,4 @@
-# import User, UserWhereInput, UserWhereUniqueInput, UserUpdateInput, UserCreateInput, Product, ProductWhereInput, ProductWhereUniqueInput, ProductCreateInput, ProductUpdateInput, Order, OrderWhereInput, OrderWhereUniqueInput, OrderOrderByInput, OrderCreateInput, OrderUpdateInput from "./generated/prisma.graphql"
+# import * from "./generated/prisma.graphql"
 
 type Query {
   user(where: UserWhereUniqueInput!): User
