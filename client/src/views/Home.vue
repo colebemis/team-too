@@ -7,7 +7,7 @@
         src="http://www.acyclists.com/wp-content/uploads/2017/10/ONeill-0022-6M3A9750-Edit-DUP1.jpg"
       />
       <h1
-        class="py-32 mx-16 text-left lg:text-7xl md:text-5xl text-3xl font-normal uppercase absolute pin-x pin-t"
+        class="py-32 mx-16 text-right lg:text-7xl md:text-5xl text-3xl font-normal uppercase absolute pin-x pin-t"
       >
         Find your ride.
       </h1>
