@@ -79,6 +79,19 @@
            required
         />
        </div>
+        <div class="mb-3">
+         <label
+           for="title"
+           class="block mb-3 md:inline-block md:mr-5 md:w-2/5 md:text-right font-semibold text-xl"
+           >Categories</label
+         >
+         <input
+           type="text"
+           v-model="formDefault.imageURL"
+           class="border border-black p-2"
+           required
+        />
+       </div>
        <div class="mx-auto flex flex-row justify-center mt-10 md:mt-5">
          <Button class="mr-2" type="submit">Save Item</Button>
 
@@ -87,16 +100,17 @@
      </form>
 </template>
 
-<script>
+<script lang="ts">
 import Button from "@/components/Button.vue";
-export default {
+import Vue from "vue";
+export default Vue.extend({
  components: { Button },
  props: { formDefault: Object, submitFunction: Function },
  methods: {
    toInventory() {
      this.$router.push("/admin/inventory");
    }
- }
+ },
 
-}
+});
 </script>
