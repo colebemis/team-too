@@ -8,6 +8,7 @@
         <div
           v-for="(user, index) in users"
           :key="user.id"
+          :id="user.email"
           :class="[
             index !== users.length - 1 && 'border-b',
             'py-6 flex justify-between items-center',
@@ -30,6 +31,7 @@
             />
             <label :for="`is-admin-${user.id}`" class="ml-2 mr-6">Admin</label>
             <button
+              data-test-id="delete"
               @click="deleteUser(user.id);"
               class="px-3 py-2 text-sm bg-grey-light hover:bg-red hover:text-white"
             >
@@ -178,29 +180,38 @@ export default Vue.extend({
       });
     },
     createUser() {
-      this.$apollo.mutate({
-        mutation: gql`
-          mutation ($data: UserCreateInput!) {
-            createUser(data: $data) {
-              user {
-                id
-                name
-                email
-                isAdmin
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation ($data: UserCreateInput!) {
+              createUser(data: $data) {
+                user {
+                  id
+                  name
+                  email
+                  isAdmin
+                }
               }
             }
-          }
-        `,
-        variables: { data: this.newUser },
-        update: (store, { data: { createUser } }) => {
-          // Read the data from our cache for this query.
-          const data = store.readQuery({ query: USERS });
-          // Adds the user to the cache.
-          data.users.push(createUser.user);
-          // Writes the updated query to the cache.
-          store.writeQuery({ query: USERS, data });
-        },
-      });
+          `,
+          variables: { data: this.newUser },
+          update: (store, { data: { createUser } }) => {
+            // Read the data from our cache for this query.
+            const data = store.readQuery({ query: USERS });
+            // Adds the user to the cache.
+            data.users.push(createUser.user);
+            // Writes the updated query to the cache.
+            store.writeQuery({ query: USERS, data });
+          },
+        })
+        .then(() => {
+          this.newUser = {
+            name: "",
+            email: "",
+            password: "",
+            isAdmin: false,
+          };
+        });
     }
   },
 });
