@@ -277,7 +277,7 @@ export default Vue.extend({
         if (remove) {
           delete this.cart[productID];
 
-          const index = this.products.findIndex(p => (p.id === productID));
+          const index = this.products.findIndex((p: { id: string }) => (p.id === productID));
           this.products.splice(index, 1);
 
           localStorage.setItem("cart", JSON.stringify(this.cart));
@@ -298,7 +298,7 @@ export default Vue.extend({
       if (remove) {
         delete this.cart[productID];
 
-        const index = this.products.findIndex(p => (p.id === productID));
+        const index = this.products.findIndex((p: { id: string }) => (p.id === productID));
         this.products.splice(index, 1);
 
         localStorage.setItem("cart", JSON.stringify(this.cart));
