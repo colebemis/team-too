@@ -72,6 +72,7 @@ export default Vue.extend({
               logIn(email: $email, password: $password) {
                 token
                 user {
+                  id
                   name
                   email
                   isAdmin
