@@ -1,5 +1,9 @@
 <template>
-  <div v-if="user" class="bg-black text-sm text-grey-light font-medium p-3 flex">
+  <div
+    v-if="user"
+    data-test-id="admin-header"
+    class="bg-black text-sm text-grey-light font-medium p-3 flex"
+  >
     <span>Welcome, {{user.name}}</span>
     <div class="mx-auto" />
     <router-link to="/admin/orders" class="text-grey-light ml-5">
@@ -15,7 +19,11 @@
     >
       Accounts
     </router-link>
-    <button @click="logOut" class="text-grey-light ml-5 font-medium">
+    <button
+      data-test-id="log-out"
+      @click="logOut"
+      class="text-grey-light ml-5 font-medium"
+    >
       Log out
     </button>
   </div>
