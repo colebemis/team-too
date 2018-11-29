@@ -1,7 +1,8 @@
 <template>
   <button
+    v-bind="$props"
     class="bg-black hover:bg-grey-darkest text-white font-semibold leading-tight py-3 px-5"
   >
-    <slot></slot>
+    <slot>Button</slot>
   </button>
 </template>
