@@ -5,7 +5,7 @@
 
    <div v-else>
     <div class="container mx-auto mt-10 px-4 flex flex-row justify-end">
-      <Button @click.native="routeToAdd">Add Item</Button>
+      <Button @click.native="routeToAdd" data-test-id="addItem">Add Item</Button>
     </div>     
     <div class="container mx-auto my-5 md:my-7 px-4 flex flex-col md:flex-row">
 
@@ -26,7 +26,7 @@
          </label>
        </div>
      </div>
-     <table class="table-auto md:w-4/5">
+     <table class="table-auto md:w-4/5" id="table">
        <thead class="uppercase bg-grey-light pb-8">
          <th>Item</th>
          <th>Name</th>
@@ -34,10 +34,10 @@
          <th>Updated</th>                   
          <th>Price</th>
        </thead>
-       <tbody>
+       <tbody id="tbody">
          <tr class="text-center hover:bg-grey-lighter leading-loose" v-for="product in filteredProducts" :key="product.id">
              <td>
-               <router-link :to="{ path: `/admin/product/${product.id}` }">
+               <router-link :to="{ path: `/admin/product/${product.id}` }" class="link">
                {{product.id}}
                </router-link>
              </td>
@@ -113,12 +113,12 @@ export default Vue.extend({
    }
  },
  computed: {
-   filteredProducts() {
+   filteredProducts(): any {
      if (this.selectedCategories.length === 0) {
        return this.products;
      }
-     return this.products.filter(product =>
-       product.categories.some(category =>
+     return this.products.filter((product: {categories: any[]}) =>
+       product.categories.some((category: {name: string}) =>
          this.selectedCategories.includes(category.name),
        ),
      );

@@ -65,11 +65,7 @@ import Vue from "vue";
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import Button from "@/components/Button.vue";
-<<<<<<< HEAD
-import { onLogin } from "../vue-apollo";
-=======
 import { logIn, isLoggedIn } from "../auth";
->>>>>>> 1e5b48a1ac2023b48ee3d4dc39b747b02926cc7e
 
 export default Vue.extend({
   components: { PageHeader, Button },
@@ -78,12 +74,6 @@ export default Vue.extend({
       error: null,
       email: "",
       password: "",
-<<<<<<< HEAD
-    };
-  },
-  methods: {
-    logIn(event) {
-=======
       isLoggedIn: false,
       loading: false,
     };
@@ -94,7 +84,6 @@ export default Vue.extend({
   methods: {
     logIn(event) {
       this.loading = true;
->>>>>>> 1e5b48a1ac2023b48ee3d4dc39b747b02926cc7e
       event.preventDefault();
       this.$apollo
         .mutate({
@@ -103,10 +92,7 @@ export default Vue.extend({
               logIn(email: $email, password: $password) {
                 token
                 user {
-<<<<<<< HEAD
-=======
                   id
->>>>>>> 1e5b48a1ac2023b48ee3d4dc39b747b02926cc7e
                   name
                   email
                   isAdmin
@@ -119,17 +105,6 @@ export default Vue.extend({
             password: this.password,
           },
         })
-<<<<<<< HEAD
-        .then(data => {
-          // Save user data in localStorage
-          localStorage.setItem("user", JSON.stringify(data.data.logIn.user));
-          // Apollo will save the token and use it to authorize all future requests
-          onLogin(this.$apollo.provider.defaultClient, data.data.logIn.token);
-          // Redirect to homepage
-          this.$router.push("/");
-        })
-        .catch(error => (this.error = error));
-=======
         .then(({ data }) => {
           logIn(
             data.logIn.token,
@@ -145,7 +120,6 @@ export default Vue.extend({
           this.loading= false;
           this.error = error;
         });
->>>>>>> 1e5b48a1ac2023b48ee3d4dc39b747b02926cc7e
     },
   },
 });

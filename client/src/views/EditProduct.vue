@@ -3,7 +3,6 @@
    <PageHeader> Item </PageHeader>
    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
    <div class="w-4/5 mt-10 mx-auto py-8 px-6" v-else>
-
      <EditProductForm :formDefault="this.product" :submitFunction="updateProduct" v-if="product"></EditProductForm>
      <EditProductForm :formDefault="this.productEmpty" :submitFunction="createProduct" v-else></EditProductForm>  
 
@@ -21,8 +20,8 @@ import PageHeader from "@/components/PageHeader.vue";
 import Button from "@/components/Button.vue";
 import EditProductForm from "@/components/EditProductForm.vue";
 import Loader from "@/components/Loader.vue";
-import PRODUCTS from "@/graphql/Products.gql";
 import PRODUCT from "@/graphql/Product.gql";
+import PRODUCTS from "@/graphql/Products.gql";
 
 export default Vue.extend({
  components: { PageHeader, Button, EditProductForm, Loader },
@@ -35,9 +34,7 @@ export default Vue.extend({
        description: "",
        imageURL: "",
        price: 0
-     },
-     isLoading: true
-    
+     }
    };
  },
  apollo: {
@@ -60,13 +57,14 @@ export default Vue.extend({
          }
        `,
      variables: { id: this.$route.params.id },
-     update: (store, { data: { deleteProduct }}) => {
+     update: (store, { data:{ deleteProduct }}: any) => {
        // Read the data from our cache for this query.
-       const data = store.readQuery({ query: PRODUCTS });
-
+       const data: any = store.readQuery({ query: PRODUCTS });
        // Deletes the product from the cache.
-       const index = data.products.findIndex(product => product.id === deleteProduct.id);
-       data.products.splice(index, 1);
+       if (data) {
+          const index = data.products.findIndex((product: any) => product.id === deleteProduct.id);
+          data.products.splice(index, 1);
+         }
 
       // Writes the updated query to the cache.
        store.writeQuery({ query: PRODUCTS, data});
@@ -102,18 +100,20 @@ export default Vue.extend({
            stock: this.productEmpty.stock,        
        }
      },
-     update: (store, { data: { createProduct } }) => {
+     update: (store, { data: { createProduct } }: any) => {
        // Read the data from our cache for this query.
-       const data = store.readQuery({ query: PRODUCTS });
+       const data: any = store.readQuery({ query: PRODUCTS });
+       if (data) {
+        data.products.push(createProduct);        
+      }
 
-       data.products.push(createProduct);
        // Write our data back to the cache.
        store.writeQuery({ query: PRODUCTS, data });
        }
      });
      this.$router.push({ path: "/admin/inventory" });
    },
-   updateProduct() {
+   updateProduct(): any {
      this.$apollo.mutate({
        // Mutation
        mutation: gql`
@@ -143,16 +143,19 @@ export default Vue.extend({
 
          id: this.product.id
        },
-       update: (store, { data: { updateProduct } }) => {
+       update: (store, { data: { updateProduct } }: any) => {
          // Read the data from our cache for this query.
-         const data = store.readQuery({ query: PRODUCTS });
+         const data: any = store.readQuery({ query: PRODUCTS });
          // console.log(store.readQuery({query: PRODUCTS}));
-         const index = data.products.findIndex(product => product.id === updateProduct.id);
-         data.products[index] = updateProduct;
+         if (data) {
+          const index = data.products.findIndex((product: any) => product.id === updateProduct.id);
+          data.products[index] = updateProduct;
+         }
+
          // Write our data back to the cache.
          store.writeQuery({ query: PRODUCTS, data });
        },
-     });
+     })
      this.$router.push({ path: "/admin/inventory"});
    }
  },
