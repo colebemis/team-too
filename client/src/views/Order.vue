@@ -90,14 +90,16 @@
 <script lang="ts">
 import format from 'date-fns/format';
 import gql from "graphql-tag";
+import Vue from "vue";
 import PageHeader from "@/components/PageHeader.vue";
 import { statuses, statusDisplayNames } from "@/utils";
 import ORDER_UPDATE_STATUS from "../graphql/OrderUpdateStatus.gql";
 import ORDER_INFO from "../graphql/OrderInfo.gql";
 import ORDERS from "../graphql/Orders.gql";
 
-export default {
-  components: { PageHeader },
+export default Vue.extend({
+    components: { PageHeader },
+
   data() {
     return {
       order: null,
@@ -134,30 +136,28 @@ export default {
         
         // Update cache with result
         update: (store, { data: { handleStatusChange } }) => {
-          // Read the data from our cache for this query.
-          const data = store.readQuery({ query: ORDERS })
+          try{
+            // Read the data from our cache for this query.
+            const data = store.readQuery({ query: ORDERS })
+            
+            const index = data.orders.findIndex(order => order.id === handleStatusChange.id);
+            data.orders[index] = handleStatusChange;
           
-          const index = data.orders.findIndex(order => order.id === handleStatusChange.id);
-          data.orders[index] = handleStatusChange;
-         
-          // Write our data back to the cache.
-          store.writeQuery({ query: ORDERS, data })
-          
+            // Write our data back to the cache.
+            store.writeQuery({ query: ORDERS, data })
+            
+          }
+          catch(err){
+            // nothing
+          }
         },
         
-        optimisticResponse: {
-          __typename: "Mutation",
-          updateOrder: {
-            __typename: "Order",
-            id: this.order.id,
-            status: event.target.value,
-          },
-        },
+
       })
       return event.target.value;
     }
   }
-};
+});
 </script>
 
 <style scoped>

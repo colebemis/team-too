@@ -1,0 +1,10 @@
+query product($id: ID!) {
+    product(where: { id: $id }) {
+        id
+        title
+        imageURL
+        description
+        price
+        stock
+    }
+}

@@ -1,0 +1,23 @@
+query SiteInfo {
+  siteInfo {
+    id
+    phone
+    email
+    address {
+      line1
+      line2
+      city
+      state
+      zip
+    }
+    hours {
+      id
+      index
+      day
+      open
+      close
+    }
+    about
+    services
+  }
+}

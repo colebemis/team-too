@@ -113,6 +113,47 @@ Object {
 }
 `;
 
+exports[`siteInfo query 1`] = `
+Object {
+  "data": Object {
+    "siteInfo": Object {
+      "about": "Hello World",
+      "address": Object {
+        "city": "Hello World",
+        "id": "test-id",
+        "line1": "Hello World",
+        "line2": "Hello World",
+        "state": "Hello World",
+        "zip": "Hello World",
+      },
+      "email": "Hello World",
+      "hours": Array [
+        Object {
+          "close": "Hello World",
+          "day": "Hello World",
+          "id": "test-id",
+          "index": 6,
+          "open": "Hello World",
+        },
+        Object {
+          "close": "Hello World",
+          "day": "Hello World",
+          "id": "test-id",
+          "index": 6,
+          "open": "Hello World",
+        },
+      ],
+      "id": "test-id",
+      "phone": "Hello World",
+      "services": Array [
+        "Hello World",
+        "Hello World",
+      ],
+    },
+  },
+}
+`;
+
 exports[`users query 1`] = `
 Object {
   "data": Object {

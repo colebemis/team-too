@@ -100,12 +100,28 @@ input AddressUpdateInput {
   zip: String
 }
 
+input AddressUpdateManyMutationInput {
+  name: String
+  line1: String
+  line2: String
+  city: String
+  state: String
+  zip: String
+}
+
 input AddressUpdateOneInput {
   create: AddressCreateInput
   update: AddressUpdateDataInput
   upsert: AddressUpsertNestedInput
   delete: Boolean
   disconnect: Boolean
+  connect: AddressWhereUniqueInput
+}
+
+input AddressUpdateOneRequiredInput {
+  create: AddressCreateInput
+  update: AddressUpdateDataInput
+  upsert: AddressUpsertNestedInput
   connect: AddressWhereUniqueInput
 }
 
@@ -238,6 +254,10 @@ type AggregateCustomer {
   count: Int!
 }
 
+type AggregateHours {
+  count: Int!
+}
+
 type AggregateOrder {
   count: Int!
 }
@@ -247,6 +267,10 @@ type AggregateOrderProduct {
 }
 
 type AggregateProduct {
+  count: Int!
+}
+
+type AggregateSiteInfo {
   count: Int!
 }
 
@@ -326,6 +350,10 @@ input CategorySubscriptionWhereInput {
 input CategoryUpdateInput {
   name: String
   products: ProductUpdateManyWithoutCategoriesInput
+}
+
+input CategoryUpdateManyMutationInput {
+  name: String
 }
 
 input CategoryUpdateManyWithoutProductsInput {
@@ -475,6 +503,13 @@ input CreditCardUpdateDataInput {
 }
 
 input CreditCardUpdateInput {
+  name: String
+  number: String
+  expDate: DateTime
+  cvv: String
+}
+
+input CreditCardUpdateManyMutationInput {
   name: String
   number: String
   expDate: DateTime
@@ -643,6 +678,11 @@ input CustomerUpdateInput {
   email: String
 }
 
+input CustomerUpdateManyMutationInput {
+  name: String
+  email: String
+}
+
 input CustomerUpdateOneRequiredInput {
   create: CustomerCreateInput
   update: CustomerUpdateDataInput
@@ -709,54 +749,255 @@ input CustomerWhereUniqueInput {
 
 scalar DateTime
 
+type Hours {
+  id: ID!
+  index: Int!
+  day: String!
+  open: String!
+  close: String!
+}
+
+type HoursConnection {
+  pageInfo: PageInfo!
+  edges: [HoursEdge]!
+  aggregate: AggregateHours!
+}
+
+input HoursCreateInput {
+  index: Int!
+  day: String!
+  open: String!
+  close: String!
+}
+
+input HoursCreateManyInput {
+  create: [HoursCreateInput!]
+  connect: [HoursWhereUniqueInput!]
+}
+
+type HoursEdge {
+  node: Hours!
+  cursor: String!
+}
+
+enum HoursOrderByInput {
+  id_ASC
+  id_DESC
+  index_ASC
+  index_DESC
+  day_ASC
+  day_DESC
+  open_ASC
+  open_DESC
+  close_ASC
+  close_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type HoursPreviousValues {
+  id: ID!
+  index: Int!
+  day: String!
+  open: String!
+  close: String!
+}
+
+type HoursSubscriptionPayload {
+  mutation: MutationType!
+  node: Hours
+  updatedFields: [String!]
+  previousValues: HoursPreviousValues
+}
+
+input HoursSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: HoursWhereInput
+  AND: [HoursSubscriptionWhereInput!]
+  OR: [HoursSubscriptionWhereInput!]
+  NOT: [HoursSubscriptionWhereInput!]
+}
+
+input HoursUpdateDataInput {
+  index: Int
+  day: String
+  open: String
+  close: String
+}
+
+input HoursUpdateInput {
+  index: Int
+  day: String
+  open: String
+  close: String
+}
+
+input HoursUpdateManyInput {
+  create: [HoursCreateInput!]
+  update: [HoursUpdateWithWhereUniqueNestedInput!]
+  upsert: [HoursUpsertWithWhereUniqueNestedInput!]
+  delete: [HoursWhereUniqueInput!]
+  connect: [HoursWhereUniqueInput!]
+  disconnect: [HoursWhereUniqueInput!]
+}
+
+input HoursUpdateManyMutationInput {
+  index: Int
+  day: String
+  open: String
+  close: String
+}
+
+input HoursUpdateWithWhereUniqueNestedInput {
+  where: HoursWhereUniqueInput!
+  data: HoursUpdateDataInput!
+}
+
+input HoursUpsertWithWhereUniqueNestedInput {
+  where: HoursWhereUniqueInput!
+  update: HoursUpdateDataInput!
+  create: HoursCreateInput!
+}
+
+input HoursWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  index: Int
+  index_not: Int
+  index_in: [Int!]
+  index_not_in: [Int!]
+  index_lt: Int
+  index_lte: Int
+  index_gt: Int
+  index_gte: Int
+  day: String
+  day_not: String
+  day_in: [String!]
+  day_not_in: [String!]
+  day_lt: String
+  day_lte: String
+  day_gt: String
+  day_gte: String
+  day_contains: String
+  day_not_contains: String
+  day_starts_with: String
+  day_not_starts_with: String
+  day_ends_with: String
+  day_not_ends_with: String
+  open: String
+  open_not: String
+  open_in: [String!]
+  open_not_in: [String!]
+  open_lt: String
+  open_lte: String
+  open_gt: String
+  open_gte: String
+  open_contains: String
+  open_not_contains: String
+  open_starts_with: String
+  open_not_starts_with: String
+  open_ends_with: String
+  open_not_ends_with: String
+  close: String
+  close_not: String
+  close_in: [String!]
+  close_not_in: [String!]
+  close_lt: String
+  close_lte: String
+  close_gt: String
+  close_gte: String
+  close_contains: String
+  close_not_contains: String
+  close_starts_with: String
+  close_not_starts_with: String
+  close_ends_with: String
+  close_not_ends_with: String
+  AND: [HoursWhereInput!]
+  OR: [HoursWhereInput!]
+  NOT: [HoursWhereInput!]
+}
+
+input HoursWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
   createAddress(data: AddressCreateInput!): Address!
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
-  updateManyAddresses(data: AddressUpdateInput!, where: AddressWhereInput): BatchPayload!
+  updateManyAddresses(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
   upsertAddress(where: AddressWhereUniqueInput!, create: AddressCreateInput!, update: AddressUpdateInput!): Address!
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteManyAddresses(where: AddressWhereInput): BatchPayload!
   createCategory(data: CategoryCreateInput!): Category!
   updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
-  updateManyCategories(data: CategoryUpdateInput!, where: CategoryWhereInput): BatchPayload!
+  updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
   upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
   deleteCategory(where: CategoryWhereUniqueInput!): Category
   deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
-  updateManyCreditCards(data: CreditCardUpdateInput!, where: CreditCardWhereInput): BatchPayload!
+  updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
   createCustomer(data: CustomerCreateInput!): Customer!
   updateCustomer(data: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer
-  updateManyCustomers(data: CustomerUpdateInput!, where: CustomerWhereInput): BatchPayload!
+  updateManyCustomers(data: CustomerUpdateManyMutationInput!, where: CustomerWhereInput): BatchPayload!
   upsertCustomer(where: CustomerWhereUniqueInput!, create: CustomerCreateInput!, update: CustomerUpdateInput!): Customer!
   deleteCustomer(where: CustomerWhereUniqueInput!): Customer
   deleteManyCustomers(where: CustomerWhereInput): BatchPayload!
+  createHours(data: HoursCreateInput!): Hours!
+  updateHours(data: HoursUpdateInput!, where: HoursWhereUniqueInput!): Hours
+  updateManyHourses(data: HoursUpdateManyMutationInput!, where: HoursWhereInput): BatchPayload!
+  upsertHours(where: HoursWhereUniqueInput!, create: HoursCreateInput!, update: HoursUpdateInput!): Hours!
+  deleteHours(where: HoursWhereUniqueInput!): Hours
+  deleteManyHourses(where: HoursWhereInput): BatchPayload!
   createOrder(data: OrderCreateInput!): Order!
   updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
-  updateManyOrders(data: OrderUpdateInput!, where: OrderWhereInput): BatchPayload!
+  updateManyOrders(data: OrderUpdateManyMutationInput!, where: OrderWhereInput): BatchPayload!
   upsertOrder(where: OrderWhereUniqueInput!, create: OrderCreateInput!, update: OrderUpdateInput!): Order!
   deleteOrder(where: OrderWhereUniqueInput!): Order
   deleteManyOrders(where: OrderWhereInput): BatchPayload!
   createOrderProduct(data: OrderProductCreateInput!): OrderProduct!
   updateOrderProduct(data: OrderProductUpdateInput!, where: OrderProductWhereUniqueInput!): OrderProduct
-  updateManyOrderProducts(data: OrderProductUpdateInput!, where: OrderProductWhereInput): BatchPayload!
+  updateManyOrderProducts(data: OrderProductUpdateManyMutationInput!, where: OrderProductWhereInput): BatchPayload!
   upsertOrderProduct(where: OrderProductWhereUniqueInput!, create: OrderProductCreateInput!, update: OrderProductUpdateInput!): OrderProduct!
   deleteOrderProduct(where: OrderProductWhereUniqueInput!): OrderProduct
   deleteManyOrderProducts(where: OrderProductWhereInput): BatchPayload!
   createProduct(data: ProductCreateInput!): Product!
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
-  updateManyProducts(data: ProductUpdateInput!, where: ProductWhereInput): BatchPayload!
+  updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
   upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
   deleteProduct(where: ProductWhereUniqueInput!): Product
   deleteManyProducts(where: ProductWhereInput): BatchPayload!
+  createSiteInfo(data: SiteInfoCreateInput!): SiteInfo!
+  updateSiteInfo(data: SiteInfoUpdateInput!, where: SiteInfoWhereUniqueInput!): SiteInfo
+  updateManySiteInfoes(data: SiteInfoUpdateManyMutationInput!, where: SiteInfoWhereInput): BatchPayload!
+  upsertSiteInfo(where: SiteInfoWhereUniqueInput!, create: SiteInfoCreateInput!, update: SiteInfoUpdateInput!): SiteInfo!
+  deleteSiteInfo(where: SiteInfoWhereUniqueInput!): SiteInfo
+  deleteManySiteInfoes(where: SiteInfoWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
@@ -945,6 +1186,14 @@ input OrderProductUpdateManyInput {
   disconnect: [OrderProductWhereUniqueInput!]
 }
 
+input OrderProductUpdateManyMutationInput {
+  title: String
+  imageURL: String
+  description: String
+  price: Float
+  quantity: Int
+}
+
 input OrderProductUpdateWithWhereUniqueNestedInput {
   where: OrderProductWhereUniqueInput!
   data: OrderProductUpdateDataInput!
@@ -1084,6 +1333,13 @@ input OrderUpdateInput {
   total: Float
 }
 
+input OrderUpdateManyMutationInput {
+  status: String
+  subtotal: Float
+  tax: Float
+  total: Float
+}
+
 input OrderWhereInput {
   id: ID
   id_not: ID
@@ -1178,6 +1434,8 @@ type PageInfo {
 
 type Product {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   imageURL: String!
   title: String!
   description: String!
@@ -1222,6 +1480,10 @@ type ProductEdge {
 enum ProductOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   imageURL_ASC
   imageURL_DESC
   title_ASC
@@ -1232,14 +1494,12 @@ enum ProductOrderByInput {
   price_DESC
   stock_ASC
   stock_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
 }
 
 type ProductPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   imageURL: String!
   title: String!
   description: String!
@@ -1272,6 +1532,14 @@ input ProductUpdateInput {
   price: Float
   stock: Int
   categories: CategoryUpdateManyWithoutProductsInput
+}
+
+input ProductUpdateManyMutationInput {
+  imageURL: String
+  title: String
+  description: String
+  price: Float
+  stock: Int
 }
 
 input ProductUpdateManyWithoutCategoriesInput {
@@ -1317,6 +1585,22 @@ input ProductWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   imageURL: String
   imageURL_not: String
   imageURL_in: [String!]
@@ -1400,6 +1684,9 @@ type Query {
   customer(where: CustomerWhereUniqueInput!): Customer
   customers(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Customer]!
   customersConnection(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomerConnection!
+  hours(where: HoursWhereUniqueInput!): Hours
+  hourses(where: HoursWhereInput, orderBy: HoursOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hours]!
+  hoursesConnection(where: HoursWhereInput, orderBy: HoursOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HoursConnection!
   order(where: OrderWhereUniqueInput!): Order
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
   ordersConnection(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderConnection!
@@ -1409,10 +1696,178 @@ type Query {
   product(where: ProductWhereUniqueInput!): Product
   products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product]!
   productsConnection(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductConnection!
+  siteInfo(where: SiteInfoWhereUniqueInput!): SiteInfo
+  siteInfoes(where: SiteInfoWhereInput, orderBy: SiteInfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SiteInfo]!
+  siteInfoesConnection(where: SiteInfoWhereInput, orderBy: SiteInfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SiteInfoConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
+}
+
+type SiteInfo {
+  id: ID!
+  address: Address!
+  hours(where: HoursWhereInput, orderBy: HoursOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hours!]
+  phone: String!
+  email: String!
+  about: String!
+  services: [String!]!
+}
+
+type SiteInfoConnection {
+  pageInfo: PageInfo!
+  edges: [SiteInfoEdge]!
+  aggregate: AggregateSiteInfo!
+}
+
+input SiteInfoCreateInput {
+  address: AddressCreateOneInput!
+  hours: HoursCreateManyInput
+  phone: String!
+  email: String!
+  about: String!
+  services: SiteInfoCreateservicesInput
+}
+
+input SiteInfoCreateservicesInput {
+  set: [String!]
+}
+
+type SiteInfoEdge {
+  node: SiteInfo!
+  cursor: String!
+}
+
+enum SiteInfoOrderByInput {
+  id_ASC
+  id_DESC
+  phone_ASC
+  phone_DESC
+  email_ASC
+  email_DESC
+  about_ASC
+  about_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SiteInfoPreviousValues {
+  id: ID!
+  phone: String!
+  email: String!
+  about: String!
+  services: [String!]!
+}
+
+type SiteInfoSubscriptionPayload {
+  mutation: MutationType!
+  node: SiteInfo
+  updatedFields: [String!]
+  previousValues: SiteInfoPreviousValues
+}
+
+input SiteInfoSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SiteInfoWhereInput
+  AND: [SiteInfoSubscriptionWhereInput!]
+  OR: [SiteInfoSubscriptionWhereInput!]
+  NOT: [SiteInfoSubscriptionWhereInput!]
+}
+
+input SiteInfoUpdateInput {
+  address: AddressUpdateOneRequiredInput
+  hours: HoursUpdateManyInput
+  phone: String
+  email: String
+  about: String
+  services: SiteInfoUpdateservicesInput
+}
+
+input SiteInfoUpdateManyMutationInput {
+  phone: String
+  email: String
+  about: String
+  services: SiteInfoUpdateservicesInput
+}
+
+input SiteInfoUpdateservicesInput {
+  set: [String!]
+}
+
+input SiteInfoWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  address: AddressWhereInput
+  hours_every: HoursWhereInput
+  hours_some: HoursWhereInput
+  hours_none: HoursWhereInput
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  about: String
+  about_not: String
+  about_in: [String!]
+  about_not_in: [String!]
+  about_lt: String
+  about_lte: String
+  about_gt: String
+  about_gte: String
+  about_contains: String
+  about_not_contains: String
+  about_starts_with: String
+  about_not_starts_with: String
+  about_ends_with: String
+  about_not_ends_with: String
+  AND: [SiteInfoWhereInput!]
+  OR: [SiteInfoWhereInput!]
+  NOT: [SiteInfoWhereInput!]
+}
+
+input SiteInfoWhereUniqueInput {
+  id: ID
 }
 
 type Subscription {
@@ -1420,18 +1875,22 @@ type Subscription {
   category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
   customer(where: CustomerSubscriptionWhereInput): CustomerSubscriptionPayload
+  hours(where: HoursSubscriptionWhereInput): HoursSubscriptionPayload
   order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
   orderProduct(where: OrderProductSubscriptionWhereInput): OrderProductSubscriptionPayload
   product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
+  siteInfo(where: SiteInfoSubscriptionWhereInput): SiteInfoSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   email: String!
   password: String!
-  isAdmin: Boolean
+  isAdmin: Boolean!
 }
 
 type UserConnection {
@@ -1455,6 +1914,10 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   name_ASC
   name_DESC
   email_ASC
@@ -1463,18 +1926,16 @@ enum UserOrderByInput {
   password_DESC
   isAdmin_ASC
   isAdmin_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
 }
 
 type UserPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   email: String!
   password: String!
-  isAdmin: Boolean
+  isAdmin: Boolean!
 }
 
 type UserSubscriptionPayload {
@@ -1502,6 +1963,13 @@ input UserUpdateInput {
   isAdmin: Boolean
 }
 
+input UserUpdateManyMutationInput {
+  name: String
+  email: String
+  password: String
+  isAdmin: Boolean
+}
+
 input UserWhereInput {
   id: ID
   id_not: ID
@@ -1517,6 +1985,22 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
