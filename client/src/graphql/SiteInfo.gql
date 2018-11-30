@@ -17,13 +17,7 @@ query SiteInfo {
       open
       close
     }
-    about {
-      title
-      content
-    }
-    services {
-      title
-      content
-    }
+    about
+    services
   }
 }
