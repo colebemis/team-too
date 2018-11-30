@@ -132,28 +132,45 @@
             <div
               class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
             >
-
-              <!--
-              <button
-                v-on:click="clearCart"
-                class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 mb-7 rounded-r"
-              >
-                Clear Cart
-              </button>
-              -->
-
             </div>
+          
             <div
               class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
             >
               TOTAL
             </div>
+
             <div
               class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
             >
               $ {{ (subtotal * 0.0725 + subtotal).toFixed(2) }}
             </div>
           </div>
+
+          <!-- Checkout Button -->
+          <div class="flex mt-5 items-center justify-center">
+            <div
+              class="w-1/3 text-white font-bold text-center h-12 pt-3"
+            >
+            </div>
+          
+            <div
+              class="w-1/3 text-white font-bold text-center h-12 pt-3"
+            >
+            </div>
+
+            <div
+              class="w-1/3 text-white font-bold text-center h-12 pt-3"
+            >
+                <Button
+                v-on:click="checkout"
+                class="bg-grey-light hover:bg-grey text-grey-darkest font-bold text-right content-right py-5 px-5 mb-7 rounded-l rounded-r"
+                >
+                    PROCEED TO CHECKOUT
+                </Button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -251,6 +268,10 @@ export default Vue.extend({
     clearCart() {
       this.cart = {};
       localStorage.setItem("cart", JSON.stringify(this.cart));
+    },
+
+    checkout(){
+      this.$router.push("/checkout");
     },
 
     incrementQuantity(productID: string, productStock: number) {
