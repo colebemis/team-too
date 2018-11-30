@@ -51,4 +51,12 @@ context("Login", () => {
     cy.wait(2000); // There must be a less brittle way to do this
     cy.location("pathname").should("eq", "/");
   });
+
+  it("displays message if user is already logged in", () => {
+    localStorage.setItem("user", "test-user");
+    localStorage.setItem("apollo-token", "test-token");
+    cy.visit("http://localhost:8080/login"); // Reload page after setting localStorage
+
+    cy.get("[data-test-id=logged-in]").should("be.visible");
+  });
 });
