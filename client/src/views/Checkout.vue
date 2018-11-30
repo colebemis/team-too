@@ -10,7 +10,8 @@
             <!-- FORM -->
             <div class="w-1/2 bg-grey-light h-50">
                 <form class="container mx-auto px-20 mt-5 mb-10">
-                    <!-- Contact -->
+
+                    <!-- CONTACT -->
                     <div class="flex flex-wrap -mx-3 mb-6">
 
                       <!-- Header -->
@@ -22,31 +23,314 @@
 
                       <!-- First Name -->
                       <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-first-name">
                           First Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane">
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="contact-first-name" type="text" placeholder="Bobby">
                         <p class="text-red text-xs italic">Please fill out this field.</p>
                       </div>
 
                       <!-- Last Name -->
                       <div class="w-full md:w-1/2 px-3">
-                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-last-name">
                           Last Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="grid-last-name" type="text" placeholder="Doe">
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-last-name" type="text" placeholder="Doe">
                       </div>
 
                       <!-- Email -->
                       <div class="w-full pt-5 px-3">
-                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-email">
                           Email
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="grid-last-name" type="text" placeholder="janedoe@mail.com">
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-email" type="text" placeholder="janedoe@mail.com">
                       </div>
                     </div>
-                  </form>
 
+                    <!-- BILLING -->
+                    <div class="flex flex-wrap -mx-3 mb-6 pt-10">
+
+                      <!-- Header -->
+                      <div class="w-full pt-5 pb-5 px-3">
+                        <h1 class="block uppercase tracking-wide text-grey-darkest text-med font-bold mb-2">
+                          BILLING ADDRESS
+                        </h1>
+                      </div>
+
+                      <!-- First Name -->
+                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-first-name">
+                          First Name
+                        </label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="billing-first-name" type="text" placeholder="Jane">
+                        <p class="text-red text-xs italic">Please fill out this field.</p>
+                      </div>
+
+                      <!-- Last Name -->
+                      <div class="w-full md:w-1/2 px-3">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-last-name">
+                          Last Name
+                        </label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-last-name" type="text" placeholder="Doe">
+                      </div>
+
+                      <!-- Address -->
+                      <div class="w-full pt-5 px-3">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-address">
+                          Address
+                        </label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-address" type="text" placeholder="123 Foothill Blvd">
+                      </div>
+
+                      <div class="w-full pt-5 px-3">
+                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-city">
+                            City
+                          </label>
+                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-city" type="text" placeholder="San Luis Obispo">
+                        </div>
+
+                      <div class="flex flex-wrap">
+                        
+                        <div class="w-full md:w-1/2 px-3 pt-5">
+                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-state">
+                            State
+                          </label>
+                          <div class="relative">
+                            <select class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-state">
+                              <option value="AL">Alabama</option>
+                              <option value="AK">Alaska</option>
+                              <option value="AZ">Arizona</option>
+                              <option value="AR">Arkansas</option>
+                              <option value="CA">California</option>
+                              <option value="CO">Colorado</option>
+                              <option value="CT">Connecticut</option>
+                              <option value="DE">Delaware</option>
+                              <option value="FL">Florida</option>
+                              <option value="GA">Georgia</option>
+                              <option value="HI">Hawaii</option>
+                              <option value="ID">Idaho</option>
+                              <option value="IL">Illinois</option>
+                              <option value="IN">Indiana</option>
+                              <option value="IA">Iowa</option>
+                              <option value="KS">Kansas</option>
+                              <option value="KY">Kentucky</option>
+                              <option value="LA">Louisiana</option>
+                              <option value="ME">Maine</option>
+                              <option value="MD">Maryland</option>
+                              <option value="MA">Massachusetts</option>
+                              <option value="MI">Michigan</option>
+                              <option value="MN">Minnesota</option>
+                              <option value="MS">Mississippi</option>
+                              <option value="MO">Missouri</option>
+                              <option value="MT">Montana</option>
+                              <option value="NE">Nebraska</option>
+                              <option value="NV">Nevada</option>
+                              <option value="NH">New Hampshire</option>
+                              <option value="NJ">New Jersey</option>
+                              <option value="NM">New Mexico</option>
+                              <option value="NY">New York</option>
+                              <option value="NC">North Carolina</option>
+                              <option value="ND">North Dakota</option>
+                              <option value="OH">Ohio</option>
+                              <option value="OK">Oklahoma</option>
+                              <option value="OR">Oregon</option>
+                              <option value="PA">Pennsylvania</option>
+                              <option value="RI">Rhode Island</option>
+                              <option value="SC">South Carolina</option>
+                              <option value="SD">South Dakota</option>
+                              <option value="TN">Tennessee</option>
+                              <option value="TX">Texas</option>
+                              <option value="UT">Utah</option>
+                              <option value="VT">Vermont</option>
+                              <option value="VA">Virginia</option>
+                              <option value="WA">Washington</option>
+                              <option value="WV">West Virginia</option>
+                              <option value="WI">Wisconsin</option>
+                              <option value="WY">Wyoming</option>
+                            </select>
+                            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
+                              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 pt-5">
+                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-zip">
+                            Zip
+                          </label>
+                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-zip" type="text" placeholder="93401">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- SHIPPING -->
+                    <div class="flex flex-wrap -mx-3 mb-6 pt-10">
+
+                      <!-- Header -->
+                      <div class="w-full pt-5 pb-5 px-3">
+                        <h1 class="block uppercase tracking-wide text-grey-darkest text-med font-bold mb-2">
+                          SHIPPING ADDRESS
+                        </h1>
+                      </div>
+
+                      <!-- First Name -->
+                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-first-name">
+                          First Name
+                        </label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="shipping-first-name" type="text" placeholder="Jane">
+                        <p class="text-red text-xs italic">Please fill out this field.</p>
+                      </div>
+
+                      <!-- Last Name -->
+                      <div class="w-full md:w-1/2 px-3">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-last-name">
+                          Last Name
+                        </label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-last-name" type="text" placeholder="Doe">
+                      </div>
+
+                      <!-- Address -->
+                      <div class="w-full pt-5 px-3">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-address">
+                          Address
+                        </label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-address" type="text" placeholder="123 Foothill Blvd">
+                      </div>
+
+                      <div class="w-full pt-5 px-3">
+                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-city">
+                            City
+                          </label>
+                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-city" type="text" placeholder="San Luis Obispo">
+                        </div>
+
+                      <div class="flex flex-wrap">
+                        
+                        <div class="w-full md:w-1/2 px-3 pt-5">
+                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-state">
+                            State
+                          </label>
+                          <div class="relative">
+                            <select class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-state">
+                              <option value="AL">Alabama</option>
+                              <option value="AK">Alaska</option>
+                              <option value="AZ">Arizona</option>
+                              <option value="AR">Arkansas</option>
+                              <option value="CA">California</option>
+                              <option value="CO">Colorado</option>
+                              <option value="CT">Connecticut</option>
+                              <option value="DE">Delaware</option>
+                              <option value="FL">Florida</option>
+                              <option value="GA">Georgia</option>
+                              <option value="HI">Hawaii</option>
+                              <option value="ID">Idaho</option>
+                              <option value="IL">Illinois</option>
+                              <option value="IN">Indiana</option>
+                              <option value="IA">Iowa</option>
+                              <option value="KS">Kansas</option>
+                              <option value="KY">Kentucky</option>
+                              <option value="LA">Louisiana</option>
+                              <option value="ME">Maine</option>
+                              <option value="MD">Maryland</option>
+                              <option value="MA">Massachusetts</option>
+                              <option value="MI">Michigan</option>
+                              <option value="MN">Minnesota</option>
+                              <option value="MS">Mississippi</option>
+                              <option value="MO">Missouri</option>
+                              <option value="MT">Montana</option>
+                              <option value="NE">Nebraska</option>
+                              <option value="NV">Nevada</option>
+                              <option value="NH">New Hampshire</option>
+                              <option value="NJ">New Jersey</option>
+                              <option value="NM">New Mexico</option>
+                              <option value="NY">New York</option>
+                              <option value="NC">North Carolina</option>
+                              <option value="ND">North Dakota</option>
+                              <option value="OH">Ohio</option>
+                              <option value="OK">Oklahoma</option>
+                              <option value="OR">Oregon</option>
+                              <option value="PA">Pennsylvania</option>
+                              <option value="RI">Rhode Island</option>
+                              <option value="SC">South Carolina</option>
+                              <option value="SD">South Dakota</option>
+                              <option value="TN">Tennessee</option>
+                              <option value="TX">Texas</option>
+                              <option value="UT">Utah</option>
+                              <option value="VT">Vermont</option>
+                              <option value="VA">Virginia</option>
+                              <option value="WA">Washington</option>
+                              <option value="WV">West Virginia</option>
+                              <option value="WI">Wisconsin</option>
+                              <option value="WY">Wyoming</option>
+                            </select>
+                            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
+                              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 pt-5">
+                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-zip">
+                            Zip
+                          </label>
+                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-zip" type="text" placeholder="93401">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PAYMENT - CREDIT CARD INFO - BILLING INFO -->
+                    <div class="flex flex-wrap -mx-3 mb-6 pt-10">
+
+                      <!-- Header -->
+                      <div class="w-full pt-5 pb-5 px-3">
+                        <h1 class="block uppercase tracking-wide text-grey-darkest text-med font-bold mb-2">
+                          BILLING INFO 
+                        </h1>
+                      </div>
+
+                      <!-- First Name -->
+                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="payment-first-name">
+                          First Name
+                        </label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="payment-first-name" type="text" placeholder="Jane">
+                        <p class="text-red text-xs italic">Please fill out this field.</p>
+                      </div>
+
+                      <!-- Last Name -->
+                      <div class="w-full md:w-1/2 px-3">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="payment-last-name">
+                          Last Name
+                        </label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="payment-last-name" type="text" placeholder="Doe">
+                      </div>
+
+                      <!-- Card Number -->
+                      <div class="w-full pt-5 px-3">
+                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-number">
+                          Credit Card Number
+                        </label>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-number" type="text" placeholder="0123 4567 8910 1112">
+                      </div>
+
+                      <div class="flex flex-wrap">
+                        <div class="w-full md:w-1/2 px-3 pt-5">
+                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-exp-date">
+                            Expiry Date
+                          </label>
+                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-exp-date" type="text" placeholder="MM/YYYY">
+                        </div>
+
+                        <div class="w-full md:w-1/2 px-3 pt-5">
+                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-ccv">
+                            CCV
+                          </label>
+                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-ccv" type="text" placeholder="000">
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </form>
             </div>
 
             <!-- CART SUMMARY -->
