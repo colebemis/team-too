@@ -270,10 +270,6 @@ type AggregateProduct {
   count: Int!
 }
 
-type AggregateSection {
-  count: Int!
-}
-
 type AggregateSiteInfo {
   count: Int!
 }
@@ -993,12 +989,6 @@ type Mutation {
   upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
   deleteProduct(where: ProductWhereUniqueInput!): Product
   deleteManyProducts(where: ProductWhereInput): BatchPayload!
-  createSection(data: SectionCreateInput!): Section!
-  updateSection(data: SectionUpdateInput!, where: SectionWhereUniqueInput!): Section
-  updateManySections(data: SectionUpdateManyMutationInput!, where: SectionWhereInput): BatchPayload!
-  upsertSection(where: SectionWhereUniqueInput!, create: SectionCreateInput!, update: SectionUpdateInput!): Section!
-  deleteSection(where: SectionWhereUniqueInput!): Section
-  deleteManySections(where: SectionWhereInput): BatchPayload!
   createSiteInfo(data: SiteInfoCreateInput!): SiteInfo!
   updateSiteInfo(data: SiteInfoUpdateInput!, where: SiteInfoWhereUniqueInput!): SiteInfo
   updateManySiteInfoes(data: SiteInfoUpdateManyMutationInput!, where: SiteInfoWhereInput): BatchPayload!
@@ -1706,9 +1696,6 @@ type Query {
   product(where: ProductWhereUniqueInput!): Product
   products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product]!
   productsConnection(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductConnection!
-  section(where: SectionWhereUniqueInput!): Section
-  sections(where: SectionWhereInput, orderBy: SectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Section]!
-  sectionsConnection(where: SectionWhereInput, orderBy: SectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SectionConnection!
   siteInfo(where: SiteInfoWhereUniqueInput!): SiteInfo
   siteInfoes(where: SiteInfoWhereInput, orderBy: SiteInfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SiteInfo]!
   siteInfoesConnection(where: SiteInfoWhereInput, orderBy: SiteInfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SiteInfoConnection!
@@ -1718,157 +1705,14 @@ type Query {
   node(id: ID!): Node
 }
 
-type Section {
-  id: ID!
-  title: String!
-  content: String!
-}
-
-type SectionConnection {
-  pageInfo: PageInfo!
-  edges: [SectionEdge]!
-  aggregate: AggregateSection!
-}
-
-input SectionCreateInput {
-  title: String!
-  content: String!
-}
-
-input SectionCreateOneInput {
-  create: SectionCreateInput
-  connect: SectionWhereUniqueInput
-}
-
-type SectionEdge {
-  node: Section!
-  cursor: String!
-}
-
-enum SectionOrderByInput {
-  id_ASC
-  id_DESC
-  title_ASC
-  title_DESC
-  content_ASC
-  content_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type SectionPreviousValues {
-  id: ID!
-  title: String!
-  content: String!
-}
-
-type SectionSubscriptionPayload {
-  mutation: MutationType!
-  node: Section
-  updatedFields: [String!]
-  previousValues: SectionPreviousValues
-}
-
-input SectionSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: SectionWhereInput
-  AND: [SectionSubscriptionWhereInput!]
-  OR: [SectionSubscriptionWhereInput!]
-  NOT: [SectionSubscriptionWhereInput!]
-}
-
-input SectionUpdateDataInput {
-  title: String
-  content: String
-}
-
-input SectionUpdateInput {
-  title: String
-  content: String
-}
-
-input SectionUpdateManyMutationInput {
-  title: String
-  content: String
-}
-
-input SectionUpdateOneRequiredInput {
-  create: SectionCreateInput
-  update: SectionUpdateDataInput
-  upsert: SectionUpsertNestedInput
-  connect: SectionWhereUniqueInput
-}
-
-input SectionUpsertNestedInput {
-  update: SectionUpdateDataInput!
-  create: SectionCreateInput!
-}
-
-input SectionWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  content: String
-  content_not: String
-  content_in: [String!]
-  content_not_in: [String!]
-  content_lt: String
-  content_lte: String
-  content_gt: String
-  content_gte: String
-  content_contains: String
-  content_not_contains: String
-  content_starts_with: String
-  content_not_starts_with: String
-  content_ends_with: String
-  content_not_ends_with: String
-  AND: [SectionWhereInput!]
-  OR: [SectionWhereInput!]
-  NOT: [SectionWhereInput!]
-}
-
-input SectionWhereUniqueInput {
-  id: ID
-}
-
 type SiteInfo {
   id: ID!
   address: Address!
   hours(where: HoursWhereInput, orderBy: HoursOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hours!]
   phone: String!
   email: String!
-  about: Section!
-  services: Section!
+  about: String!
+  services: [String!]!
 }
 
 type SiteInfoConnection {
@@ -1882,8 +1726,12 @@ input SiteInfoCreateInput {
   hours: HoursCreateManyInput
   phone: String!
   email: String!
-  about: SectionCreateOneInput!
-  services: SectionCreateOneInput!
+  about: String!
+  services: SiteInfoCreateservicesInput
+}
+
+input SiteInfoCreateservicesInput {
+  set: [String!]
 }
 
 type SiteInfoEdge {
@@ -1898,6 +1746,8 @@ enum SiteInfoOrderByInput {
   phone_DESC
   email_ASC
   email_DESC
+  about_ASC
+  about_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1908,6 +1758,8 @@ type SiteInfoPreviousValues {
   id: ID!
   phone: String!
   email: String!
+  about: String!
+  services: [String!]!
 }
 
 type SiteInfoSubscriptionPayload {
@@ -1933,13 +1785,19 @@ input SiteInfoUpdateInput {
   hours: HoursUpdateManyInput
   phone: String
   email: String
-  about: SectionUpdateOneRequiredInput
-  services: SectionUpdateOneRequiredInput
+  about: String
+  services: SiteInfoUpdateservicesInput
 }
 
 input SiteInfoUpdateManyMutationInput {
   phone: String
   email: String
+  about: String
+  services: SiteInfoUpdateservicesInput
+}
+
+input SiteInfoUpdateservicesInput {
+  set: [String!]
 }
 
 input SiteInfoWhereInput {
@@ -1989,8 +1847,20 @@ input SiteInfoWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
-  about: SectionWhereInput
-  services: SectionWhereInput
+  about: String
+  about_not: String
+  about_in: [String!]
+  about_not_in: [String!]
+  about_lt: String
+  about_lte: String
+  about_gt: String
+  about_gte: String
+  about_contains: String
+  about_not_contains: String
+  about_starts_with: String
+  about_not_starts_with: String
+  about_ends_with: String
+  about_not_ends_with: String
   AND: [SiteInfoWhereInput!]
   OR: [SiteInfoWhereInput!]
   NOT: [SiteInfoWhereInput!]
@@ -2009,7 +1879,6 @@ type Subscription {
   order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
   orderProduct(where: OrderProductSubscriptionWhereInput): OrderProductSubscriptionPayload
   product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
-  section(where: SectionSubscriptionWhereInput): SectionSubscriptionPayload
   siteInfo(where: SiteInfoSubscriptionWhereInput): SiteInfoSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
