@@ -43,6 +43,12 @@ const resolvers = {
       const [siteInfo] = await context.db.siteInfoes();
       return await siteInfo;
     },
+    orderProduct: (root, args, context: Context, info) => {
+      return context.db.orderProduct(args.where);
+    },
+    orderProducts: (root, args, context: Context, info) => {
+      return context.db.orderProducts(args);
+    }
   },
   Mutation: {
     logIn: async (root, args, context: Context, info) => {

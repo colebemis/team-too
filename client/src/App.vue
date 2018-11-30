@@ -1,22 +1,25 @@
 <template>
-  <div id="app" class="font-sans">
+  <div id="app" class="font-sans flex flex-col min-h-screen">
+    <AdminHeader />
     <SiteHeader />
-    <router-view />
+    <div class="flex-grow"><router-view /></div>
     <Footer />
   </div>
 </template>
 
 <script lang="ts">
+import AdminHeader from "@/components/AdminHeader.vue";
 import SiteHeader from "@/components/SiteHeader.vue";
 import Footer from "@/components/Footer.vue";
+import { getUser } from "./auth";
 
 export default {
-  components: { SiteHeader, Footer },
+  components: { AdminHeader, SiteHeader, Footer },
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600,700");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700");
 
 body {
   margin: 0;
