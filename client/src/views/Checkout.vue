@@ -9,7 +9,7 @@
 
             <!-- FORM -->
             <div class="w-1/2 bg-grey-light h-50">
-                <form class="container mx-auto px-20 mt-5 mb-10">
+                <form id="shopForm" class="container mx-auto px-20 mt-5 mb-10">
 
                     <!-- CONTACT -->
                     <div class="flex flex-wrap -mx-3 mb-6">
@@ -26,8 +26,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-first-name">
                           First Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="contact-first-name" type="text" placeholder="Bobby">
-                        <p class="text-red text-xs italic">Please fill out this field.</p>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="contact-first-name" type="text" placeholder="Bobby">
                       </div>
 
                       <!-- Last Name -->
@@ -62,8 +61,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-first-name">
                           First Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="billing-first-name" type="text" placeholder="Jane">
-                        <p class="text-red text-xs italic">Please fill out this field.</p>
+                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="billing-first-name" type="text" placeholder="Jane">
                       </div>
 
                       <!-- Last Name -->
@@ -334,7 +332,7 @@
             </div>
 
             <!-- CART SUMMARY -->
-            <div class="w-1/2 ml-5">
+            <div class="w-1/2 ml-10">
                 <!-- Header -->
                 <div class="w-full mt-5 mb-10 pt-5 px-10">
                   <h1 class="block uppercase tracking-wide text-grey-darkest text-med font-bold mb-2">
@@ -431,13 +429,18 @@
                   </div>
         
                 </div>
+
+                <Button
+                v-on:click="checkForm"
+                class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 mb-7 rounded-r rounded-l"
+                >
+                    DEBUG: CHECK FORM
+                </Button>
                 
             </div>
         </div>
-
       </div>
     </div>
-
   </div> 
 </template>
 
@@ -530,6 +533,98 @@ export default Vue.extend({
     },
   },
   methods: {
+    checkForm(){
+
+      const contactFirstNameID = "contact-first-name";
+      const contactLastNameID = "contact-last-name";
+      const contactEmailID = "contact-email";
+
+      const billingFirstNameID = "billing-first-name";
+      const billingLastNameID = "billing-last-name";
+      const billingAddressID = "billing-address";
+      const billingCityID = "billing-city";
+      const billingStateID = "billing-state";
+      const billingZipID = "billing-zip";
+
+      const shippingFirstNameID = "shipping-first-name";
+      const shippingLastNameID = "shipping-last-name";
+      const shippingAddressID = "shipping-address";
+      const shippingCityID = "shipping-city";
+      const shippingStateID = "shipping-state";
+      const shippingZipID = "shipping-zip";
+
+      const paymentFirstNameID = "payment-first-name";
+      const paymentLastNameID = "payment-last-name";
+      const creditCardNumberID = "credit-card-number";
+      const creditCardExpDateID = "credit-card-expiry-date";
+      const creditCardCCVID = "credit-card-ccv";
+
+      // ______________________________________________________________________________________________
+
+      const contactFirstName = (document.getElementById(contactFirstNameID) as HTMLInputElement).value;
+      const contactLastName = (document.getElementById(contactLastNameID) as HTMLInputElement).value;
+      const contactEmail = (document.getElementById(contactEmailID) as HTMLInputElement).value;
+
+      const billingFirstName = (document.getElementById(billingFirstNameID) as HTMLInputElement).value;
+      const billingLastName = (document.getElementById(billingLastNameID) as HTMLInputElement).value;
+      const billingAddress = (document.getElementById(billingAddressID) as HTMLInputElement).value;
+      const billingCity = (document.getElementById(billingCityID) as HTMLInputElement).value;
+      const billingState = (document.getElementById(billingStateID) as HTMLInputElement).value;
+      const billingZip= (document.getElementById(billingZipID) as HTMLInputElement).value;
+
+      const shippingFirstName = (document.getElementById(shippingFirstNameID) as HTMLInputElement).value;
+      const shippingLastName = (document.getElementById(shippingLastNameID) as HTMLInputElement).value;
+      const shippingAddress = (document.getElementById(shippingAddressID) as HTMLInputElement).value;
+      const shippingCity = (document.getElementById(shippingCityID) as HTMLInputElement).value;
+      const shippingState = (document.getElementById(shippingStateID) as HTMLInputElement).value;
+      const shippingZip= (document.getElementById(shippingZipID) as HTMLInputElement).value;
+
+      const paymentFirstName = (document.getElementById(paymentFirstNameID) as HTMLInputElement).value;
+      const paymentLastName = (document.getElementById(paymentLastNameID) as HTMLInputElement).value;
+      const creditCardNumber = (document.getElementById(creditCardNumberID) as HTMLInputElement).value;
+      const creditCardExpDate = (document.getElementById(creditCardExpDateID) as HTMLInputElement).value;
+      const creditCardCCV = (document.getElementById(creditCardCCVID) as HTMLInputElement).value;
+      
+      // console.log("Checking...");
+
+      // console.log(contactFirstName);
+      // console.log(contactLastName);
+      // console.log(contactEmail);
+
+      // console.log(billingFirstName);
+      // console.log(billingLastName);
+      // console.log(billingAddress);
+      // console.log(billingCity);
+      // console.log(billingState);
+      // console.log(billingZip);
+
+      // console.log(shippingFirstName);
+      // console.log(shippingLastName);
+      // console.log(shippingAddress);
+      // console.log(shippingCity);
+      // console.log(shippingState);
+      // console.log(shippingZip);
+
+      // console.log(paymentFirstName);
+      // console.log(paymentLastName);
+      // console.log(creditCardNumber);
+      // console.log(creditCardExpDate);
+      // console.log(creditCardCCV);
+
+
+      /* Iteration
+      var elements = (<HTMLFormElement>document.getElementById("shopForm")).elements;
+
+      for (var i = 0, element; element = elements[i++];) {
+          if (element.type === "text"){
+            if(element.value != ""){
+                console.log(element.value);
+            } else {
+                console.log("Empty field");
+            }
+          }
+      } */
+    }
   },
 });
 </script>
