@@ -37,6 +37,12 @@ const resolvers = {
       verifyRequest(context);
       return context.db.orders(args);
     },
+    orderProduct: (root, args, context: Context, info) => {
+      return context.db.orderProduct(args.where);
+    },
+    orderProducts: (root, args, context: Context, info) => {
+      return context.db.orderProducts(args);
+    }
   },
   Mutation: {
     logIn: async (root, args, context: Context, info) => {

@@ -1,0 +1,14 @@
+query products {
+    products {
+        id
+        description
+        title
+        price
+        imageURL
+        stock
+        updatedAt
+        categories {
+        name
+        }
+    }
+}
