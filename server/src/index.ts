@@ -5,6 +5,7 @@ import { hash, compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { prisma, Prisma } from "./generated";
 import { APP_SECRET, verifyRequest } from "./utils";
+import { isContext } from "vm";
 
 interface Context {
   db: Prisma;
@@ -36,6 +37,11 @@ const resolvers = {
     orders: (root, args, context: Context, info) => {
       verifyRequest(context);
       return context.db.orders(args);
+    },
+    siteInfo: async (root, args, context: Context, info) => {
+      // There will only ever be one SiteInfo object in the DB
+      const [siteInfo] = await context.db.siteInfoes();
+      return await siteInfo;
     },
     orderProduct: (root, args, context: Context, info) => {
       return context.db.orderProduct(args.where);
@@ -103,6 +109,11 @@ const resolvers = {
       verifyRequest(context);
       return context.db.deleteProduct(args.where);
     },
+    updateSiteInfo: async (root, args, context: Context, info) => {
+      verifyRequest(context);
+      const [siteInfo] =  await context.db.siteInfoes();
+      return context.db.updateSiteInfo({where: {id: siteInfo.id}, data: args.data});
+    },
   },
   Order: {
     customer: (root, args, context: Context, info) => {
@@ -133,6 +144,14 @@ const resolvers = {
   },
   AuthPayload: {
     user: root => root.user,
+  },
+  SiteInfo: {
+    address: (root, args, context: Context, info) => {
+      return context.db.siteInfo({ id: root.id }).address();
+    },
+    hours: (root, args, context: Context, info) => {
+      return context.db.siteInfo({ id: root.id }).hours();
+    },
   },
 };
 
