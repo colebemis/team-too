@@ -146,12 +146,6 @@ const resolvers = {
     hours: (root, args, context: Context, info) => {
       return context.db.siteInfo({ id: root.id }).hours();
     },
-    about: (root, args, context: Context, info) => {
-      return context.db.siteInfo({ id: root.id }).about();
-    },
-    services: (root, args, context: Context, info) => {
-      return context.db.siteInfo({ id: root.id }).services();
-    },
   },
 };
 

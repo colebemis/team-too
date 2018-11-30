@@ -117,11 +117,7 @@ exports[`siteInfo query 1`] = `
 Object {
   "data": Object {
     "siteInfo": Object {
-      "about": Object {
-        "content": "Hello World",
-        "id": "test-id",
-        "title": "Hello World",
-      },
+      "about": "Hello World",
       "address": Object {
         "city": "Hello World",
         "id": "test-id",
@@ -149,11 +145,10 @@ Object {
       ],
       "id": "test-id",
       "phone": "Hello World",
-      "services": Object {
-        "content": "Hello World",
-        "id": "test-id",
-        "title": "Hello World",
-      },
+      "services": Array [
+        "Hello World",
+        "Hello World",
+      ],
     },
   },
 }

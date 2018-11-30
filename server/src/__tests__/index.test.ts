@@ -135,16 +135,8 @@ test("siteInfo query", async () => {
           open
           close
         }
-        about {
-          id
-          title
-          content
-        }
-        services {
-          id
-          title
-          content
-        }
+        about
+        services
       }
     }
   `;
