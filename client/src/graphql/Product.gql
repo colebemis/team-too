@@ -6,5 +6,9 @@ query product($id: ID!) {
         description
         price
         stock
+        categories {
+            id
+            name
+        }
     }
 }

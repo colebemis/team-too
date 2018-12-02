@@ -35,7 +35,7 @@
          <th>Price</th>
        </thead>
        <tbody id="tbody">
-         <tr class="text-center hover:bg-grey-lighter leading-loose" v-for="product in filteredProducts" :key="product.id">
+         <tr :id="product.title" class="text-center hover:bg-grey-lighter leading-loose" v-for="product in filteredProducts" :key="product.id">
              <td>
                <router-link :to="{ path: `/admin/product/${product.id}` }" class="link">
                {{product.id}}

@@ -101,9 +101,9 @@ const resolvers = {
       verifyRequest(context);
       return await context.db.createProduct(args.data);
     },
-    updateProduct: (root, args, context: Context, info) => {
+    updateProduct: async (root, args, context: Context, info) => {
       verifyRequest(context);
-      return context.db.updateProduct(args);
+      return await context.db.updateProduct(args);
     },
     deleteProduct: (root, args, context: Context, info) => {
       verifyRequest(context);
@@ -114,6 +114,10 @@ const resolvers = {
       const [siteInfo] =  await context.db.siteInfoes();
       return context.db.updateSiteInfo({where: {id: siteInfo.id}, data: args.data});
     },
+    updateCategory: (root, args, context: Context, info) => {
+      verifyRequest(context);
+      return context.db.updateCategory(args);
+    }
   },
   Order: {
     customer: (root, args, context: Context, info) => {
