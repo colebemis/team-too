@@ -530,7 +530,9 @@ export type ProductOrderByInput =
   | "price_ASC"
   | "price_DESC"
   | "stock_ASC"
-  | "stock_DESC";
+  | "stock_DESC"
+  | "isShippable_ASC"
+  | "isShippable_DESC";
 
 export type CategoryOrderByInput =
   | "id_ASC"
@@ -660,6 +662,7 @@ export interface ProductUpdateWithoutCategoriesDataInput {
   description?: String;
   price?: Float;
   stock?: Int;
+  isShippable?: Boolean;
 }
 
 export type AddressWhereUniqueInput = AtLeastOne<{
@@ -1279,6 +1282,7 @@ export interface ProductUpdateManyMutationInput {
   description?: String;
   price?: Float;
   stock?: Int;
+  isShippable?: Boolean;
 }
 
 export interface AddressUpdateManyMutationInput {
@@ -1395,6 +1399,7 @@ export interface ProductUpdateInput {
   description?: String;
   price?: Float;
   stock?: Int;
+  isShippable?: Boolean;
   categories?: CategoryUpdateManyWithoutProductsInput;
 }
 
@@ -1420,6 +1425,7 @@ export interface ProductCreateInput {
   description: String;
   price: Float;
   stock: Int;
+  isShippable: Boolean;
   categories?: CategoryCreateManyWithoutProductsInput;
 }
 
@@ -1429,6 +1435,7 @@ export interface ProductCreateWithoutCategoriesInput {
   description: String;
   price: Float;
   stock: Int;
+  isShippable: Boolean;
 }
 
 export interface OrderProductUpdateManyMutationInput {
@@ -1747,6 +1754,8 @@ export interface ProductWhereInput {
   stock_lte?: Int;
   stock_gt?: Int;
   stock_gte?: Int;
+  isShippable?: Boolean;
+  isShippable_not?: Boolean;
   categories_every?: CategoryWhereInput;
   categories_some?: CategoryWhereInput;
   categories_none?: CategoryWhereInput;
@@ -2232,6 +2241,7 @@ export interface ProductPreviousValues {
   description: String;
   price: Float;
   stock: Int;
+  isShippable: Boolean;
 }
 
 export interface ProductPreviousValuesPromise
@@ -2245,6 +2255,7 @@ export interface ProductPreviousValuesPromise
   description: () => Promise<String>;
   price: () => Promise<Float>;
   stock: () => Promise<Int>;
+  isShippable: () => Promise<Boolean>;
 }
 
 export interface ProductPreviousValuesSubscription
@@ -2258,6 +2269,7 @@ export interface ProductPreviousValuesSubscription
   description: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
   stock: () => Promise<AsyncIterator<Int>>;
+  isShippable: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface AggregateUser {
@@ -3319,6 +3331,7 @@ export interface Product {
   description: String;
   price: Float;
   stock: Int;
+  isShippable: Boolean;
 }
 
 export interface ProductPromise extends Promise<Product>, Fragmentable {
@@ -3330,6 +3343,7 @@ export interface ProductPromise extends Promise<Product>, Fragmentable {
   description: () => Promise<String>;
   price: () => Promise<Float>;
   stock: () => Promise<Int>;
+  isShippable: () => Promise<Boolean>;
   categories: <T = FragmentableArray<Category>>(
     args?: {
       where?: CategoryWhereInput;
@@ -3354,6 +3368,7 @@ export interface ProductSubscription
   description: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
   stock: () => Promise<AsyncIterator<Int>>;
+  isShippable: () => Promise<AsyncIterator<Boolean>>;
   categories: <T = Promise<AsyncIterator<CategorySubscription>>>(
     args?: {
       where?: CategoryWhereInput;

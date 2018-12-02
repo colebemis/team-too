@@ -43,6 +43,7 @@ type Product {
   description: String!
   price: Float!
   stock: Int!
+  isShippable: Boolean!
   categories: [Category!]! @relation(name: "ProductsWithCategory")
 }
 
