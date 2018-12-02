@@ -1021,7 +1021,7 @@ type Order {
   products(where: OrderProductWhereInput, orderBy: OrderProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderProduct!]
   customer: Customer!
   shippingAddress: Address
-  billingAddress: Address
+  billingAddress: Address!
   payment: CreditCard
   subtotal: Float!
   tax: Float!
@@ -1039,7 +1039,7 @@ input OrderCreateInput {
   products: OrderProductCreateManyInput
   customer: CustomerCreateOneInput!
   shippingAddress: AddressCreateOneInput
-  billingAddress: AddressCreateOneInput
+  billingAddress: AddressCreateOneInput!
   payment: CreditCardCreateOneInput
   subtotal: Float!
   tax: Float!
@@ -1326,7 +1326,7 @@ input OrderUpdateInput {
   products: OrderProductUpdateManyInput
   customer: CustomerUpdateOneRequiredInput
   shippingAddress: AddressUpdateOneInput
-  billingAddress: AddressUpdateOneInput
+  billingAddress: AddressUpdateOneRequiredInput
   payment: CreditCardUpdateOneInput
   subtotal: Float
   tax: Float

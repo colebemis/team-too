@@ -16,7 +16,7 @@ type Order {
   products: [OrderProduct!]! @relation(name: "ProductsOfOrder", onDelete: CASCADE)
   customer: Customer! @relation(name: "OrderByCustomer", onDelete: CASCADE)
   shippingAddress: Address @relation(name: "ShippingAddress", onDelete: CASCADE)
-  billingAddress: Address @relation(name: "BillingAddress", onDelete: CASCADE)
+  billingAddress: Address! @relation(name: "BillingAddress", onDelete: CASCADE)
   payment: CreditCard @relation(name: "CreditCardOfOrder", onDelete: CASCADE)
   subtotal: Float!
   tax: Float!
