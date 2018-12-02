@@ -1021,7 +1021,7 @@ type Order {
   products(where: OrderProductWhereInput, orderBy: OrderProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderProduct!]
   customer: Customer!
   shippingAddress: Address
-  billingAddress: Address
+  billingAddress: Address!
   payment: CreditCard
   subtotal: Float!
   tax: Float!
@@ -1039,7 +1039,7 @@ input OrderCreateInput {
   products: OrderProductCreateManyInput
   customer: CustomerCreateOneInput!
   shippingAddress: AddressCreateOneInput
-  billingAddress: AddressCreateOneInput
+  billingAddress: AddressCreateOneInput!
   payment: CreditCardCreateOneInput
   subtotal: Float!
   tax: Float!
@@ -1326,7 +1326,7 @@ input OrderUpdateInput {
   products: OrderProductUpdateManyInput
   customer: CustomerUpdateOneRequiredInput
   shippingAddress: AddressUpdateOneInput
-  billingAddress: AddressUpdateOneInput
+  billingAddress: AddressUpdateOneRequiredInput
   payment: CreditCardUpdateOneInput
   subtotal: Float
   tax: Float
@@ -1441,6 +1441,7 @@ type Product {
   description: String!
   price: Float!
   stock: Int!
+  isShippable: Boolean!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
 }
 
@@ -1456,6 +1457,7 @@ input ProductCreateInput {
   description: String!
   price: Float!
   stock: Int!
+  isShippable: Boolean!
   categories: CategoryCreateManyWithoutProductsInput
 }
 
@@ -1470,6 +1472,7 @@ input ProductCreateWithoutCategoriesInput {
   description: String!
   price: Float!
   stock: Int!
+  isShippable: Boolean!
 }
 
 type ProductEdge {
@@ -1494,6 +1497,8 @@ enum ProductOrderByInput {
   price_DESC
   stock_ASC
   stock_DESC
+  isShippable_ASC
+  isShippable_DESC
 }
 
 type ProductPreviousValues {
@@ -1505,6 +1510,7 @@ type ProductPreviousValues {
   description: String!
   price: Float!
   stock: Int!
+  isShippable: Boolean!
 }
 
 type ProductSubscriptionPayload {
@@ -1531,6 +1537,7 @@ input ProductUpdateInput {
   description: String
   price: Float
   stock: Int
+  isShippable: Boolean
   categories: CategoryUpdateManyWithoutProductsInput
 }
 
@@ -1540,6 +1547,7 @@ input ProductUpdateManyMutationInput {
   description: String
   price: Float
   stock: Int
+  isShippable: Boolean
 }
 
 input ProductUpdateManyWithoutCategoriesInput {
@@ -1557,6 +1565,7 @@ input ProductUpdateWithoutCategoriesDataInput {
   description: String
   price: Float
   stock: Int
+  isShippable: Boolean
 }
 
 input ProductUpdateWithWhereUniqueWithoutCategoriesInput {
@@ -1659,6 +1668,8 @@ input ProductWhereInput {
   stock_lte: Int
   stock_gt: Int
   stock_gte: Int
+  isShippable: Boolean
+  isShippable_not: Boolean
   categories_every: CategoryWhereInput
   categories_some: CategoryWhereInput
   categories_none: CategoryWhereInput
