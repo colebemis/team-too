@@ -425,7 +425,7 @@ type CreditCard {
   id: ID!
   name: String!
   number: String!
-  expDate: DateTime!
+  expDate: String!
   cvv: String!
 }
 
@@ -438,7 +438,7 @@ type CreditCardConnection {
 input CreditCardCreateInput {
   name: String!
   number: String!
-  expDate: DateTime!
+  expDate: String!
   cvv: String!
 }
 
@@ -473,7 +473,7 @@ type CreditCardPreviousValues {
   id: ID!
   name: String!
   number: String!
-  expDate: DateTime!
+  expDate: String!
   cvv: String!
 }
 
@@ -498,21 +498,21 @@ input CreditCardSubscriptionWhereInput {
 input CreditCardUpdateDataInput {
   name: String
   number: String
-  expDate: DateTime
+  expDate: String
   cvv: String
 }
 
 input CreditCardUpdateInput {
   name: String
   number: String
-  expDate: DateTime
+  expDate: String
   cvv: String
 }
 
 input CreditCardUpdateManyMutationInput {
   name: String
   number: String
-  expDate: DateTime
+  expDate: String
   cvv: String
 }
 
@@ -573,14 +573,20 @@ input CreditCardWhereInput {
   number_not_starts_with: String
   number_ends_with: String
   number_not_ends_with: String
-  expDate: DateTime
-  expDate_not: DateTime
-  expDate_in: [DateTime!]
-  expDate_not_in: [DateTime!]
-  expDate_lt: DateTime
-  expDate_lte: DateTime
-  expDate_gt: DateTime
-  expDate_gte: DateTime
+  expDate: String
+  expDate_not: String
+  expDate_in: [String!]
+  expDate_not_in: [String!]
+  expDate_lt: String
+  expDate_lte: String
+  expDate_gt: String
+  expDate_gte: String
+  expDate_contains: String
+  expDate_not_contains: String
+  expDate_starts_with: String
+  expDate_not_starts_with: String
+  expDate_ends_with: String
+  expDate_not_ends_with: String
   cvv: String
   cvv_not: String
   cvv_in: [String!]

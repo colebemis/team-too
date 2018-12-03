@@ -73,7 +73,7 @@ type CreditCard {
   id: ID! @unique
   name: String!
   number: String!
-  expDate: DateTime!
+  expDate: String!
   cvv: String!
 }
 
