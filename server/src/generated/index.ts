@@ -916,7 +916,7 @@ export interface HoursSubscriptionWhereInput {
 export interface CreditCardUpdateDataInput {
   name?: String;
   number?: String;
-  expDate?: DateTimeInput;
+  expDate?: String;
   cvv?: String;
 }
 
@@ -976,14 +976,20 @@ export interface CreditCardWhereInput {
   number_not_starts_with?: String;
   number_ends_with?: String;
   number_not_ends_with?: String;
-  expDate?: DateTimeInput;
-  expDate_not?: DateTimeInput;
-  expDate_in?: DateTimeInput[] | DateTimeInput;
-  expDate_not_in?: DateTimeInput[] | DateTimeInput;
-  expDate_lt?: DateTimeInput;
-  expDate_lte?: DateTimeInput;
-  expDate_gt?: DateTimeInput;
-  expDate_gte?: DateTimeInput;
+  expDate?: String;
+  expDate_not?: String;
+  expDate_in?: String[] | String;
+  expDate_not_in?: String[] | String;
+  expDate_lt?: String;
+  expDate_lte?: String;
+  expDate_gt?: String;
+  expDate_gte?: String;
+  expDate_contains?: String;
+  expDate_not_contains?: String;
+  expDate_starts_with?: String;
+  expDate_not_starts_with?: String;
+  expDate_ends_with?: String;
+  expDate_not_ends_with?: String;
   cvv?: String;
   cvv_not?: String;
   cvv_in?: String[] | String;
@@ -1541,7 +1547,7 @@ export interface SiteInfoUpdateservicesInput {
 export interface CreditCardCreateInput {
   name: String;
   number: String;
-  expDate: DateTimeInput;
+  expDate: String;
   cvv: String;
 }
 
@@ -1553,7 +1559,7 @@ export interface HoursUpdateWithWhereUniqueNestedInput {
 export interface CreditCardUpdateInput {
   name?: String;
   number?: String;
-  expDate?: DateTimeInput;
+  expDate?: String;
   cvv?: String;
 }
 
@@ -1569,7 +1575,7 @@ export interface SiteInfoUpdateInput {
 export interface CreditCardUpdateManyMutationInput {
   name?: String;
   number?: String;
-  expDate?: DateTimeInput;
+  expDate?: String;
   cvv?: String;
 }
 
@@ -2670,7 +2676,7 @@ export interface CreditCard {
   id: ID_Output;
   name: String;
   number: String;
-  expDate: DateTimeOutput;
+  expDate: String;
   cvv: String;
 }
 
@@ -2678,7 +2684,7 @@ export interface CreditCardPromise extends Promise<CreditCard>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   number: () => Promise<String>;
-  expDate: () => Promise<DateTimeOutput>;
+  expDate: () => Promise<String>;
   cvv: () => Promise<String>;
 }
 
@@ -2688,7 +2694,7 @@ export interface CreditCardSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   number: () => Promise<AsyncIterator<String>>;
-  expDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  expDate: () => Promise<AsyncIterator<String>>;
   cvv: () => Promise<AsyncIterator<String>>;
 }
 
@@ -2753,7 +2759,7 @@ export interface CreditCardPreviousValues {
   id: ID_Output;
   name: String;
   number: String;
-  expDate: DateTimeOutput;
+  expDate: String;
   cvv: String;
 }
 
@@ -2763,7 +2769,7 @@ export interface CreditCardPreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   number: () => Promise<String>;
-  expDate: () => Promise<DateTimeOutput>;
+  expDate: () => Promise<String>;
   cvv: () => Promise<String>;
 }
 
@@ -2773,7 +2779,7 @@ export interface CreditCardPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   number: () => Promise<AsyncIterator<String>>;
-  expDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  expDate: () => Promise<AsyncIterator<String>>;
   cvv: () => Promise<AsyncIterator<String>>;
 }
 
