@@ -425,7 +425,7 @@ type CreditCard {
   id: ID!
   name: String!
   number: String!
-  expDate: DateTime!
+  expDate: String!
   cvv: String!
 }
 
@@ -438,7 +438,7 @@ type CreditCardConnection {
 input CreditCardCreateInput {
   name: String!
   number: String!
-  expDate: DateTime!
+  expDate: String!
   cvv: String!
 }
 
@@ -473,7 +473,7 @@ type CreditCardPreviousValues {
   id: ID!
   name: String!
   number: String!
-  expDate: DateTime!
+  expDate: String!
   cvv: String!
 }
 
@@ -498,21 +498,21 @@ input CreditCardSubscriptionWhereInput {
 input CreditCardUpdateDataInput {
   name: String
   number: String
-  expDate: DateTime
+  expDate: String
   cvv: String
 }
 
 input CreditCardUpdateInput {
   name: String
   number: String
-  expDate: DateTime
+  expDate: String
   cvv: String
 }
 
 input CreditCardUpdateManyMutationInput {
   name: String
   number: String
-  expDate: DateTime
+  expDate: String
   cvv: String
 }
 
@@ -573,14 +573,20 @@ input CreditCardWhereInput {
   number_not_starts_with: String
   number_ends_with: String
   number_not_ends_with: String
-  expDate: DateTime
-  expDate_not: DateTime
-  expDate_in: [DateTime!]
-  expDate_not_in: [DateTime!]
-  expDate_lt: DateTime
-  expDate_lte: DateTime
-  expDate_gt: DateTime
-  expDate_gte: DateTime
+  expDate: String
+  expDate_not: String
+  expDate_in: [String!]
+  expDate_not_in: [String!]
+  expDate_lt: String
+  expDate_lte: String
+  expDate_gt: String
+  expDate_gte: String
+  expDate_contains: String
+  expDate_not_contains: String
+  expDate_starts_with: String
+  expDate_not_starts_with: String
+  expDate_ends_with: String
+  expDate_not_ends_with: String
   cvv: String
   cvv_not: String
   cvv_in: [String!]
@@ -1021,7 +1027,7 @@ type Order {
   products(where: OrderProductWhereInput, orderBy: OrderProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderProduct!]
   customer: Customer!
   shippingAddress: Address
-  billingAddress: Address
+  billingAddress: Address!
   payment: CreditCard
   subtotal: Float!
   tax: Float!
@@ -1039,7 +1045,7 @@ input OrderCreateInput {
   products: OrderProductCreateManyInput
   customer: CustomerCreateOneInput!
   shippingAddress: AddressCreateOneInput
-  billingAddress: AddressCreateOneInput
+  billingAddress: AddressCreateOneInput!
   payment: CreditCardCreateOneInput
   subtotal: Float!
   tax: Float!
@@ -1326,7 +1332,7 @@ input OrderUpdateInput {
   products: OrderProductUpdateManyInput
   customer: CustomerUpdateOneRequiredInput
   shippingAddress: AddressUpdateOneInput
-  billingAddress: AddressUpdateOneInput
+  billingAddress: AddressUpdateOneRequiredInput
   payment: CreditCardUpdateOneInput
   subtotal: Float
   tax: Float
@@ -1441,6 +1447,7 @@ type Product {
   description: String!
   price: Float!
   stock: Int!
+  isShippable: Boolean!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
 }
 
@@ -1456,6 +1463,7 @@ input ProductCreateInput {
   description: String!
   price: Float!
   stock: Int!
+  isShippable: Boolean!
   categories: CategoryCreateManyWithoutProductsInput
 }
 
@@ -1470,6 +1478,7 @@ input ProductCreateWithoutCategoriesInput {
   description: String!
   price: Float!
   stock: Int!
+  isShippable: Boolean!
 }
 
 type ProductEdge {
@@ -1494,6 +1503,8 @@ enum ProductOrderByInput {
   price_DESC
   stock_ASC
   stock_DESC
+  isShippable_ASC
+  isShippable_DESC
 }
 
 type ProductPreviousValues {
@@ -1505,6 +1516,7 @@ type ProductPreviousValues {
   description: String!
   price: Float!
   stock: Int!
+  isShippable: Boolean!
 }
 
 type ProductSubscriptionPayload {
@@ -1531,6 +1543,7 @@ input ProductUpdateInput {
   description: String
   price: Float
   stock: Int
+  isShippable: Boolean
   categories: CategoryUpdateManyWithoutProductsInput
 }
 
@@ -1540,6 +1553,7 @@ input ProductUpdateManyMutationInput {
   description: String
   price: Float
   stock: Int
+  isShippable: Boolean
 }
 
 input ProductUpdateManyWithoutCategoriesInput {
@@ -1557,6 +1571,7 @@ input ProductUpdateWithoutCategoriesDataInput {
   description: String
   price: Float
   stock: Int
+  isShippable: Boolean
 }
 
 input ProductUpdateWithWhereUniqueWithoutCategoriesInput {
@@ -1659,6 +1674,8 @@ input ProductWhereInput {
   stock_lte: Int
   stock_gt: Int
   stock_gte: Int
+  isShippable: Boolean
+  isShippable_not: Boolean
   categories_every: CategoryWhereInput
   categories_some: CategoryWhereInput
   categories_none: CategoryWhereInput
