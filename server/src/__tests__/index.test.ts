@@ -113,3 +113,35 @@ test("order query", async () => {
   expect(result).toMatchSnapshot();
 });
 
+test("siteInfo query", async () => {
+  const query = `
+    query siteInfo {
+      siteInfo {
+        id
+        phone
+        email
+        address {
+          id
+          line1
+          line2
+          city
+          state
+          zip
+        }
+        hours {
+          id
+          index
+          day
+          open
+          close
+        }
+        about
+        services
+      }
+    }
+  `;
+
+  const result = await graphql(schema, query);
+
+  expect(result).toMatchSnapshot();
+});

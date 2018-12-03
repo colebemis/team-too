@@ -109,6 +109,7 @@ import Vue from "vue";
 import PageHeader from "@/components/PageHeader.vue";
 import Loader from "@/components/Loader.vue";
 import Button from "@/components/Button.vue";
+import { getUser } from "../auth";
 
 const USERS = gql`
   query users {
@@ -136,10 +137,8 @@ export default Vue.extend({
     };
   },
   mounted() {
-    // This will be replaced with a call to getUser() when my other pull is merged
-    if (localStorage.getItem("user")) {
-      this.currentUser = JSON.parse(localStorage.getItem("user"));
-    }
+    this.currentUser = getUser();
+    
   },
   apollo: {
     users: USERS,
@@ -155,12 +154,15 @@ export default Vue.extend({
           }
         `,
         variables: { userId },
-        update: (store, { data: { deleteUser } }) => {
+        update: (store, { data: { deleteUser } }: any) => {
           // Read the data from our cache for this query.
-          const data = store.readQuery({ query: USERS });
+          const data: any = store.readQuery({ query: USERS });
           // Deletes the user from the cache.
-          const index = data.users.findIndex(user => user.id === deleteUser.id);
-          data.users.splice(index, 1);
+          if (data) {
+            const index = data.users.findIndex((user: {id: string}) => user.id === deleteUser.id);
+            data.users.splice(index, 1);
+          }
+
           // Writes the updated query to the cache.
           store.writeQuery({ query: USERS, data });
         },
@@ -195,11 +197,13 @@ export default Vue.extend({
             }
           `,
           variables: { data: this.newUser },
-          update: (store, { data: { createUser } }) => {
+          update: (store, { data: { createUser } }: any) => {
             // Read the data from our cache for this query.
-            const data = store.readQuery({ query: USERS });
+            const data: any = store.readQuery({ query: USERS });
             // Adds the user to the cache.
-            data.users.push(createUser.user);
+            if (data) {
+              data.users.push(createUser.user);
+            }
             // Writes the updated query to the cache.
             store.writeQuery({ query: USERS, data });
           },

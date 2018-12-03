@@ -118,7 +118,7 @@
             <div
               class="w-1/3 bg-grey border border-solid border-grey-dark text-center h-12 pt-3"
             >
-              TAX
+              TAX (7.25%)
             </div>
             <div
               class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"
