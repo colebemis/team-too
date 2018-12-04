@@ -900,7 +900,7 @@ export interface OrderProductSubscriptionWhereInput {
 export interface CreditCardUpdateDataInput {
   name?: String;
   number?: String;
-  expDate?: DateTimeInput;
+  expDate?: String;
   cvv?: String;
 }
 
@@ -914,17 +914,6 @@ export interface HoursSubscriptionWhereInput {
   OR?: HoursSubscriptionWhereInput[] | HoursSubscriptionWhereInput;
   NOT?: HoursSubscriptionWhereInput[] | HoursSubscriptionWhereInput;
 }
-
-export interface CreditCardUpdateDataInput {
-  name?: String;
-  number?: String;
-  expDate?: String;
-  cvv?: String;
-}
-
-export type CreditCardWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
 
 export interface CreditCardUpdateOneInput {
   create?: CreditCardCreateInput;
