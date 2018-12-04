@@ -26,7 +26,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-first-name">
                           First Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="contact-first-name" type="text" placeholder="Bobby">
+                        <input v-model="contactFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="contact-first-name" type="text" placeholder="Bobby">
                       </div>
 
                       <!-- Last Name -->
@@ -34,7 +34,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-last-name">
                           Last Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-last-name" type="text" placeholder="Doe">
+                        <input v-model="contactLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-last-name" type="text" placeholder="Doe">
                       </div>
 
                       <!-- Email -->
@@ -42,7 +42,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-email">
                           Email
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-email" type="text" placeholder="janedoe@mail.com">
+                        <input v-model="contactEmail" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-email" type="text" placeholder="janedoe@mail.com">
                       </div>
                     </div>
 
@@ -61,7 +61,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-first-name">
                           First Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="billing-first-name" type="text" placeholder="Jane">
+                        <input v-model="billingFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="billing-first-name" type="text" placeholder="Jane">
                       </div>
 
                       <!-- Last Name -->
@@ -69,7 +69,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-last-name">
                           Last Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-last-name" type="text" placeholder="Doe">
+                        <input v-model="billingLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-last-name" type="text" placeholder="Doe">
                       </div>
 
                       <!-- Address -->
@@ -77,14 +77,14 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-address">
                           Address
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-address" type="text" placeholder="123 Foothill Blvd">
+                        <input v-model="billingAddress" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-address" type="text" placeholder="123 Foothill Blvd">
                       </div>
 
                       <div class="w-full pt-5 px-3">
                           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-city">
                             City
                           </label>
-                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-city" type="text" placeholder="San Luis Obispo">
+                          <input v-model="billingCity" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-city" type="text" placeholder="San Luis Obispo">
                         </div>
 
                       <div class="flex flex-wrap">
@@ -94,7 +94,7 @@
                             State
                           </label>
                           <div class="relative">
-                            <select class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-state">
+                            <select v-model="billingState" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-state">
                               <option value="AL">Alabama</option>
                               <option value="AK">Alaska</option>
                               <option value="AZ">Arizona</option>
@@ -155,7 +155,7 @@
                           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-zip">
                             Zip
                           </label>
-                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-zip" type="text" placeholder="93401">
+                          <input v-model="billingZip" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-zip" type="text" placeholder="93401">
                         </div>
                       </div>
                     </div>
@@ -175,7 +175,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-first-name">
                           First Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="shipping-first-name" type="text" placeholder="Jane">
+                        <input v-model="shippingFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="shipping-first-name" type="text" placeholder="Jane">
                         <p class="text-red text-xs italic">Please fill out this field.</p>
                       </div>
 
@@ -184,7 +184,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-last-name">
                           Last Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-last-name" type="text" placeholder="Doe">
+                        <input v-model="shippingLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-last-name" type="text" placeholder="Doe">
                       </div>
 
                       <!-- Address -->
@@ -192,14 +192,14 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-address">
                           Address
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-address" type="text" placeholder="123 Foothill Blvd">
+                        <input v-model="shippingAddress" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-address" type="text" placeholder="123 Foothill Blvd">
                       </div>
 
                       <div class="w-full pt-5 px-3">
                           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-city">
                             City
                           </label>
-                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-city" type="text" placeholder="San Luis Obispo">
+                          <input v-model="shippingCity" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-city" type="text" placeholder="San Luis Obispo">
                         </div>
 
                       <div class="flex flex-wrap">
@@ -209,7 +209,7 @@
                             State
                           </label>
                           <div class="relative">
-                            <select class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-state">
+                            <select v-model="shippingState" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-state">
                               <option value="AL">Alabama</option>
                               <option value="AK">Alaska</option>
                               <option value="AZ">Arizona</option>
@@ -270,7 +270,7 @@
                           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-zip">
                             Zip
                           </label>
-                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-zip" type="text" placeholder="93401">
+                          <input v-model="shippingZip" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-zip" type="text" placeholder="93401">
                         </div>
                       </div>
                     </div>
@@ -290,7 +290,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="payment-first-name">
                           First Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="payment-first-name" type="text" placeholder="Jane">
+                        <input v-model="paymentFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="payment-first-name" type="text" placeholder="Jane">
                         <p class="text-red text-xs italic">Please fill out this field.</p>
                       </div>
 
@@ -299,7 +299,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="payment-last-name">
                           Last Name
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="payment-last-name" type="text" placeholder="Doe">
+                        <input v-model="paymentLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="payment-last-name" type="text" placeholder="Doe">
                       </div>
 
                       <!-- Card Number -->
@@ -307,7 +307,7 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-number">
                           Credit Card Number
                         </label>
-                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-number" type="text" placeholder="0123 4567 8910 1112">
+                        <input v-model="creditCardNumber" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-number" type="text" placeholder="0123 4567 8910 1112">
                       </div>
 
                       <div class="flex flex-wrap">
@@ -315,14 +315,14 @@
                           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-exp-date">
                             Expiry Date
                           </label>
-                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-exp-date" type="text" placeholder="MM/YYYY">
+                          <input v-model="creditCardExpDate" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-exp-date" type="text" placeholder="MM/YYYY">
                         </div>
 
                         <div class="w-full md:w-1/2 px-3 pt-5">
-                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-ccv">
-                            CCV
+                          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-CVV">
+                            CVV
                           </label>
-                          <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-ccv" type="text" placeholder="000">
+                          <input v-model="creditCardCVV" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-CVV" type="text" placeholder="000">
                         </div>
                       </div>
                     </div>
@@ -333,6 +333,7 @@
 
             <!-- CART SUMMARY -->
             <div class="w-1/2 ml-10">
+              <div class = "sticky pin-t">
                 <!-- Header -->
                 <div class="w-full mt-5 mb-10 pt-5 px-10">
                   <h1 class="block uppercase tracking-wide text-grey-darkest text-med font-bold mb-2">
@@ -434,10 +435,11 @@
                 v-on:click="checkForm"
                 class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 mb-7 rounded-r rounded-l"
                 >
-                    DEBUG: CHECK FORM
+                    CONFIRM PURCHASE
                 </Button>
                 
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -499,9 +501,38 @@ export default Vue.extend({
     return {
       cart: JSON.parse(localStorage.getItem("cart") || "{}"),
       products: [],
+      contactFirstName: "",
+      contactLastName: "",
+      contactEmail: "",
+
+      billingFirstName: "",
+      billingLastName: "",
+      billingAddress: "",
+      billingCity: "",
+      billingState: "",
+      billingZip: "",
+
+      shippingFirstName: "",
+      shippingLastName: "",
+      shippingAddress: "",
+      shippingCity: "",
+      shippingState: "",
+      shippingZip: "",
+
+      paymentFirstName: "",
+      paymentLastName: "",
+      creditCardNumber: "",
+      creditCardCVV: "",
+      creditCardExpDate: "",
+
+      orderProducts: [],
+      customerInfo: {},
+      shippingInfo: {},
+      billingInfo: {},
+      paymentInfo: {},
     };
   },
-  
+
   apollo: {
     products() {
       return {
@@ -523,6 +554,7 @@ export default Vue.extend({
       };
     },
   },
+  
   computed: {
     subtotal(): number {
       return this.products.reduce(
@@ -531,99 +563,70 @@ export default Vue.extend({
         0,
       );
     },
+
+    tax(): number {
+      return this.subtotal * 0.0725;
+    },
+
+    total(): number {
+      return this.subtotal + this.tax;
+    },
   },
   methods: {
-    checkForm(){
 
-      const contactFirstNameID = "contact-first-name";
-      const contactLastNameID = "contact-last-name";
-      const contactEmailID = "contact-email";
-
-      const billingFirstNameID = "billing-first-name";
-      const billingLastNameID = "billing-last-name";
-      const billingAddressID = "billing-address";
-      const billingCityID = "billing-city";
-      const billingStateID = "billing-state";
-      const billingZipID = "billing-zip";
-
-      const shippingFirstNameID = "shipping-first-name";
-      const shippingLastNameID = "shipping-last-name";
-      const shippingAddressID = "shipping-address";
-      const shippingCityID = "shipping-city";
-      const shippingStateID = "shipping-state";
-      const shippingZipID = "shipping-zip";
-
-      const paymentFirstNameID = "payment-first-name";
-      const paymentLastNameID = "payment-last-name";
-      const creditCardNumberID = "credit-card-number";
-      const creditCardExpDateID = "credit-card-expiry-date";
-      const creditCardCCVID = "credit-card-ccv";
-
-      // ______________________________________________________________________________________________
-
-      const contactFirstName = (document.getElementById(contactFirstNameID) as HTMLInputElement).value;
-      const contactLastName = (document.getElementById(contactLastNameID) as HTMLInputElement).value;
-      const contactEmail = (document.getElementById(contactEmailID) as HTMLInputElement).value;
-
-      const billingFirstName = (document.getElementById(billingFirstNameID) as HTMLInputElement).value;
-      const billingLastName = (document.getElementById(billingLastNameID) as HTMLInputElement).value;
-      const billingAddress = (document.getElementById(billingAddressID) as HTMLInputElement).value;
-      const billingCity = (document.getElementById(billingCityID) as HTMLInputElement).value;
-      const billingState = (document.getElementById(billingStateID) as HTMLInputElement).value;
-      const billingZip= (document.getElementById(billingZipID) as HTMLInputElement).value;
-
-      const shippingFirstName = (document.getElementById(shippingFirstNameID) as HTMLInputElement).value;
-      const shippingLastName = (document.getElementById(shippingLastNameID) as HTMLInputElement).value;
-      const shippingAddress = (document.getElementById(shippingAddressID) as HTMLInputElement).value;
-      const shippingCity = (document.getElementById(shippingCityID) as HTMLInputElement).value;
-      const shippingState = (document.getElementById(shippingStateID) as HTMLInputElement).value;
-      const shippingZip= (document.getElementById(shippingZipID) as HTMLInputElement).value;
-
-      const paymentFirstName = (document.getElementById(paymentFirstNameID) as HTMLInputElement).value;
-      const paymentLastName = (document.getElementById(paymentLastNameID) as HTMLInputElement).value;
-      const creditCardNumber = (document.getElementById(creditCardNumberID) as HTMLInputElement).value;
-      const creditCardExpDate = (document.getElementById(creditCardExpDateID) as HTMLInputElement).value;
-      const creditCardCCV = (document.getElementById(creditCardCCVID) as HTMLInputElement).value;
-      
-      // console.log("Checking...");
-
-      // console.log(contactFirstName);
-      // console.log(contactLastName);
-      // console.log(contactEmail);
-
-      // console.log(billingFirstName);
-      // console.log(billingLastName);
-      // console.log(billingAddress);
-      // console.log(billingCity);
-      // console.log(billingState);
-      // console.log(billingZip);
-
-      // console.log(shippingFirstName);
-      // console.log(shippingLastName);
-      // console.log(shippingAddress);
-      // console.log(shippingCity);
-      // console.log(shippingState);
-      // console.log(shippingZip);
-
-      // console.log(paymentFirstName);
-      // console.log(paymentLastName);
-      // console.log(creditCardNumber);
-      // console.log(creditCardExpDate);
-      // console.log(creditCardCCV);
-
-
-      /* Iteration
-      var elements = (<HTMLFormElement>document.getElementById("shopForm")).elements;
-
-      for (var i = 0, element; element = elements[i++];) {
-          if (element.type === "text"){
-            if(element.value != ""){
-                console.log(element.value);
-            } else {
-                console.log("Empty field");
-            }
+  createOrder() {
+    this.$apollo.mutate({
+      // Mutation
+      mutation: gql`
+        mutation($data: OrderCreateInput!) {
+          createOrder(data: $data) {
+            id
           }
-      } */
+        }
+      `,
+      variables: {
+        data: {
+          status: "Pending",
+          products: {create: this.orderProducts},
+          customer: {create: this.customerInfo},
+          shippingAddress: {create: this.shippingInfo},
+          billingAddress: {create: this.billingInfo},
+          payment: {create: this.paymentInfo},
+          subtotal: this.subtotal,
+          tax: this.tax,
+          total: this.total,
+        }
+      },
+    });
+   },
+
+    checkForm(){
+      this.products.forEach((product) => {
+        // console.log(product.title);
+        // console.log(this.cart[product.id]);
+        // console.log(product.price);
+
+        const orderProduct = {title:product.title, imageURL:product.imageURL, description:product.description, 
+          price:product.price, quantity:this.cart[product.id]};
+
+        this.orderProducts.push(orderProduct);
+      });
+
+      this.customerInfo = {name: this.contactFirstName + " " + this.contactLastName, email: this.contactEmail};
+      this.shippingInfo = {name: this.shippingFirstName + " " + this.shippingLastName, line1: this.shippingAddress, line2: " ",
+                             city: this.shippingCity, state: this.shippingState, zip: this.shippingZip};
+
+      this.billingInfo = {name: this.billingFirstName + this.billingLastName, line1: this.billingAddress, line2: " ",
+                             city: this.billingCity, state: this.billingState, zip: this.billingZip};
+
+      this.paymentInfo = {name: this.billingFirstName + this.billingLastName, number: this.creditCardNumber, 
+                         expDate: this.creditCardExpDate, cvv: this.creditCardCVV};
+
+      // console.log(this.customerInfo);
+      // console.log(this.shippingInfo);
+      // console.log(this.billingInfo);
+
+      this.createOrder();
     }
   },
 });
