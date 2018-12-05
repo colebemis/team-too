@@ -55,7 +55,7 @@ export default new Router({
     },
     {
       path: "/admin/info",
-      component: () => import("./views/Info.vue"),
+      component: () => import("./views/EditSiteInfo.vue"),
     },
   ],
 });
