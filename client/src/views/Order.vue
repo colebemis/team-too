@@ -1,7 +1,8 @@
 <template>
   <div>
     <PageHeader>Order</PageHeader>
-    <div v-if="order">
+    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
+    <div v-else-if="order">
       <div class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
         <div id="ORDER_INFORMATION" class="flex-1">
           <div class="pb-8">
@@ -96,9 +97,10 @@ import { statuses, statusDisplayNames } from "@/utils";
 import ORDER_UPDATE_STATUS from "../graphql/OrderUpdateStatus.gql";
 import ORDER_INFO from "../graphql/OrderInfo.gql";
 import ORDERS from "../graphql/Orders.gql";
+import Loader from "@/components/Loader.vue";
 
 export default Vue.extend({
-    components: { PageHeader },
+    components: { PageHeader, Loader },
 
   data() {
     return {

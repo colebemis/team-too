@@ -1,9 +1,8 @@
 <template>
   <div>
     <PageHeader>Orders</PageHeader>
-    <div
-      class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row"
-    >
+    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
+    <div v-else class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
       <div class="md:w-1/5 mb-4 md:mb-0">
         <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
           Order Type
@@ -80,9 +79,11 @@ import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import { statuses, statusDisplayNames } from "@/utils";
 import ORDERS from "../graphql/Orders.gql";
+import Loader from "@/components/Loader.vue";
+
 
 export default Vue.extend({
-  components: { PageHeader },
+  components: { PageHeader, Loader },
   data() {
     return {
       orders: [],
