@@ -80,3 +80,13 @@ cd path/to/team-too/server
 npm run test
 ```
 
+## Admin Login Credentials
+
+You can use the following credentials to log in as an admin on the site:
+
+```
+email: bill@example.com
+password: password
+```
+
+
