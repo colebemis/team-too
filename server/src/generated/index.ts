@@ -530,7 +530,9 @@ export type ProductOrderByInput =
   | "price_ASC"
   | "price_DESC"
   | "stock_ASC"
-  | "stock_DESC";
+  | "stock_DESC"
+  | "isShippable_ASC"
+  | "isShippable_DESC";
 
 export type CategoryOrderByInput =
   | "id_ASC"
@@ -660,18 +662,18 @@ export interface ProductUpdateWithoutCategoriesDataInput {
   description?: String;
   price?: Float;
   stock?: Int;
+  isShippable?: Boolean;
 }
 
 export type AddressWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface OrderProductUpdateInput {
-  title?: String;
-  imageURL?: String;
-  description?: String;
-  price?: Float;
-  quantity?: Int;
+export interface OrderUpdateManyMutationInput {
+  status?: String;
+  subtotal?: Float;
+  tax?: Float;
+  total?: Float;
 }
 
 export interface OrderProductUpdateWithWhereUniqueNestedInput {
@@ -688,11 +690,9 @@ export interface CustomerCreateInput {
   email: String;
 }
 
-export interface OrderUpdateManyMutationInput {
-  status?: String;
-  subtotal?: Float;
-  tax?: Float;
-  total?: Float;
+export interface CreditCardUpsertNestedInput {
+  update: CreditCardUpdateDataInput;
+  create: CreditCardCreateInput;
 }
 
 export interface SiteInfoSubscriptionWhereInput {
@@ -897,9 +897,11 @@ export interface OrderProductSubscriptionWhereInput {
     | OrderProductSubscriptionWhereInput;
 }
 
-export interface CreditCardUpsertNestedInput {
-  update: CreditCardUpdateDataInput;
-  create: CreditCardCreateInput;
+export interface CreditCardUpdateDataInput {
+  name?: String;
+  number?: String;
+  expDate?: String;
+  cvv?: String;
 }
 
 export interface HoursSubscriptionWhereInput {
@@ -913,17 +915,6 @@ export interface HoursSubscriptionWhereInput {
   NOT?: HoursSubscriptionWhereInput[] | HoursSubscriptionWhereInput;
 }
 
-export interface CreditCardUpdateDataInput {
-  name?: String;
-  number?: String;
-  expDate?: DateTimeInput;
-  cvv?: String;
-}
-
-export type CreditCardWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
 export interface CreditCardUpdateOneInput {
   create?: CreditCardCreateInput;
   update?: CreditCardUpdateDataInput;
@@ -931,6 +922,17 @@ export interface CreditCardUpdateOneInput {
   delete?: Boolean;
   disconnect?: Boolean;
   connect?: CreditCardWhereUniqueInput;
+}
+
+export type CreditCardWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface AddressUpdateOneRequiredInput {
+  create?: AddressCreateInput;
+  update?: AddressUpdateDataInput;
+  upsert?: AddressUpsertNestedInput;
+  connect?: AddressWhereUniqueInput;
 }
 
 export interface CreditCardWhereInput {
@@ -976,14 +978,20 @@ export interface CreditCardWhereInput {
   number_not_starts_with?: String;
   number_ends_with?: String;
   number_not_ends_with?: String;
-  expDate?: DateTimeInput;
-  expDate_not?: DateTimeInput;
-  expDate_in?: DateTimeInput[] | DateTimeInput;
-  expDate_not_in?: DateTimeInput[] | DateTimeInput;
-  expDate_lt?: DateTimeInput;
-  expDate_lte?: DateTimeInput;
-  expDate_gt?: DateTimeInput;
-  expDate_gte?: DateTimeInput;
+  expDate?: String;
+  expDate_not?: String;
+  expDate_in?: String[] | String;
+  expDate_not_in?: String[] | String;
+  expDate_lt?: String;
+  expDate_lte?: String;
+  expDate_gt?: String;
+  expDate_gte?: String;
+  expDate_contains?: String;
+  expDate_not_contains?: String;
+  expDate_starts_with?: String;
+  expDate_not_starts_with?: String;
+  expDate_ends_with?: String;
+  expDate_not_ends_with?: String;
   cvv?: String;
   cvv_not?: String;
   cvv_in?: String[] | String;
@@ -1233,15 +1241,18 @@ export interface HoursWhereInput {
   NOT?: HoursWhereInput[] | HoursWhereInput;
 }
 
-export interface AddressUpdateOneRequiredInput {
-  create?: AddressCreateInput;
-  update?: AddressUpdateDataInput;
-  upsert?: AddressUpsertNestedInput;
-  connect?: AddressWhereUniqueInput;
+export interface SiteInfoUpdateInput {
+  address?: AddressUpdateOneRequiredInput;
+  hours?: HoursUpdateManyInput;
+  phone?: String;
+  email?: String;
+  about?: String;
+  services?: SiteInfoUpdateservicesInput;
 }
 
-export interface SiteInfoCreateservicesInput {
-  set?: String[] | String;
+export interface HoursCreateManyInput {
+  create?: HoursCreateInput[] | HoursCreateInput;
+  connect?: HoursWhereUniqueInput[] | HoursWhereUniqueInput;
 }
 
 export interface AddressCreateInput {
@@ -1253,9 +1264,13 @@ export interface AddressCreateInput {
   zip: String;
 }
 
-export interface HoursCreateManyInput {
-  create?: HoursCreateInput[] | HoursCreateInput;
-  connect?: HoursWhereUniqueInput[] | HoursWhereUniqueInput;
+export interface SiteInfoCreateInput {
+  address: AddressCreateOneInput;
+  hours?: HoursCreateManyInput;
+  phone: String;
+  email: String;
+  about: String;
+  services?: SiteInfoCreateservicesInput;
 }
 
 export interface AddressUpdateInput {
@@ -1267,13 +1282,13 @@ export interface AddressUpdateInput {
   zip?: String;
 }
 
-export interface SiteInfoCreateInput {
-  address: AddressCreateOneInput;
-  hours?: HoursCreateManyInput;
-  phone: String;
-  email: String;
-  about: String;
-  services?: SiteInfoCreateservicesInput;
+export interface ProductUpdateManyMutationInput {
+  imageURL?: String;
+  title?: String;
+  description?: String;
+  price?: Float;
+  stock?: Int;
+  isShippable?: Boolean;
 }
 
 export interface AddressUpdateManyMutationInput {
@@ -1373,8 +1388,9 @@ export interface CustomerUpdateOneRequiredInput {
   connect?: CustomerWhereUniqueInput;
 }
 
-export interface CategoryUpdateWithoutProductsDataInput {
-  name?: String;
+export interface CategoryUpdateWithWhereUniqueWithoutProductsInput {
+  where: CategoryWhereUniqueInput;
+  data: CategoryUpdateWithoutProductsDataInput;
 }
 
 export interface OrderProductUpsertWithWhereUniqueNestedInput {
@@ -1383,19 +1399,14 @@ export interface OrderProductUpsertWithWhereUniqueNestedInput {
   create: OrderProductCreateInput;
 }
 
-export interface CategoryUpdateManyWithoutProductsInput {
-  create?:
-    | CategoryCreateWithoutProductsInput[]
-    | CategoryCreateWithoutProductsInput;
-  delete?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  disconnect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  update?:
-    | CategoryUpdateWithWhereUniqueWithoutProductsInput[]
-    | CategoryUpdateWithWhereUniqueWithoutProductsInput;
-  upsert?:
-    | CategoryUpsertWithWhereUniqueWithoutProductsInput[]
-    | CategoryUpsertWithWhereUniqueWithoutProductsInput;
+export interface ProductUpdateInput {
+  imageURL?: String;
+  title?: String;
+  description?: String;
+  price?: Float;
+  stock?: Int;
+  isShippable?: Boolean;
+  categories?: CategoryUpdateManyWithoutProductsInput;
 }
 
 export interface CategoryCreateInput {
@@ -1403,13 +1414,8 @@ export interface CategoryCreateInput {
   products?: ProductCreateManyWithoutCategoriesInput;
 }
 
-export interface ProductUpdateInput {
-  imageURL?: String;
-  title?: String;
-  description?: String;
-  price?: Float;
-  stock?: Int;
-  categories?: CategoryUpdateManyWithoutProductsInput;
+export interface CategoryCreateWithoutProductsInput {
+  name: String;
 }
 
 export interface ProductCreateManyWithoutCategoriesInput {
@@ -1419,11 +1425,14 @@ export interface ProductCreateManyWithoutCategoriesInput {
   connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
 }
 
-export interface CategoryCreateManyWithoutProductsInput {
-  create?:
-    | CategoryCreateWithoutProductsInput[]
-    | CategoryCreateWithoutProductsInput;
-  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+export interface ProductCreateInput {
+  imageURL: String;
+  title: String;
+  description: String;
+  price: Float;
+  stock: Int;
+  isShippable: Boolean;
+  categories?: CategoryCreateManyWithoutProductsInput;
 }
 
 export interface ProductCreateWithoutCategoriesInput {
@@ -1432,15 +1441,15 @@ export interface ProductCreateWithoutCategoriesInput {
   description: String;
   price: Float;
   stock: Int;
+  isShippable: Boolean;
 }
 
-export interface ProductCreateInput {
-  imageURL: String;
-  title: String;
-  description: String;
-  price: Float;
-  stock: Int;
-  categories?: CategoryCreateManyWithoutProductsInput;
+export interface OrderProductUpdateManyMutationInput {
+  title?: String;
+  imageURL?: String;
+  description?: String;
+  price?: Float;
+  quantity?: Int;
 }
 
 export interface CategoryUpdateInput {
@@ -1541,7 +1550,7 @@ export interface SiteInfoUpdateservicesInput {
 export interface CreditCardCreateInput {
   name: String;
   number: String;
-  expDate: DateTimeInput;
+  expDate: String;
   cvv: String;
 }
 
@@ -1553,23 +1562,18 @@ export interface HoursUpdateWithWhereUniqueNestedInput {
 export interface CreditCardUpdateInput {
   name?: String;
   number?: String;
-  expDate?: DateTimeInput;
+  expDate?: String;
   cvv?: String;
 }
 
-export interface SiteInfoUpdateInput {
-  address?: AddressUpdateOneRequiredInput;
-  hours?: HoursUpdateManyInput;
-  phone?: String;
-  email?: String;
-  about?: String;
-  services?: SiteInfoUpdateservicesInput;
+export interface SiteInfoCreateservicesInput {
+  set?: String[] | String;
 }
 
 export interface CreditCardUpdateManyMutationInput {
   name?: String;
   number?: String;
-  expDate?: DateTimeInput;
+  expDate?: String;
   cvv?: String;
 }
 
@@ -1756,6 +1760,8 @@ export interface ProductWhereInput {
   stock_lte?: Int;
   stock_gt?: Int;
   stock_gte?: Int;
+  isShippable?: Boolean;
+  isShippable_not?: Boolean;
   categories_every?: CategoryWhereInput;
   categories_some?: CategoryWhereInput;
   categories_none?: CategoryWhereInput;
@@ -1764,10 +1770,8 @@ export interface ProductWhereInput {
   NOT?: ProductWhereInput[] | ProductWhereInput;
 }
 
-export interface CategoryUpsertWithWhereUniqueWithoutProductsInput {
-  where: CategoryWhereUniqueInput;
-  update: CategoryUpdateWithoutProductsDataInput;
-  create: CategoryCreateWithoutProductsInput;
+export interface CategoryUpdateWithoutProductsDataInput {
+  name?: String;
 }
 
 export interface CustomerUpdateInput {
@@ -1910,7 +1914,7 @@ export interface OrderCreateInput {
   products?: OrderProductCreateManyInput;
   customer: CustomerCreateOneInput;
   shippingAddress?: AddressCreateOneInput;
-  billingAddress?: AddressCreateOneInput;
+  billingAddress: AddressCreateOneInput;
   payment?: CreditCardCreateOneInput;
   subtotal: Float;
   tax: Float;
@@ -1935,12 +1939,10 @@ export interface OrderProductCreateManyInput {
   connect?: OrderProductWhereUniqueInput[] | OrderProductWhereUniqueInput;
 }
 
-export interface ProductUpdateManyMutationInput {
-  imageURL?: String;
-  title?: String;
-  description?: String;
-  price?: Float;
-  stock?: Int;
+export interface CategoryUpsertWithWhereUniqueWithoutProductsInput {
+  where: CategoryWhereUniqueInput;
+  update: CategoryUpdateWithoutProductsDataInput;
+  create: CategoryCreateWithoutProductsInput;
 }
 
 export interface OrderProductCreateInput {
@@ -1951,8 +1953,11 @@ export interface OrderProductCreateInput {
   quantity: Int;
 }
 
-export interface CategoryCreateWithoutProductsInput {
-  name: String;
+export interface CategoryCreateManyWithoutProductsInput {
+  create?:
+    | CategoryCreateWithoutProductsInput[]
+    | CategoryCreateWithoutProductsInput;
+  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
 }
 
 export interface CustomerCreateOneInput {
@@ -1989,7 +1994,7 @@ export interface OrderUpdateInput {
   products?: OrderProductUpdateManyInput;
   customer?: CustomerUpdateOneRequiredInput;
   shippingAddress?: AddressUpdateOneInput;
-  billingAddress?: AddressUpdateOneInput;
+  billingAddress?: AddressUpdateOneRequiredInput;
   payment?: CreditCardUpdateOneInput;
   subtotal?: Float;
   tax?: Float;
@@ -2013,7 +2018,7 @@ export interface UserUpdateManyMutationInput {
   isAdmin?: Boolean;
 }
 
-export interface OrderProductUpdateManyMutationInput {
+export interface OrderProductUpdateInput {
   title?: String;
   imageURL?: String;
   description?: String;
@@ -2021,9 +2026,19 @@ export interface OrderProductUpdateManyMutationInput {
   quantity?: Int;
 }
 
-export interface CategoryUpdateWithWhereUniqueWithoutProductsInput {
-  where: CategoryWhereUniqueInput;
-  data: CategoryUpdateWithoutProductsDataInput;
+export interface CategoryUpdateManyWithoutProductsInput {
+  create?:
+    | CategoryCreateWithoutProductsInput[]
+    | CategoryCreateWithoutProductsInput;
+  delete?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+  disconnect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+  update?:
+    | CategoryUpdateWithWhereUniqueWithoutProductsInput[]
+    | CategoryUpdateWithWhereUniqueWithoutProductsInput;
+  upsert?:
+    | CategoryUpsertWithWhereUniqueWithoutProductsInput[]
+    | CategoryUpsertWithWhereUniqueWithoutProductsInput;
 }
 
 export type OrderWhereUniqueInput = AtLeastOne<{
@@ -2232,6 +2247,7 @@ export interface ProductPreviousValues {
   description: String;
   price: Float;
   stock: Int;
+  isShippable: Boolean;
 }
 
 export interface ProductPreviousValuesPromise
@@ -2245,6 +2261,7 @@ export interface ProductPreviousValuesPromise
   description: () => Promise<String>;
   price: () => Promise<Float>;
   stock: () => Promise<Int>;
+  isShippable: () => Promise<Boolean>;
 }
 
 export interface ProductPreviousValuesSubscription
@@ -2258,6 +2275,7 @@ export interface ProductPreviousValuesSubscription
   description: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
   stock: () => Promise<AsyncIterator<Int>>;
+  isShippable: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface AggregateUser {
@@ -2670,7 +2688,7 @@ export interface CreditCard {
   id: ID_Output;
   name: String;
   number: String;
-  expDate: DateTimeOutput;
+  expDate: String;
   cvv: String;
 }
 
@@ -2678,7 +2696,7 @@ export interface CreditCardPromise extends Promise<CreditCard>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   number: () => Promise<String>;
-  expDate: () => Promise<DateTimeOutput>;
+  expDate: () => Promise<String>;
   cvv: () => Promise<String>;
 }
 
@@ -2688,7 +2706,7 @@ export interface CreditCardSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   number: () => Promise<AsyncIterator<String>>;
-  expDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  expDate: () => Promise<AsyncIterator<String>>;
   cvv: () => Promise<AsyncIterator<String>>;
 }
 
@@ -2753,7 +2771,7 @@ export interface CreditCardPreviousValues {
   id: ID_Output;
   name: String;
   number: String;
-  expDate: DateTimeOutput;
+  expDate: String;
   cvv: String;
 }
 
@@ -2763,7 +2781,7 @@ export interface CreditCardPreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   number: () => Promise<String>;
-  expDate: () => Promise<DateTimeOutput>;
+  expDate: () => Promise<String>;
   cvv: () => Promise<String>;
 }
 
@@ -2773,7 +2791,7 @@ export interface CreditCardPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   number: () => Promise<AsyncIterator<String>>;
-  expDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  expDate: () => Promise<AsyncIterator<String>>;
   cvv: () => Promise<AsyncIterator<String>>;
 }
 
@@ -3319,6 +3337,7 @@ export interface Product {
   description: String;
   price: Float;
   stock: Int;
+  isShippable: Boolean;
 }
 
 export interface ProductPromise extends Promise<Product>, Fragmentable {
@@ -3330,6 +3349,7 @@ export interface ProductPromise extends Promise<Product>, Fragmentable {
   description: () => Promise<String>;
   price: () => Promise<Float>;
   stock: () => Promise<Int>;
+  isShippable: () => Promise<Boolean>;
   categories: <T = FragmentableArray<Category>>(
     args?: {
       where?: CategoryWhereInput;
@@ -3354,6 +3374,7 @@ export interface ProductSubscription
   description: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
   stock: () => Promise<AsyncIterator<Int>>;
+  isShippable: () => Promise<AsyncIterator<Boolean>>;
   categories: <T = Promise<AsyncIterator<CategorySubscription>>>(
     args?: {
       where?: CategoryWhereInput;
