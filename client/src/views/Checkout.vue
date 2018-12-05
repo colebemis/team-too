@@ -478,12 +478,34 @@
         
                 </div>
 
-                <Button
-                v-on:click="submitForm"
-                class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 mb-7 rounded-r rounded-l"
-                >
-                    CONFIRM PURCHASE
-                </Button>
+                  <!-- Checkout Button -->
+                  <div class="flex mt-5 items-center justify-center">
+                    <div
+                      class="w-1/3 text-white font-bold text-center h-15"
+                    >
+                    </div>
+                  
+                    <div
+                      class="w-1/3 text-white font-bold text-center h-15"
+                    >
+                    </div>
+
+                    <div
+                      class="w-1/3 text-white font-bold text-center h-15"
+                    >
+                    </div>
+
+                    <div
+                      class="w-2/3 text-white font-bold text-center h-15"
+                    >
+                        <Button
+                        v-on:click="submitForm"
+                        class="bg-grey-darkest hover:bg-grey-dark text-grey-lightest font-bold text-center content-center py-4 px-4 ml-10 rounded-l rounded-r"
+                        >
+                            CONFIRM PURCHASE
+                        </Button>
+                    </div>
+                  </div>
                 
             </div>
           </div>
