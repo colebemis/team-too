@@ -11,6 +11,15 @@
             <div class="w-1/2 bg-grey-light h-50">
                 <form id="shopForm" class="container mx-auto px-20 mt-5 mb-10">
 
+                  <div v-if="!formValid && btnPressed"
+                  class="mt-5 bg-red-lightest border border-red-light text-red-dark px-4 py-3 mr-5 text-sm rounded relative"
+                  role="alert"
+                  >
+                    <p>
+                      <b>Please correct the errors in the form before continuing.</b>
+                    </p>
+                  </div>
+
                     <!-- CONTACT -->
                     <div class="flex flex-wrap -mx-3 mb-6">
 
@@ -26,15 +35,22 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-first-name">
                           First Name
                         </label>
-                        <input v-model="contactFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="contact-first-name" type="text" placeholder="Bobby">
-                      </div>
+                        <input name="First Name" v-validate="'required|alpha'" v-model="contactFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="contact-first-name" type="text" placeholder="Bobby">
+                        <div class = "mt-1">
+                          <span v-show="errors.has('First Name')" class="text-red text-xs relative help is-danger">{{ errors.first('First Name') }}</span>
+                        </div>
+                     </div>
 
                       <!-- Last Name -->
                       <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-last-name">
                           Last Name
                         </label>
-                        <input v-model="contactLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-last-name" type="text" placeholder="Doe">
+                        <input name="Last Name" v-validate="'required|alpha'" v-model="contactLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-last-name" type="text" placeholder="Doe">
+                         <div class = "mt-1">
+                          <span v-show="errors.has('Last Name')" class="text-red text-xs relative help is-danger">{{ errors.first('Last Name') }}</span>
+                        </div>
+        
                       </div>
 
                       <!-- Email -->
@@ -42,7 +58,10 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="contact-email">
                           Email
                         </label>
-                        <input v-model="contactEmail" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-email" type="text" placeholder="janedoe@mail.com">
+                        <input v-validate="'required|email'" name="email" type="text" v-model="contactEmail" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="contact-email" placeholder="janedoe@mail.com">
+                        <div class = "mt-1">
+                          <span v-show="errors.has('email')" class="text-red text-xs relative help is-danger">{{ errors.first('email') }}</span>
+                        </div>
                       </div>
                     </div>
 
@@ -61,7 +80,10 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-first-name">
                           First Name
                         </label>
-                        <input v-model="billingFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="billing-first-name" type="text" placeholder="Jane">
+                        <input name="Billing First Name" v-validate="'required|alpha'" v-model="billingFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="billing-first-name" type="text" placeholder="Jane">
+                        <div class = "mt-1">
+                          <span v-show="errors.has('Billing First Name')" class="text-red text-xs relative help is-danger">{{ errors.first('Billing First Name') }}</span>
+                        </div>
                       </div>
 
                       <!-- Last Name -->
@@ -69,7 +91,10 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-last-name">
                           Last Name
                         </label>
-                        <input v-model="billingLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-last-name" type="text" placeholder="Doe">
+                        <input name="Billing Last Name" v-validate="'required|alpha'" v-model="billingLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-last-name" type="text" placeholder="Doe">
+                        <div class = "mt-1">
+                          <span v-show="errors.has('Billing Last Name')" class="text-red text-xs relative help is-danger">{{ errors.first('Billing Last Name') }}</span>
+                        </div>
                       </div>
 
                       <!-- Address -->
@@ -155,7 +180,10 @@
                           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="billing-zip">
                             Zip
                           </label>
-                          <input v-model="billingZip" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-zip" type="text" placeholder="93401">
+                          <input name="Billing ZIP Code" v-validate="'required|numeric'" v-model="billingZip" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="billing-zip" type="text" placeholder="93401">
+                          <div class = "mt-1">
+                            <span v-show="errors.has('Billing ZIP Code')" class="text-red text-xs relative help is-danger">{{ errors.first('Billing ZIP Code') }}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -175,8 +203,10 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-first-name">
                           First Name
                         </label>
-                        <input v-model="shippingFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="shipping-first-name" type="text" placeholder="Jane">
-                        <p class="text-red text-xs italic">Please fill out this field.</p>
+                        <input name="Shipping First Name" v-validate="'required|alpha'" v-model="shippingFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="shipping-first-name" type="text" placeholder="Jane">
+                        <div class = "mt-1">
+                          <span v-show="errors.has('Shipping First Name')" class="text-red text-xs relative help is-danger">{{ errors.first('Shipping First Name') }}</span>
+                        </div>
                       </div>
 
                       <!-- Last Name -->
@@ -184,7 +214,10 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-last-name">
                           Last Name
                         </label>
-                        <input v-model="shippingLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-last-name" type="text" placeholder="Doe">
+                        <input name="Shipping Last Name" v-validate="'required|alpha'" v-model="shippingLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-last-name" type="text" placeholder="Doe">
+                        <div class = "mt-1">
+                          <span v-show="errors.has('Shipping Last Name')" class="text-red text-xs relative help is-danger">{{ errors.first('Shipping Last Name') }}</span>
+                        </div>
                       </div>
 
                       <!-- Address -->
@@ -270,18 +303,21 @@
                           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="shipping-zip">
                             Zip
                           </label>
-                          <input v-model="shippingZip" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-zip" type="text" placeholder="93401">
+                          <input name="Shipping ZIP Code" v-validate="'required|numeric'" v-model="shippingZip" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="shipping-zip" type="text" placeholder="93401">
+                          <div class = "mt-1">
+                            <span v-show="errors.has('Shipping ZIP Code')" class="text-red text-xs relative help is-danger">{{ errors.first('Shipping ZIP Code') }}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    <!-- PAYMENT - CREDIT CARD INFO - BILLING INFO -->
+                    <!-- PAYMENT INFO -->
                     <div class="flex flex-wrap -mx-3 mb-6 pt-10">
 
                       <!-- Header -->
                       <div class="w-full pt-5 pb-5 px-3">
                         <h1 class="block uppercase tracking-wide text-grey-darkest text-med font-bold mb-2">
-                          BILLING INFO 
+                          PAYMENT INFO 
                         </h1>
                       </div>
 
@@ -290,8 +326,10 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="payment-first-name">
                           First Name
                         </label>
-                        <input v-model="paymentFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="payment-first-name" type="text" placeholder="Jane">
-                        <p class="text-red text-xs italic">Please fill out this field.</p>
+                        <input name="Payment First Name" v-validate="'required|alpha'" v-model="paymentFirstName" class="appearance-none block w-full bg-grey-lighter text-grey-darker rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="payment-first-name" type="text" placeholder="Jane">
+                        <div class = "mt-1">
+                          <span v-show="errors.has('Payment First Name')" class="text-red text-xs relative help is-danger">{{ errors.first('Payment First Name') }}</span>
+                        </div>
                       </div>
 
                       <!-- Last Name -->
@@ -299,7 +337,10 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="payment-last-name">
                           Last Name
                         </label>
-                        <input v-model="paymentLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="payment-last-name" type="text" placeholder="Doe">
+                        <input name="Payment Last Name" v-validate="'required|alpha'" v-model="paymentLastName" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="payment-last-name" type="text" placeholder="Doe">
+                        <div class = "mt-1">
+                          <span v-show="errors.has('Payment Last Name')" class="text-red text-xs relative help is-danger">{{ errors.first('Payment Last Name') }}</span>
+                        </div>
                       </div>
 
                       <!-- Card Number -->
@@ -307,7 +348,10 @@
                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-number">
                           Credit Card Number
                         </label>
-                        <input v-model="creditCardNumber" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-number" type="text" placeholder="0123 4567 8910 1112">
+                        <input name="Credit Card Number" v-validate="'required|numeric'" v-model="creditCardNumber" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-number" type="text" placeholder="0123 4567 8910 1112">
+                        <div class = "mt-1">
+                          <span v-show="errors.has('Credit Card Number')" class="text-red text-xs relative help is-danger">{{ errors.first('Credit Card Number') }}</span>
+                        </div>
                       </div>
 
                       <div class="flex flex-wrap">
@@ -315,14 +359,17 @@
                           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-exp-date">
                             Expiry Date
                           </label>
-                          <input v-model="creditCardExpDate" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-exp-date" type="text" placeholder="MM/YYYY">
+                          <input v-model="creditCardExpDate" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-exp-date" type="month" placeholder="MM/YYYY">
                         </div>
 
                         <div class="w-full md:w-1/2 px-3 pt-5">
                           <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit-card-CVV">
                             CVV
                           </label>
-                          <input v-model="creditCardCVV" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-CVV" type="text" placeholder="000">
+                          <input name="CCV" v-validate="'required|numeric'" v-model="creditCardCVV" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" id="credit-card-CVV" placeholder="000">
+                          <div class = "mt-1">
+                            <span v-show="errors.has('CCV')" class="text-red text-xs relative help is-danger">{{ errors.first('CCV') }}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -358,7 +405,7 @@
                   >
                     <!-- Product Info: image and title - 2 columns -->
                     <router-link
-                      class="flex bg-grey-light items-center justify-start w-1/3 hover:opacity-75"
+                      class="flex bg-grey-lightest items-center justify-start w-1/3 hover:opacity-75"
                       :to="`/product/${product.id}`"
                     >
 
@@ -377,7 +424,7 @@
                     </div>
 
                     <!-- Product Price -->
-                    <div class="bg-grey flex items-center justify-end w-1/3 pr-5">
+                    <div class="bg-grey-light flex items-center justify-end w-1/3 pr-5">
                       <span class="ml-2 ">
                         &#32; ${{ (product.price * cart[product.id]).toFixed(2) }}
                       </span>
@@ -432,7 +479,7 @@
                 </div>
 
                 <Button
-                v-on:click="checkForm"
+                v-on:click="submitForm"
                 class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 mb-7 rounded-r rounded-l"
                 >
                     CONFIRM PURCHASE
@@ -447,6 +494,14 @@
 </template>
 
 <style>
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
 .pageHead {
   text-align: center;
   font-size: 20pt;
@@ -490,10 +545,13 @@ hr {
 
 <script lang="ts">
 import Vue from "vue";
+import VeeValidate from 'vee-validate';
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import Footer from "@/components/Footer.vue";
 import Loader from "@/components/Loader.vue";
+
+Vue.use(VeeValidate);
 
 export default Vue.extend({
   components: { PageHeader, Footer, Loader },
@@ -501,6 +559,9 @@ export default Vue.extend({
     return {
       cart: JSON.parse(localStorage.getItem("cart") || "{}"),
       products: [],
+      errorsGrouping: [],
+      btnPressed: false,
+      orderID: "",
       contactFirstName: "",
       contactLastName: "",
       contactEmail: "",
@@ -556,6 +617,13 @@ export default Vue.extend({
   },
   
   computed: {
+    formValid () {
+      // loop over all contents of the fields object and check if they exist and valid.
+      return Object.keys(this.fields).every(field => {
+        return this.fields[field] && this.fields[field].valid;
+      });
+    },
+
     subtotal(): number {
       return this.products.reduce(
         (subtotal, currentProduct: { id: string; price: number }) =>
@@ -574,59 +642,89 @@ export default Vue.extend({
   },
   methods: {
 
-  createOrder() {
-    this.$apollo.mutate({
-      // Mutation
-      mutation: gql`
-        mutation($data: OrderCreateInput!) {
-          createOrder(data: $data) {
-            id
-          }
-        }
-      `,
-      variables: {
-        data: {
-          status: "Pending",
-          products: {create: this.orderProducts},
-          customer: {create: this.customerInfo},
-          shippingAddress: {create: this.shippingInfo},
-          billingAddress: {create: this.billingInfo},
-          payment: {create: this.paymentInfo},
-          subtotal: this.subtotal,
-          tax: this.tax,
-          total: this.total,
-        }
-      },
-    });
-   },
+    createOrder() {
+          this.$apollo.mutate({
+            // Mutation
+            mutation: gql`
+              mutation($data: OrderCreateInput!) {
+                createOrder(data: $data) {
+                  id
+                }
+              }
+            `,
+            variables: {
+              data: {
+                status: "Pending",
+                products: {create: this.orderProducts},
+                customer: {create: this.customerInfo},
+                shippingAddress: {create: this.shippingInfo},
+                billingAddress: {create: this.billingInfo},
+                payment: {create: this.paymentInfo},
+                subtotal: this.subtotal,
+                tax: this.tax,
+                total: this.total,
+              }
+            },
+          }).then(data => {
+              this.orderID = data.data.createOrder.id;  
 
-    checkForm(){
-      this.products.forEach((product) => {
-        // console.log(product.title);
-        // console.log(this.cart[product.id]);
-        // console.log(product.price);
+              this.$router.push({path: `/confirmation/${this.orderID}`});
+          });
+    },
 
-        const orderProduct = {title:product.title, imageURL:product.imageURL, description:product.description, 
-          price:product.price, quantity:this.cart[product.id]};
+    submitForm(){
+      this.btnPressed = true;
+      this.errorsGrouping = [];
 
-        this.orderProducts.push(orderProduct);
-      });
+      const formApproved = this.formValid;
 
-      this.customerInfo = {name: this.contactFirstName + " " + this.contactLastName, email: this.contactEmail};
-      this.shippingInfo = {name: this.shippingFirstName + " " + this.shippingLastName, line1: this.shippingAddress, line2: " ",
-                             city: this.shippingCity, state: this.shippingState, zip: this.shippingZip};
+      if(formApproved){
+          this.products.forEach((product) => {
 
-      this.billingInfo = {name: this.billingFirstName + this.billingLastName, line1: this.billingAddress, line2: " ",
-                             city: this.billingCity, state: this.billingState, zip: this.billingZip};
+            // Creating OrderProduct objects for Order
+            const orderProduct = {title:product.title, imageURL:product.imageURL, description:product.description, 
+              price:product.price, quantity:this.cart[product.id]};
 
-      this.paymentInfo = {name: this.billingFirstName + this.billingLastName, number: this.creditCardNumber, 
-                         expDate: this.creditCardExpDate, cvv: this.creditCardCVV};
+            this.orderProducts.push(orderProduct);
 
-      // console.log(this.customerInfo);
-      // console.log(this.shippingInfo);
-      // console.log(this.billingInfo);
+            // Inventory Adjustment For Purchased Products
+              this.$apollo.mutate({
+                // Mutation
+                mutation: gql`
+                  mutation($data: ProductUpdateInput!, $id: ID!) {
+                    updateProduct(data: $data, where: { id: $id }) {
+                      id
+                      stock
+                    }
+                  }
+                `,
+                variables: {
+                  data: {
+                    stock: product.stock - this.cart[product.id],
+                  },
+                  id: product.id
+                }
+              })
+          });
 
-      this.createOrder();
+          // Get Form Input
+
+          this.customerInfo = {name: this.contactFirstName + " " + this.contactLastName, email: this.contactEmail};
+          this.shippingInfo = {name: this.shippingFirstName + " " + this.shippingLastName, line1: this.shippingAddress, line2: " ",
+                                city: this.shippingCity, state: this.shippingState, zip: this.shippingZip};
+
+          this.billingInfo = {name: this.billingFirstName + this.billingLastName, line1: this.billingAddress, line2: " ",
+                                city: this.billingCity, state: this.billingState, zip: this.billingZip};
+
+          this.paymentInfo = {name: this.billingFirstName + this.billingLastName, number: this.creditCardNumber, 
+                            expDate: this.creditCardExpDate, cvv: this.creditCardCVV};
+
+          // Clear cart when making purchase
+          const newCart = {};
+          localStorage.setItem("cart", JSON.stringify(newCart));
+
+          this.createOrder();
+      }
     }
   },
 });

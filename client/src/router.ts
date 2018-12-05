@@ -30,6 +30,10 @@ export default new Router({
       component: () => import("./views/Checkout.vue"),
     },
     {
+      path: "/confirmation/:id",
+      component: () => import("./views/Confirmation.vue"),
+    },
+    {
       path: "/login",
       component: () => import("./views/Login.vue"),
     },
