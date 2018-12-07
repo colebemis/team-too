@@ -10,5 +10,6 @@ query product($id: ID!) {
             id
             name
         }
+        isShippable
     }
 }

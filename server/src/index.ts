@@ -114,10 +114,18 @@ const resolvers = {
       const [siteInfo] =  await context.db.siteInfoes();
       return context.db.updateSiteInfo({where: {id: siteInfo.id}, data: args.data});
     },
+    createCategory: async (root, args, context: Context, info) => {
+      verifyRequest(context);
+      return await context.db.createCategory(args.data);
+    },
     updateCategory: (root, args, context: Context, info) => {
       verifyRequest(context);
       return context.db.updateCategory(args);
-    }
+    },
+    deleteCategory: (root, args, context: Context, info) => {
+      verifyRequest(context);
+      return context.db.deleteCategory(args.where);
+    },
   },
   Order: {
     customer: (root, args, context: Context, info) => {

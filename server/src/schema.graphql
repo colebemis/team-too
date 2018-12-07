@@ -25,7 +25,9 @@ type Mutation {
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
   deleteProduct(where: ProductWhereUniqueInput!): Product
   updateSiteInfo(data: SiteInfoUpdateInput!): SiteInfo
+  createCategory(data: CategoryCreateInput!): Category!
   updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
 }
 
 type AuthPayload {
