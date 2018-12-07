@@ -188,8 +188,32 @@
                       </div>
                     </div>
 
+                    <!-- SHIPPING METHOD-->
+                    <div class="flex flex-wrap -mx-3 pt-10">
+
+                      <!-- Header -->
+                      <div class="w-full pt-5 pb-5 px-3">
+                        <h1 class="block uppercase tracking-wide text-grey-darkest text-med font-bold mb-4">
+                          SHIPPING METHOD
+                        </h1>
+
+                        <div class="flex">
+                            <div class="flex w-1/2">
+                              <input type="radio" v-model="shippingMethod" id="storePickup" value="storePickup"
+                                    checked>
+                              <label for="storePickup" class="mx-2 block uppercase text-grey-darkest">Store Pickup</label>
+                            </div>
+
+                            <div class="flex w-1/2">
+                              <input type="radio" v-model="shippingMethod" id="delivery" value="delivery">
+                              <label for="delivery" class="mx-2 block uppercase text-grey-darkest">Delivery</label>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <!-- SHIPPING -->
-                    <div class="flex flex-wrap -mx-3 mb-6 pt-10">
+                    <div v-if="orderByDelivery" class="flex flex-wrap -mx-3 mb-6 pt-10">
 
                       <!-- Header -->
                       <div class="w-full pt-5 pb-5 px-3">
@@ -380,10 +404,10 @@
 
             <!-- CART SUMMARY -->
             <div class="w-1/2 ml-10">
-              <div class = "sticky pin-t">
+              <div class = "sticky pin-t px-15">
                 <!-- Header -->
-                <div class="w-full mt-5 mb-10 pt-5 px-10">
-                  <h1 class="block uppercase tracking-wide text-grey-darkest text-med font-bold mb-2">
+                <div class="w-full mt-5 mb-10 pt-5">
+                  <h1 class="text-left content-left block uppercase tracking-wide text-grey-darkest text-med font-bold mb-2">
                     YOUR ORDER SUMMARY
                   </h1>
                 </div>
@@ -584,6 +608,9 @@ export default Vue.extend({
       errorsGrouping: [],
       btnPressed: false,
       orderID: "",
+
+      shippingMethod: "storePickup",
+
       contactFirstName: "",
       contactLastName: "",
       contactEmail: "",
@@ -628,6 +655,7 @@ export default Vue.extend({
               description
               price
               stock
+              
             }
           }
         `,
@@ -639,6 +667,14 @@ export default Vue.extend({
   },
   
   computed: {
+
+    orderByDelivery () {
+      if (this.shippingMethod === "delivery") {
+        return true;
+      }
+      return false;
+    },
+
     formValid () {
       // loop over all contents of the fields object and check if they exist and valid.
       return Object.keys(this.fields).every(field => {
@@ -660,6 +696,15 @@ export default Vue.extend({
 
     total(): number {
       return this.subtotal + this.tax;
+    },
+
+    orderIsDeliverable (): string {
+      // for(var product in this.products){
+        // return product.title;
+      // }
+
+
+      return this.products[0].title;
     },
   },
   methods: {
