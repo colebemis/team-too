@@ -206,6 +206,7 @@ export default Vue.extend({
              categories {
                name
              }
+             isShippable
            }
          }
        `,
@@ -260,6 +261,7 @@ export default Vue.extend({
                id
                name
              }
+             isShippable
            }
          }
        `,
