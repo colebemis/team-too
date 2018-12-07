@@ -26,7 +26,7 @@
       </div>
       <div
         class="flex w-2/3 flex-none items-center justify-center lg:px-24 px-16 bg-cover"
-        style="background-image: url(https://wallpaperaccess.com/full/420374.jpg)"
+        style="background-image: url(http://eskipaper.com/images/forest-road-background-1.jpg)"
       >
         <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
         <p
