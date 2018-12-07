@@ -67,11 +67,11 @@ export default Vue.extend({
  },
  methods: {
    computeCategories(ogCategories, selectedCategories, newCategories) {
-      var connected = [];
-      var disconnected = []; 
-      var created = [];
-      for (var i = 0; i < this.categories.length; i++) {
-        var currentCategory = this.categories[i].name;
+      let connected = [];
+      let disconnected = []; 
+      let created = [];
+      for (let i = 0; i < this.categories.length; i++) {
+        let currentCategory = this.categories[i].name;
         if (ogCategories.includes(currentCategory)) {
           if (selectedCategories.includes(currentCategory)) {
             connected.push({id: this.categories[i].id});
@@ -184,9 +184,9 @@ export default Vue.extend({
   //  });
    createProduct(formChanges): any {
     // Begin by computing which categories changed.
-     var categoryChanges = this.computeCategories(formChanges.categories[0], formChanges.categories[1], formChanges.categories[3]);
+     let categoryChanges = this.computeCategories(formChanges.categories[0], formChanges.categories[1], formChanges.categories[3]);
     // Create object format for "categories" in "data". 
-     var categoryData = {
+     let categoryData = {
        create: categoryChanges.create,
        connect: categoryChanges.connect,
     };     
@@ -236,9 +236,9 @@ export default Vue.extend({
   },
    updateProduct(formChanges): any {
      // Begin by computing which categories changed.
-     var categoryChanges = this.computeCategories(formChanges.categories[0], formChanges.categories[1], formChanges.categories[3]);
+     let categoryChanges = this.computeCategories(formChanges.categories[0], formChanges.categories[1], formChanges.categories[3]);
     // Create object format for "categories" in "data". 
-     var categoryData = {
+     let categoryData = {
        create: categoryChanges.create,
        connect: categoryChanges.connect,
        disconnect: categoryChanges.disconnect,

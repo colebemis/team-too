@@ -1,0 +1,13 @@
+query orders {
+  orders {
+    id
+    status
+    createdAt
+    customer {
+      name
+    }
+    shippingAddress {
+      id
+    }
+  }
+}

@@ -301,25 +301,25 @@ export default Vue.extend({
      if (remove) {
      // Here, event.currentTarget.id is the the id of the category.
       const categories = this.categories.map(category => category.id);
-      var indexCategories = categories.indexOf(event.currentTarget.id);
-      var index = this.selectedCategories.indexOf(this.categories[indexCategories].name);
+      const indexCategories = categories.indexOf(event.currentTarget.id);
+      const index = this.selectedCategories.indexOf(this.categories[indexCategories].name);
       if (index != -1) {
         this.selectedCategories.splice(index, 1);
       }
       // "Deletes" the category in categories.
       this.categories.splice(indexCategories, 1);
       this.deletedCategories.push(event.currentTarget.id);
-      //this.$emit('cat-removed', event.currentTarget.id);
+      // this.$emit('cat-removed', event.currentTarget.id);
      }
 
    },
    removeNewCategory(event) {
-    var index = this.selectedCategories.indexOf(event.currentTarget.id);
+    const index = this.selectedCategories.indexOf(event.currentTarget.id);
     if (index != -1) {
       this.selectedCategories.splice(index, 1);
     }
     this.newCategories.splice(this.newCategories.indexOf(event.currentTarget.id), 1);
-    //this.$emit('cat-new-removed', event.currentTarget.id);
+    // this.$emit('cat-new-removed', event.currentTarget.id);
    },
    submitForm() {
      if (this.formValid) {

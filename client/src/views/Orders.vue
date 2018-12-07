@@ -1,9 +1,8 @@
 <template>
   <div>
     <PageHeader>Orders</PageHeader>
-    <div
-      class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row"
-    >
+    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
+    <div v-else class="container mx-auto my-10 md:my-12 px-4 flex flex-col md:flex-row">
       <div class="md:w-1/5 mb-4 md:mb-0">
         <h2 class="mb-5 uppercase text-sm tracking-wide text-black">
           Order Type
@@ -78,27 +77,13 @@ import Vue from "vue";
 import format from "date-fns/format";
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
+import { statuses, statusDisplayNames } from "@/utils";
+import ORDERS from "../graphql/Orders.gql";
+import Loader from "@/components/Loader.vue";
 
-export const statuses = {
-  RECEIVED: "RECEIVED",
-  PROCESSING: "PROCESSING",
-  READY_TO_SHIP: "READY_TO_SHIP",
-  READY_FOR_PICK_UP: "READY_FOR_PICK_UP",
-  COMPLETE: "COMPLETE",
-  CANCELLED: "CANCELLED",
-};
-
-export const statusDisplayNames = {
-  [statuses.RECEIVED]: "Received",
-  [statuses.PROCESSING]: "Processing",
-  [statuses.READY_TO_SHIP]: "Ready To Ship",
-  [statuses.READY_FOR_PICK_UP]: "Ready For Pick-Up",
-  [statuses.COMPLETE]: "Complete",
-  [statuses.CANCELLED]: "Cancelled",
-};
 
 export default Vue.extend({
-  components: { PageHeader },
+  components: { PageHeader, Loader },
   data() {
     return {
       orders: [],
@@ -158,21 +143,7 @@ export default Vue.extend({
     },
   },
   apollo: {
-    orders: gql`
-      query orders {
-        orders {
-          id
-          status
-          createdAt
-          customer {
-            name
-          }
-          shippingAddress {
-            id
-          }
-        }
-      }
-    `,
+    orders: ORDERS,
   },
   methods: {
     formatDate: format,
