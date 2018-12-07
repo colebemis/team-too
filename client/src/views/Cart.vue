@@ -10,148 +10,148 @@
         </div>
 
         <div v-else class="container mx-auto mb-10">
-          <div
-            class="gridHeader bg-grey-darkest text-white border border-solid border-grey-dark"
-          >
-            <div class="">PRODUCT</div>
-            <div class="text-center">QUANTITY</div>
-            <div class="text-right">PRICE</div>
-          </div>
-
-          <div
-            class="flex mt-10 text-center"
-            :key="product.id"
-            v-for="product in products"
-            v-if="cart[product.id] > 0"
-          >
-            <!-- Product Info: image and title - 2 columns -->
-            <router-link
-              class="flex items-center w-1/3 mt-10 align-left hover:opacity-75"
-              :to="`/product/${product.id}`"
-            >
-              <!-- Image -->
-              <div class="w-1/2 h-12">
-                <div class="items-center relative">
-                  <img width="70%" :src="product.imageURL" :alt="product.title" />
-                </div>
-              </div>
-
-              <!-- Title -->
-              <div class="items-center w-1/2 text-left font-semibold mt-10 h-12">
-                {{ product.title }}
-              </div>
-            </router-link>
-
-            <!-- Product Quantity -->
+          <div class="container mx-auto mb-10">
             <div
-              class="bg-grey-lighter flex items-center justify-center w-1/3 mt-10"
+              class="flex pt-3 pb-3 font-bold text-grey-darkest border border-solid border-grey-dark"
             >
-              <!-- Quantity -->
-              <div class="w-1/3 h-12 pt-4">{{ cart[product.id] }}</div>
+              <div class="flex w-2/5 items-center pl-5 align-left">PRODUCT</div>
+              <div class="flex w-1/5 items-center justify-center">PRICE</div>
+              <div class="flex w-2/5 items-center justify-center">QUANTITY</div>
+              <div class="flex pr-5 w-1/5 items-end justify-end">TOTAL</div>
+            </div>
 
-              <!-- Maximum Stock Warning -->
+            <div
+              class="flex mt-5 text-center border border-solid border-grey-light "
+              :key="product.id"
+              v-for="product in products"
+              v-if="cart[product.id] > 0"
+            >
+              <!-- Product Info: image and title - 2 columns -->
+              <router-link
+                class="flex w-2/5 items-center align-left hover:opacity-75"
+                :to="`/product/${product.id}`"
+              >
+                <!-- Image -->
+                <div class="w-1/2">
+                  <div class="flex self-start flex-wrap relative p-4">
+                    <div class="w-full bg-image" :style="`background-image: url(${product.imageURL});`" />
+                  </div>
+                </div>
+
+                <!-- Title -->
+                <div class="items-center w-1/2 text-left font-semibold mt-10 h-12">
+                  {{ product.title }}
+                </div>
+              </router-link>
+
+              <!-- Product Single Price -->
+              <div class="flex w-1/5  bg-grey-lighter items-center justify-center">
+                ${{ (product.price.toFixed(2)) }}
+              </div>
+
+              <!-- Product Quantity -->
               <div
-                v-if="cart[product.id] === product.stock"
-                class="bg-red-lightest border border-red-light text-red-dark px-4 py-3 mr-5 text-xs rounded relative"
-                role="alert"
+                class="flex w-2/5 bg-grey-lightest items-center justify-center"
               >
-                <span class="block xs:inline">Maximum product stock reached.</span>
-              </div>
+                <!-- Quantity -->
+                <div class="w-1/3 h-12 pt-4">{{ cart[product.id] }}</div>
 
-              <!-- +/- Buttons -->
-              <div class="w-1/3 h-12">
-                <div :id="product.id" class="inline-flex mt-2">
+                <!-- Maximum Stock Warning -->
+                <div
+                  v-if="cart[product.id] === product.stock"
+                  class="bg-red-lightest border border-red-light text-red-dark px-4 py-3 mr-5 text-xs rounded relative"
+                  role="alert"
+                >
+                  <span class="block xs:inline">Maximum product stock reached.</span>
+                </div>
+
+                <!-- +/- Buttons -->
+                <div class="w-1/3 h-12">
+                  <div :id="product.id" class="inline-flex mt-2">
+                    <button
+                      @click="incrementQuantity(product.id, product.stock);"
+                      :id="product.stock"
+                      class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l"
+                    >
+                      +
+                    </button>
+                    <button
+                      @click="decrementQuantity(product.id);"
+                      class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-r"
+                    >
+                      -
+                    </button>
+                  </div>
+                </div>
+
+                <div :id="product.id" class="w-1/3 h-12">
                   <button
-                    @click="incrementQuantity(product.id, product.stock);"
-                    :id="product.stock"
-                    class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-l"
+                    @click="removeItem(product.id);"
+                    :id="product.id"
+                    class="bg-grey-light hover:bg-grey text-grey-darkest font-bold mt-3 py-1 px-2 rounded-full"
                   >
-                    +
-                  </button>
-                  <button
-                    @click="decrementQuantity(product.id);"
-                    class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded-r"
-                  >
-                    -
+                    x
                   </button>
                 </div>
               </div>
 
-              <div :id="product.id" class="w-1/3 h-12">
-                <button
-                  @click="removeItem(product.id);"
-                  :id="product.id"
-                  class="bg-grey-dark hover:bg-grey text-grey-lightest font-bold mt-2 py-2 px-4 rounded-full"
-                >
-                  x
-                </button>
+              <!-- Product Price -->
+              <div class="flex pr-5 w-1/5 bg-grey-light items-center justify-end">
+                <span class="ml-2 font-semibold">
+                  &#32; ${{ (product.price * cart[product.id]).toFixed(2) }}
+                </span>
               </div>
             </div>
 
-            <!-- Product Price -->
-            <div class="bg-grey flex items-center justify-end w-1/3 mt-10 pr-5">
-              {{ cart[product.id] }} at ${{ product.price.toFixed(2) }} each = &#32;
-              <span class="ml-2 font-semibold">
-                &#32; ${{ (product.price * cart[product.id]).toFixed(2) }}
-              </span>
-            </div>
-          </div>
 
-          <!-- Subtotal -->
-          <div class="flex items-center justify-center mt-10">
-            <div class="w-1/3 h-12"></div>
-            <div
-              class="w-1/3 text-center bg-grey border border-solid border-grey-dark h-12 pt-3"
-            >
-              SUBTOTAL
-            </div>
-            <div
-              class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"
-            >
-              $ {{ subtotal.toFixed(2) }}
-            </div>
-          </div>
-
-          <!-- Tax -->
-          <div class="flex items-center justify-center">
-            <div class="w-1/3 h-12"></div>
-            <div
-              class="w-1/3 bg-grey border border-solid border-grey-dark text-center h-12 pt-3"
-            >
-              TAX (7.25%)
-            </div>
-            <div
-              class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"
-            >
-              $ {{ (subtotal * 0.0725).toFixed(2) }}
-            </div>
-          </div>
-
-          <!-- Total Price -->
-          <div class="flex mt-5 items-center justify-center">
-            <div
-              class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
-            >
-
-              <!--
-              <button
-                v-on:click="clearCart"
-                class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-2 mb-7 rounded-r"
+            <!-- Subtotal -->
+            <div class="flex items-center justify-center mt-10">
+              <div class="w-1/3 h-12"></div>
+              <div
+                class="w-1/3 text-center bg-grey-lightest border border-solid border-grey-dark h-12 pt-3"
               >
-                Clear Cart
-              </button>
-              -->
+                SUBTOTAL
+              </div>
+              <div
+                class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"
+              >
+                $ {{ subtotal.toFixed(2) }}
+              </div>
+            </div>
 
+            <!-- Tax -->
+            <div class="flex items-center justify-center">
+              <div class="w-1/3 h-12"></div>
+              <div
+                class="w-1/3 bg-grey-lightest border border-solid border-grey-dark text-center h-12 pt-3"
+              >
+                TAX
+              </div>
+              <div
+                class="w-1/3 bg-grey-light text-center border border-solid border-grey-dark h-12 pt-3"
+              >
+                $ {{ (subtotal * 0.0725).toFixed(2) }}
+              </div>
             </div>
-            <div
-              class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
-            >
-              TOTAL
+
+            <!-- Total Price -->
+            <div class="flex items-center justify-center">
+              <div class="w-1/3 h-12"></div>
+              <div
+                class="w-1/3 bg-grey-lightest font-semibold border border-solid border-grey-dark text-center h-12 pt-3"
+              >
+                TOTAL
+              </div>
+              <div
+                class="w-1/3 bg-grey-light font-semibold text-center border border-solid border-grey-dark h-12 pt-3"
+              >
+                $ {{ (subtotal * 0.0725 + subtotal).toFixed(2) }}
+              </div>
             </div>
-            <div
-              class="w-1/3 bg-grey-darkest text-white font-bold text-center h-12 pt-3"
-            >
-              $ {{ (subtotal * 0.0725 + subtotal).toFixed(2) }}
+
+            <!-- Checkout Button -->
+            <div class="flex mt-5 items-center justify-end">
+              <Button @click.native="checkout">Proceed to Checkout</Button>
             </div>
           </div>
         </div>
@@ -161,6 +161,16 @@
 </template>
 
 <style>
+
+.divbutton {
+    height: 30px;
+    background: #000;
+}
+
+.divbutton:hover button {
+    display: block;
+}
+
 .pageHead {
   text-align: center;
   font-size: 20pt;
@@ -170,7 +180,7 @@
 .gridHeader {
   display: grid;
   padding: 10px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   font-weight: bold;
 }
 
@@ -184,7 +194,7 @@
 .gridRow {
   display: grid;
   padding: 50px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   font-weight: regular;
 }
 
@@ -208,9 +218,10 @@ import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import Footer from "@/components/Footer.vue";
 import Loader from "@/components/Loader.vue";
+import Button from "@/components/Button.vue";
 
 export default Vue.extend({
-  components: { PageHeader, Footer, Loader },
+  components: { PageHeader, Footer, Loader, Button },
   data() {
     return {
       cart: JSON.parse(localStorage.getItem("cart") || "{}"),
@@ -251,6 +262,10 @@ export default Vue.extend({
     clearCart() {
       this.cart = {};
       localStorage.setItem("cart", JSON.stringify(this.cart));
+    },
+
+    checkout() {
+      this.$router.push("/checkout");
     },
 
     incrementQuantity(productID: string, productStock: number) {
