@@ -1,0 +1,41 @@
+query orderInfo($id: OrderWhereUniqueInput!) {
+  order(where: $id ) {
+    id
+    createdAt
+    status
+    customer {
+      name
+      email
+    }
+    billingAddress {
+      name
+      line1
+      line2
+      city
+      state
+      zip
+    }
+    shippingAddress {
+      name
+      line1
+      line2
+      city
+      state
+      zip
+    }
+    products {
+      id
+      title
+      quantity
+      price
+    }
+    payment {
+      name
+      number
+      expDate
+    }
+    subtotal
+    tax
+    total
+  }
+}
