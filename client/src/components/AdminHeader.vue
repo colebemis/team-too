@@ -6,6 +6,9 @@
   >
     <span>Welcome, {{user.name}}</span>
     <div class="mx-auto" />
+    <router-link to="/admin/info" class="text-grey-light ml-5">
+      Site Info
+    </router-link>
     <router-link to="/admin/orders" class="text-grey-light ml-5">
       Orders
     </router-link>

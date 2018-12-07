@@ -28,13 +28,12 @@
         class="flex w-2/3 flex-none items-center justify-center lg:px-24 px-16 bg-cover"
         style="background-image: url(https://wallpaperaccess.com/full/420374.jpg)"
       >
+        <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
         <p
-          class=" lg:text-lg text-sm text-center leading-normal font-semibold"
+          class="lg:text-lg text-sm text-center leading-normal font-semibold"
+          v-else
         >
-         Foxycle was created on September 20, 2018, when Kris Fox was teaching
-          307. He decided to make an assignment to have his students develop a
-          website for his pretend store and have them compete for pizza. Maybe
-          one day the website will be used in the real world.
+         {{siteInfo.about}}
         </p>
       </div>
     </div>
@@ -44,15 +43,14 @@
         class="flex w-2/3 flex-none items-center justify-center mr-1 lg:px-24 px-16 bg-cover"
         style="background-image: url(https://images.unsplash.com/photo-1496147539180-13929f8aa03a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2428df044d72f0be9086d83b8c90f0b6&dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb)"
       >
+        <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
         <p
           class=" lg:text-lg text-sm text-center leading-normal font-semibold"
+          v-else
         >
           We offer various services for your convenience:<br />
-          <ul class="list-reset">
-            <li>Check tire pressure</li>
-            <li>Check tire wear and tear</li>
-            <li>Clean the frame</li>
-            <li>Check bearing system</li>
+          <ul class="list-reset" v-for="service in siteInfo.services">
+            <li>{{service}}</li>
           </ul>
         </p>
       </div>
@@ -69,3 +67,26 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import gql from "graphql-tag";
+import Vue from "vue";
+import Loader from "@/components/Loader.vue";
+import SITEINFO from "@/graphql/SiteInfo.gql";
+
+export default Vue.extend({
+  components: { Loader },
+  data() {
+    return {
+      siteInfo: null,
+    };
+  },
+  apollo: {
+    siteInfo() {
+      return {
+        query: SITEINFO,
+        }
+    },
+  },
+});
+</script>
