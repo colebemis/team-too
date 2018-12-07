@@ -4,10 +4,10 @@
       <img
         class="w-full h-full"
         alt="Main photo"
-        src="http://www.acyclists.com/wp-content/uploads/2017/10/ONeill-0022-6M3A9750-Edit-DUP1.jpg"
+        src="http://s7d2.scene7.com/is/image/smithoptics/overtakeBackground-0?$cmsFull$"
       />
       <h1
-        class="py-32 mx-16 text-right lg:text-7xl md:text-5xl text-3xl font-normal uppercase absolute pin-x pin-t"
+        class="py-24 mx-16 text-right lg:text-6xl md:text-5xl text-3xl font-normal uppercase absolute pin-x pin-t"
       >
         Find your ride.
       </h1>
