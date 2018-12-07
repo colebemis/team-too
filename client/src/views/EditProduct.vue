@@ -16,7 +16,7 @@
      @submit-form="createProduct"
      v-else></EditProductForm>  
      <div class="container mx-auto text-center">
-       <Button @click.native="deleteProduct" v-if="product" data-test-id="delete">Delete Item</Button>
+       <Button @click.native="deleteProduct" v-if="product" data-test-id="delete">Delete Product</Button>
      </div>
    </div>
  </div>

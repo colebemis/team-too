@@ -173,7 +173,8 @@
       </div>
 
        <div class="mx-auto flex flex-row justify-left md:justify-center mt-10 md:mt-5">
-         <Button class="mr-2" type="submit" data-test-id="submit">Save Item</Button>
+         <Button class="mr-2" type="submit" data-test-id="submit" v-if="$route.params.id !== 'new'">Save Product</Button>
+         <Button class="mr-2" type="submit" data-test-id="submit" v-else>Add Product</Button>
          <Button type="button" @click.native="toInventory" data-test-id="cancel" formnovalidate>Cancel</Button>
        </div>
      </form>
