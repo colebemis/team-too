@@ -10,11 +10,11 @@
             <form id="shopForm" class="container mx-auto p-10">
               <div
                 v-if="!formValid && btnPressed"
-                class="mt-5 bg-red-lightest border border-red-light text-red-dark px-4 py-3 mr-5 text-sm rounded relative"
+                class="font-bold mb-5 bg-red-lightest border border-red-light text-red-dark px-4 py-3 mr-5 text-sm rounded relative"
                 role="alert"
               >
                 <p>
-                  Please correct the errors in the form before continuing.
+                  Please ensure all fields are correctly filled before continuing.
                 </p>
               </div>
 
@@ -35,7 +35,7 @@
                       v-model="contactFirstName"
                       id="contact-first-name"
                       type="text"
-                      placeholder="Bobby"
+                      placeholder="Jane"
                     />
                     <div class="mt-1">
                       <span
@@ -196,12 +196,11 @@
               </div>
 
               <!-- SHIPPING METHOD-->
-              <div class="flex flex-wrap -mx-3 mb-20">
+              <div class="flex flex-col -mx-3 mb-20">
 
                 <!-- Header -->
-                <div class="w-full pt-5 pb-5 px-3">
                   <h2 class="text-black font-semibold mb-8 px-3 text-3xl">
-                    SHIPPING METHOD
+                    Shipping Method
                   </h2>
 
                   <div class="flex">
@@ -212,11 +211,10 @@
                       </div>
 
                       <div class="flex w-1/2">
-                        <input type="radio" v-model="shippingMethod" id="delivery" value="delivery">
+                        <input type="radio" v-model="shippingMethod" :disabled="!orderIsDeliverable" id="delivery" value="delivery">
                         <label for="delivery" class="mx-2 block uppercase text-grey-darkest">Delivery</label>
                       </div>
                   </div>
-                </div>
               </div>
 
               <!-- SHIPPING -->
@@ -442,8 +440,7 @@
                 </div>
               </div>
             </form>
-          </div>
-          
+          </div> 
 
             <!-- CART SUMMARY -->
           <div class="w-1/2 ml-10">
@@ -671,7 +668,7 @@ export default Vue.extend({
               description
               price
               stock
-              
+              isShippable
             }
           }
         `,
@@ -714,16 +711,17 @@ export default Vue.extend({
       return this.subtotal + this.tax;
     },
 
-    orderIsDeliverable (): string {
-      // for(var product in this.products){
-        // return product.title;
-      // }
-
-
-      return this.products[0].title;
+    orderIsDeliverable (): boolean {
+       return !this.products.some(this.checkShippable);
     },
   },
+
   methods: {
+
+    checkShippable(product) {
+      return !product.isShippable;
+    },
+
     createOrder() {
       this.$apollo
         .mutate({
