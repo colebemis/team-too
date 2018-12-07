@@ -1,0 +1,6 @@
+mutation orderUpdateStatus ($id : ID!, $status : String!) {
+  updateOrder (where: { id: $id }, data: { status : $status }) {
+    id
+    status
+  }
+}
