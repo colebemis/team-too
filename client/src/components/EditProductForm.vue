@@ -84,7 +84,7 @@
          <label
            for="image"
            class="block mb-3 md:inline-block md:mr-5 md:w-2/5 md:text-right font-semibold text-xl"
-           >Image</label
+           >Image URL</label
          >
          <input
            type="text"
