@@ -14,12 +14,12 @@
             v-model.number="form.stock"
             class="border border-black p-2 mr-5 min-w-0"
           />
-
+          
          <div class="inline-flex flex-row mt-5 md:mt-0" data-test-id="buttonDiv">
            <Button
              type="button"
              data-test-id="increaseQuantity"
-             class="mr-1"
+             class="mr-1 content-center text-center"
              @click.native="form.stock = Number(form.stock) + 1;"
            >
              +
@@ -27,6 +27,14 @@
            <Button type="button" data-test-id="decreaseQuantity" @click.native="form.stock == 0 ? form.stock: form.stock -= 1">-</Button>
          </div>
       </div>
+      <div v-show="errors.has('quantity')" class="mt-1 content-center text-center pb-5">
+        <span
+          class="text-red text-sm relative help is-danger"
+        >
+          {{ errors.first("quantity") }}
+        </span>
+      </div>
+
        <div class="mb-3">
          <label
            for="title"
@@ -40,8 +48,18 @@
            v-validate="'required'"
            v-model="form.title"
            class="border border-black p-2"
+           required
         />
+        
+        
        </div>
+       <div v-show="errors.has('title')" class="mt-1 content-center text-center pb-3">
+          <span
+            class="text-red text-sm relative help is-danger"
+          >
+            {{ errors.first("title") }}
+          </span>
+        </div>
 
        <!-- For Price  -->
        <div class="mb-3">
@@ -59,7 +77,16 @@
            v-model.number="form.price"
            class="border border-black p-2"
         />
+        
        </div>
+       <div v-show="errors.has('price')" class="mt-1 content-center text-center pb-5">
+          <span
+            
+            class="text-red text-sm relative help is-danger"
+          >
+            {{ errors.first("price") }}
+          </span>
+        </div>
 
        <!-- For Description  -->
        <div class="mb-3">
@@ -94,7 +121,17 @@
            v-model="form.imageURL"
            class="border border-black p-2"
         />
+        
        </div>
+
+       <div  v-show="errors.has('image')" class="mt-1 content-center text-center pb-5">
+          <span
+           
+            class="text-red text-sm relative help is-danger"
+          >
+            {{ errors.first("image") }}
+          </span>
+        </div>
 
        <!-- For Current Categories  -->
        <div>
@@ -114,12 +151,21 @@
               v-validate="'required'"
               name="category"
           />
+          
             <label :for="category.name + 'id'" class="relative block flex flex-row justify-between max-w-xs">
             <span class="ml-2 leading-none">{{category.name}}</span>
             <div class="ml-auto flex-none">
               <Button class="ml-5 btn-small" type="button" :id="category.id" @click.native="removeCategory">x</Button>
             </div>
           </label>   
+          </div>
+          <div v-show="errors.has('category')" class="mt-1 content-center text-center pb-5">
+            <span
+              
+              class="text-red text-sm relative help is-danger"
+            >
+              {{ errors.first("category") }}
+            </span>
           </div>
       </div>
       </div>
@@ -148,12 +194,23 @@
          id="addCat"   
          type="text"
          v-model="addCategory"
-         class="border border-black p-2 mr-5">
+         class="border border-black p-2 mr-5"
+         name="newCat"
+         >
+         
          <Button type="button" class="mt-5 md:mt-0" @click.native="addNewCategory">+</Button>
          <div v-if="cantAddCategory" class="flex justify-left md:justify-center text-red text-xs mt-2">
             <span class="px-5 py-3 inline-block bg-red-lightest"> There is already a category with this name. </span>
          </div>
       </div>
+      <div v-show="errors.has('newCat')" class="mt-1 content-center text-center pb-5">
+          <span
+            
+            class="text-red text-sm relative help is-danger"
+          >
+            {{ errors.first("newCat") }}
+          </span>
+        </div>
       <div class="mb-3 mt-2">
          <label
            for="title"
@@ -165,11 +222,21 @@
            id="shippable"
            v-model="form.isShippable"
            class="checkbox hidden"
+           name="shippable"
         />
+        
           <label class="relative"
            for="shippable"
            ></label
          > 
+      </div>
+      <div v-show="errors.has('shippable')" class="mt-1 content-center text-center pb-5">
+        <span
+          
+          class="text-red text-sm relative help is-danger"
+        >
+          {{ errors.first("shippable") }}
+        </span>
       </div>
 
        <div class="mx-auto flex flex-row justify-left md:justify-center mt-10 md:mt-5">
@@ -240,7 +307,7 @@ export default Vue.extend({
       newCategories: [],
       addCategory: "",
       cantAddCategory: false,
-
+      errorsGrouping: [],
    }
  },
  computed: {
@@ -275,7 +342,7 @@ export default Vue.extend({
    removeCategory(event) { 
      // Confirmation window
      const remove = window.confirm("Removing this category will disconnect it"
-     + " from every product. All changes will be finalized upon clicking 'Save Item'.");
+     + " from every product. All changes will be finalized upon clicking 'Save Product/Add Product'.");
      if (remove) {
      // Here, event.currentTarget.id is the the id of the category.
       const categories = this.categories.map(category => category.id);
