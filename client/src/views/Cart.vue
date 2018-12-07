@@ -151,7 +151,7 @@
 
             <!-- Checkout Button -->
             <div class="flex mt-5 items-center justify-end">
-              <Button @click="checkout">Proceed to Checkout</Button>
+              <Button @click.native="checkout">Proceed to Checkout</Button>
             </div>
           </div>
         </div>
@@ -264,7 +264,7 @@ export default Vue.extend({
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
 
-    checkout(){
+    checkout() {
       this.$router.push("/checkout");
     },
 

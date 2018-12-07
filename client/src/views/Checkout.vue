@@ -524,7 +524,7 @@
 
               <!-- Checkout Button -->
               <div class="flex justify-end">
-                  <Button @click="submitForm">Confirm Purchase</Button>
+                  <Button @click.native="submitForm">Confirm Purchase</Button>
                 </div>
               </div>
             </div>
