@@ -19,32 +19,30 @@
         </div>
         <form id="login-form" @submit="logIn">
           <div class="mb-8">
-            <label for="email" class="inline-block font-semibold mb-2">
+            <Label for="email">
               Email
-            </label>
-            <input
+            </Label>
+            <Input
               :disabled="loading"
               id="email"
               name="email"
               type="email"
               v-model="email"
               placeholder="bill@example.com"
-              class="w-full p-3 border border-grey"
               required
             />
           </div>
           <div>
-            <label for="password" class="inline-block font-semibold mb-2">
+            <Label for="password">
               Password
             </label>
-            <input
+            <Input
               :disabled="loading"
               id="password"
               name="password"
               type="password"
               v-model="password"
               placeholder="•••••"
-              class="w-full p-3 border border-grey"
               required
             />
           </div>
@@ -65,10 +63,12 @@ import Vue from "vue";
 import gql from "graphql-tag";
 import PageHeader from "@/components/PageHeader.vue";
 import Button from "@/components/Button.vue";
+import Label from "@/components/Label.vue";
+import Input from "@/components/Input.vue";
 import { logIn, isLoggedIn } from "../auth";
 
 export default Vue.extend({
-  components: { PageHeader, Button },
+  components: { PageHeader, Button, Label, Input },
   data() {
     return {
       error: null,

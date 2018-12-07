@@ -31,7 +31,6 @@ const resolvers = {
       return context.db.categories(args);
     },
     order: (root, args, context: Context, info) => {
-      verifyRequest(context);
       return context.db.order(args.where);
     },
     orders: (root, args, context: Context, info) => {
