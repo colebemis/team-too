@@ -156,16 +156,37 @@
                   />
                 </div>
 
+                <!-- Address Line 2 -->
+                <div class="w-full pt-5 px-3">
+                  <Label for="billing-address2">Address Line 2</label>
+                  <Input
+                    v-model="billingAddress2"
+                    id="billing-address2"
+                    type="text"
+                    placeholder="Building 200"
+                  />
+                </div>
+
                 <div class="w-full pt-5 px-3">
                   <Label for="billing-city">
                     City
                   </label>
                   <Input
+                    name = "Billing City"
                     v-model="billingCity"
+                    v-validate="'required|alpha'"
                     id="billing-city"
                     type="text"
                     placeholder="San Luis Obispo"
                   />
+                  <div class="mt-1">
+                      <span
+                        v-show="errors.has('Billing City')"
+                        class="text-red text-sm relative help is-danger"
+                      >
+                        {{ errors.first("Billing City") }}
+                      </span>
+                    </div>
                 </div>
 
                 <div class="flex flex-wrap">
@@ -279,14 +300,35 @@
                   />
                 </div>
 
+                <!-- Address Line 2 -->
+                <div class="w-full pt-5 px-3">
+                  <Label for="shipping-address2">Address Line 2</Label>
+                  <Input
+                    v-model="shippingAddress2"
+                    id="shipping-address2"
+                    type="text"
+                    placeholder="Building 200"
+                  />
+                </div>
+
                 <div class="w-full pt-5 px-3">
                   <Label for="shipping-city">City</label>
                   <Input
+                    name = "Shipping City"
                     v-model="shippingCity"
+                    v-validate="'required|alpha'"
                     id="shipping-city"
                     type="text"
                     placeholder="San Luis Obispo"
                   />
+                  <div class="mt-1">
+                      <span
+                        v-show="errors.has('Shipping City')"
+                        class="text-red text-sm relative help is-danger"
+                      >
+                        {{ errors.first("Shipping City") }}
+                      </span>
+                    </div>
                 </div>
 
                 <div class="flex flex-wrap">
@@ -631,6 +673,7 @@ export default Vue.extend({
       billingFirstName: "",
       billingLastName: "",
       billingAddress: "",
+      billingAddress2: "",
       billingCity: "",
       billingState: "",
       billingZip: "",
@@ -638,6 +681,7 @@ export default Vue.extend({
       shippingFirstName: "",
       shippingLastName: "",
       shippingAddress: "",
+      shippingAddress2: "",
       shippingCity: "",
       shippingState: "",
       shippingZip: "",
