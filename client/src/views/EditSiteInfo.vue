@@ -3,7 +3,7 @@
    <PageHeader> Edit Home </PageHeader>
    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
    <div class="w-4/5 mx-auto py-8 px-6" v-else>
-     <EditSiteInfoForm :submitFunction="updateSiteInfo" :siteInfo="siteInfo"></EditSiteInfoForm> 
+     <EditSiteInfoForm :submitFunction="updateSiteInfo" :siteInfo="siteInfo" :updates="updates"></EditSiteInfoForm> 
    </div>
  </div>
 </template>
@@ -22,6 +22,9 @@ export default Vue.extend({
  data() {
    return {
      siteInfo: null,
+     updates: {
+       deleteHours: []
+     }
    };
  },
  apollo: {
@@ -75,7 +78,9 @@ export default Vue.extend({
            email: this.siteInfo.email,
            about: this.siteInfo.about,
            hours: {
-             update: this.createHoursList()
+             update: this.updateHoursList(),
+             create: this.createHoursList(),
+             delete: this.updates.deleteHours
            },
            services: {
              set: this.siteInfo.services
@@ -85,11 +90,12 @@ export default Vue.extend({
        },
      })
    },
-   createHoursList(): any {
+   updateHoursList(): any {
     let i = 0;
     const hoursList = new Array();
     this.siteInfo.hours.forEach(hourLog => {
-      const hourObject = {
+      if(hourLog.id != null) {
+        const hourObject = {
           where: {
             id: hourLog.id
           },
@@ -100,11 +106,29 @@ export default Vue.extend({
             close: hourLog.close
           }
         } 
-      hoursList[i] = hourObject;
-      i++;
+        hoursList[i] = hourObject;
+        i++;
+      }
     })
     return hoursList;
-   }
+   },
+   createHoursList(): any {
+    let i = 0;
+    const hoursList = new Array();
+    this.siteInfo.hours.forEach(hourLog => {
+      if(hourLog.id == null) {
+        const hourObject = {
+            index: hourLog.index,
+            day: hourLog.day,
+            open: hourLog.open,
+            close: hourLog.close
+        } 
+        hoursList[i] = hourObject;
+        i++;
+      }
+    })
+    return hoursList;
+   },
  },
 });
 </script>
