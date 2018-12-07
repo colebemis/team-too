@@ -5,7 +5,7 @@
 
    <div v-else>
     <div class="container mx-auto mt-10 px-4 flex flex-row justify-end">
-      <Button @click.native="routeToAdd" data-test-id="addItem">Add Item</Button>
+      <Button @click.native="routeToAdd" data-test-id="addItem">Add Product</Button>
     </div>     
     <div class="container mx-auto my-5 md:my-7 px-4 flex flex-col md:flex-row">
 

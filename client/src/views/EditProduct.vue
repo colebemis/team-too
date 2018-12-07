@@ -1,6 +1,7 @@
 <template>
  <div>
-   <PageHeader> Edit Product </PageHeader>
+   <PageHeader v-if="$route.params.id !== 'new'"> Edit Product </PageHeader>
+   <PageHeader v-else> Add Product </PageHeader>
    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
    <div class="w-4/5 mt-10 mx-auto py-8 px-6" v-else>
      <EditProductForm 
