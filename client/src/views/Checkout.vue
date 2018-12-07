@@ -174,7 +174,7 @@
                   <Input
                     name = "Billing City"
                     v-model="billingCity"
-                    v-validate="'required|alpha'"
+                    v-validate="'required|alpha_spaces'"
                     id="billing-city"
                     type="text"
                     placeholder="San Luis Obispo"
@@ -316,7 +316,7 @@
                   <Input
                     name = "Shipping City"
                     v-model="shippingCity"
-                    v-validate="'required|alpha'"
+                    v-validate="'required|alpha_spaces'"
                     id="shipping-city"
                     type="text"
                     placeholder="San Luis Obispo"
@@ -779,7 +779,7 @@ export default Vue.extend({
           `,
           variables: {
             data: {
-              status: "Pending",
+              status: "Received",
               products: { create: this.orderProducts },
               customer: { create: this.customerInfo },
               shippingAddress: { create: this.shippingInfo },
