@@ -3,7 +3,7 @@
    <PageHeader> Edit Home </PageHeader>
    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
    <div class="w-4/5 mx-auto py-8 px-6" v-else>
-     <EditSiteInfoForm :submitFunction="updateSiteInfo" :siteInfo="siteInfo" :updates="updates"></EditSiteInfoForm> 
+     <EditSiteInfoForm :siteInfo="siteInfo" :updates="updates" @submit-form="updateSiteInfo"></EditSiteInfoForm> 
    </div>
  </div>
 </template>
@@ -35,7 +35,7 @@ export default Vue.extend({
    },
  },
  methods: {
-   updateSiteInfo(): any {
+   updateSiteInfo(siteInfo): any {
      this.$apollo.mutate({
        // Mutation
        mutation: gql`
@@ -67,33 +67,33 @@ export default Vue.extend({
          data: {
            address: { 
              update: {
-              line1: this.siteInfo.address.line1,
-              line2: this.siteInfo.address.line2,
-              city: this.siteInfo.address.city,
-              state: this.siteInfo.address.state,
-              zip: this.siteInfo.address.zip,
+              line1: siteInfo.address.line1,
+              line2: siteInfo.address.line2,
+              city: siteInfo.address.city,
+              state: siteInfo.address.state,
+              zip: siteInfo.address.zip,
             }
            },
-           phone: this.siteInfo.phone,
-           email: this.siteInfo.email,
-           about: this.siteInfo.about,
+           phone: siteInfo.phone,
+           email: siteInfo.email,
+           about: siteInfo.about,
            hours: {
-             update: this.updateHoursList(),
-             create: this.createHoursList(),
+             update: this.updateHoursList(siteInfo),
+             create: this.createHoursList(siteInfo),
              delete: this.updates.deleteHours
            },
            services: {
-             set: this.siteInfo.services
+             set: siteInfo.services
            }
          },
-         id: this.siteInfo.id
+         id: siteInfo.id
        },
      })
    },
-   updateHoursList(): any {
+   updateHoursList(siteInfo): any {
     let i = 0;
     const hoursList = new Array();
-    this.siteInfo.hours.forEach(hourLog => {
+    siteInfo.hours.forEach(hourLog => {
       if(hourLog.id != null) {
         const hourObject = {
           where: {
@@ -112,10 +112,10 @@ export default Vue.extend({
     })
     return hoursList;
    },
-   createHoursList(): any {
+   createHoursList(siteInfo): any {
     let i = 0;
     const hoursList = new Array();
-    this.siteInfo.hours.forEach(hourLog => {
+    siteInfo.hours.forEach(hourLog => {
       if(hourLog.id == null) {
         const hourObject = {
             index: hourLog.index,
