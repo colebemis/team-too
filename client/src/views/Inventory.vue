@@ -5,7 +5,7 @@
 
    <div v-else>
     <div class="container mx-auto mt-10 px-4 flex flex-row justify-end">
-      <Button @click.native="routeToAdd" data-test-id="addItem">Add Item</Button>
+      <Button @click.native="routeToAdd" data-test-id="addItem">Add Product</Button>
     </div>     
     <div class="container mx-auto my-5 md:my-7 px-4 flex flex-col md:flex-row">
 
@@ -35,7 +35,7 @@
          <th>Price</th>
        </thead>
        <tbody id="tbody">
-         <tr class="text-center hover:bg-grey-lighter leading-loose" v-for="product in filteredProducts" :key="product.id">
+         <tr :id="product.title" class="text-center hover:bg-grey-lighter leading-loose" v-for="product in filteredProducts" :key="product.id">
              <td>
                <router-link :to="{ path: `/admin/product/${product.id}` }" class="link">
                {{product.id}}

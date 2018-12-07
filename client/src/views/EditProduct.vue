@@ -1,13 +1,22 @@
 <template>
  <div>
-   <PageHeader> Item </PageHeader>
+   <PageHeader v-if="$route.params.id !== 'new'"> Edit Product </PageHeader>
+   <PageHeader v-else> Add Product </PageHeader>
    <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
    <div class="w-4/5 mt-10 mx-auto py-8 px-6" v-else>
-     <EditProductForm :formDefault="this.product" :submitFunction="updateProduct" v-if="product"></EditProductForm>
-     <EditProductForm :formDefault="this.productEmpty" :submitFunction="createProduct" v-else></EditProductForm>  
+     <EditProductForm 
+     :formDefault="this.product" 
+     :categoryProp="this.categories"
+     v-if="product" 
+     @submit-form="updateProduct"></EditProductForm>
 
+     <EditProductForm 
+     :formDefault="this.productEmpty" 
+     :categoryProp="this.categories" 
+     @submit-form="createProduct"
+     v-else></EditProductForm>  
      <div class="container mx-auto text-center">
-       <Button @click.native="deleteProduct" v-if="product">Delete Item</Button>
+       <Button @click.native="deleteProduct" v-if="product" data-test-id="delete">Delete Product</Button>
      </div>
    </div>
  </div>
@@ -22,7 +31,7 @@ import EditProductForm from "@/components/EditProductForm.vue";
 import Loader from "@/components/Loader.vue";
 import PRODUCT from "@/graphql/Product.gql";
 import PRODUCTS from "@/graphql/Products.gql";
-
+import CATEGORIES from "@/graphql/Categories.gql";
 export default Vue.extend({
  components: { PageHeader, Button, EditProductForm, Loader },
  data() {
@@ -33,8 +42,13 @@ export default Vue.extend({
        title: "",
        description: "",
        imageURL: "",
-       price: 0
-     }
+       price: 0,
+       categories: [],
+       isShippable: false
+     },
+     addCategory: "",
+     categories: null,
+     newCategories: []
    };
  },
  apollo: {
@@ -45,8 +59,66 @@ export default Vue.extend({
        }
     
    },
+   categories() {
+     return {
+       query: CATEGORIES
+     }
+   }
+
  },
  methods: {
+   computeCategories(ogCategories, selectedCategories, newCategories) {
+      let connected = [];
+      let disconnected = []; 
+      let created = [];
+      for (let i = 0; i < this.categories.length; i++) {
+        let currentCategory = this.categories[i].name;
+        if (ogCategories.includes(currentCategory)) {
+          if (selectedCategories.includes(currentCategory)) {
+            connected.push({id: this.categories[i].id});
+          }
+          else
+          {
+            disconnected.push({id: this.categories[i].id});
+          }
+        }
+        else {
+          if (selectedCategories.includes(currentCategory)) {
+            connected.push({id: this.categories[i].id});
+          }
+        }
+      }
+
+      newCategories.forEach(category =>
+      {
+        created.push({name: category});
+      });
+      return {connect: connected, disconnect: disconnected, create: created};
+   },
+   deleteCategory(categoryID) {
+     this.$apollo.mutate({
+       mutation: gql`
+        mutation($id: ID!) {
+          deleteCategory(where: { id: $id }) {
+             id
+           }
+         }
+       `,
+       variables: { id: categoryID },
+        update: (store, { data:{ deleteCategory }}: any) => {
+          // Read the data from our cache for this query.
+          const data: any = store.readQuery({ query: CATEGORIES });
+          // Deletes the product from the cache.
+          if (data) {
+              const index = data.categories.findIndex((category: any) => category.id === deleteCategory.id);
+              data.categories.splice(index, 1);
+            }
+
+          // Writes the updated query to the cache.
+          store.writeQuery({ query: CATEGORIES, data});
+        }
+        });       
+   },
    deleteProduct() {
      this.$apollo.mutate({
        mutation: gql`
@@ -72,7 +144,53 @@ export default Vue.extend({
      });
      this.$router.push({ path: "/admin/inventory" });
    },
-   createProduct() {
+  //  createCategory(categoryName): any {
+  //     this.$apollo.mutate({
+  //       // Mutation
+  //       mutation: gql`
+  //         mutation($data: CategoryCreateInput!) {
+  //           createCategory(data: $data) {
+  //             id
+  //             name
+  //             products {
+  //               id
+  //               createdAt
+  //               updatedAt
+  //               imageURL
+  //               title
+  //               description
+  //               price
+  //               stock
+  //               isShippable
+  //             }
+  //           }
+  //         }`,
+  //         variables: {
+  //           data: {
+  //             name: categoryName
+  //           }
+  //         },
+  //         update: (store, { data: { createCategory } }: any) => {
+  //           // Read the data from our cache for this query.
+  //           const data: any = store.readQuery({ query: CATEGORIES });
+  //           if (data) {
+  //             data.categories.push(createCategory);        
+  //           }
+  //           // Write our data back to the cache.
+  //           store.writeQuery({ query: CATEGORIES, data });
+  //           }
+  //    }).then(data => {
+  //      const resultingID = data.data.createCategory.id;
+  //      this.newCategories.push({id: resultingID, name: categoryName});
+  //  });
+   createProduct(formChanges): any {
+    // Begin by computing which categories changed.
+     let categoryChanges = this.computeCategories(formChanges.categories[0], formChanges.categories[1], formChanges.categories[3]);
+    // Create object format for "categories" in "data". 
+     let categoryData = {
+       create: categoryChanges.create,
+       connect: categoryChanges.connect,
+    };     
      this.$apollo.mutate({
        // Mutation
        mutation: gql`
@@ -88,16 +206,19 @@ export default Vue.extend({
              categories {
                name
              }
+             isShippable
            }
          }
        `,
      variables: {
        data: {
-           imageURL: this.productEmpty.imageURL,
-           title: this.productEmpty.title,
-           description: this.productEmpty.description,
-           price: this.productEmpty.price,
-           stock: this.productEmpty.stock,        
+           imageURL: formChanges.product.imageURL,
+           title: formChanges.product.title,
+           description: formChanges.product.description,
+           price: formChanges.product.price,
+           stock: formChanges.product.stock,   
+           categories: categoryData,
+           isShippable: formChanges.product.isShippable
        }
      },
      update: (store, { data: { createProduct } }: any) => {
@@ -106,14 +227,24 @@ export default Vue.extend({
        if (data) {
         data.products.push(createProduct);        
       }
-
        // Write our data back to the cache.
        store.writeQuery({ query: PRODUCTS, data });
        }
-     });
+     }).then(() => {
+    formChanges.categories[2].forEach((id) => 
+                        this.deleteCategory(id));
+   });
      this.$router.push({ path: "/admin/inventory" });
-   },
-   updateProduct(): any {
+  },
+   updateProduct(formChanges): any {
+     // Begin by computing which categories changed.
+     let categoryChanges = this.computeCategories(formChanges.categories[0], formChanges.categories[1], formChanges.categories[3]);
+    // Create object format for "categories" in "data". 
+     let categoryData = {
+       create: categoryChanges.create,
+       connect: categoryChanges.connect,
+       disconnect: categoryChanges.disconnect,
+    }     
      this.$apollo.mutate({
        // Mutation
        mutation: gql`
@@ -127,18 +258,22 @@ export default Vue.extend({
              stock
              updatedAt
              categories {
+               id
                name
              }
+             isShippable
            }
          }
        `,
-       variables: {
+        variables: {
          data: {
-           imageURL: this.product.imageURL,
-           title: this.product.title,
-           description: this.product.description,
-           price: this.product.price,
-           stock: this.product.stock,
+           imageURL: formChanges.product.imageURL,
+           title: formChanges.product.title,
+           description: formChanges.product.description,
+           price: formChanges.product.price,
+           stock: formChanges.product.stock,
+           categories: categoryData,
+           isShippable: formChanges.product.isShippable
          },
 
          id: this.product.id
@@ -146,16 +281,17 @@ export default Vue.extend({
        update: (store, { data: { updateProduct } }: any) => {
          // Read the data from our cache for this query.
          const data: any = store.readQuery({ query: PRODUCTS });
-         // console.log(store.readQuery({query: PRODUCTS}));
          if (data) {
           const index = data.products.findIndex((product: any) => product.id === updateProduct.id);
           data.products[index] = updateProduct;
          }
-
-         // Write our data back to the cache.
          store.writeQuery({ query: PRODUCTS, data });
        },
-     })
+   }).then((data) => {
+     formChanges.categories[2].forEach((id) => 
+                        this.deleteCategory(id));
+   });
+
      this.$router.push({ path: "/admin/inventory"});
    }
  },
