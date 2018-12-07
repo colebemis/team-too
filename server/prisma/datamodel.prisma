@@ -50,7 +50,7 @@ type Product {
 type Category {
   id: ID! @unique
   name: String!
-  products: [Product!]! @relation(name: "ProductsWithCategory", onDelete: CASCADE)
+  products: [Product!]! @relation(name: "ProductsWithCategory")
 }
 
 type Address {
