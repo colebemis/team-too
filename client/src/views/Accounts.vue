@@ -44,44 +44,41 @@
       <div class="mt-6 bg-grey-lightest p-6">
         <form @submit.prevent="createUser">
           <div class="mb-8">
-            <label for="name" class="inline-block font-semibold mb-2">
+            <Label for="name">
               Name
-            </label>
-            <input
+            </Label>
+            <Input
               id="name"
               name="name"
               type="text"
               v-model="newUser.name"
               placeholder="Bill Nye"
-              class="w-full p-3 border border-grey"
               required
             />
           </div>
           <div class="mb-8">
-            <label for="email" class="inline-block font-semibold mb-2">
+            <Label for="email">
               Email
-            </label>
-            <input
+            </Label>
+            <Input
               id="email"
               name="email"
               type="email"
               v-model="newUser.email"
               placeholder="bill@example.com"
-              class="w-full p-3 border border-grey"
               required
             />
           </div>
           <div class="mb-8">
-            <label for="password" class="inline-block font-semibold mb-2">
+            <Label for="password">
               Password
-            </label>
-            <input
+            </Label>
+            <Input
               id="password"
               name="password"
               type="password"
               v-model="newUser.password"
               placeholder="•••••"
-              class="w-full p-3 border border-grey"
               required
             />
           </div>
@@ -109,6 +106,8 @@ import Vue from "vue";
 import PageHeader from "@/components/PageHeader.vue";
 import Loader from "@/components/Loader.vue";
 import Button from "@/components/Button.vue";
+import Input from "@/components/Input.vue";
+import Label from "@/components/Label.vue";
 import { getUser } from "../auth";
 
 const USERS = gql`
@@ -123,7 +122,7 @@ const USERS = gql`
 `;
 
 export default Vue.extend({
-  components: { PageHeader, Loader, Button },
+  components: { PageHeader, Loader, Button, Input, Label },
   data() {
     return {
       users: [],
@@ -138,7 +137,7 @@ export default Vue.extend({
   },
   mounted() {
     this.currentUser = getUser();
-    
+
   },
   apollo: {
     users: USERS,
