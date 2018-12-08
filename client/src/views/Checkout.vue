@@ -854,7 +854,7 @@ export default Vue.extend({
         };
 
         this.billingInfo = {
-          name: this.billingFirstName + this.billingLastName,
+          name: this.billingFirstName + " " + this.billingLastName,
           line1: this.billingAddress,
           line2: " ",
           city: this.billingCity,
