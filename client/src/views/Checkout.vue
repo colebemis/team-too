@@ -482,7 +482,7 @@
                 </div>
               </div>
             </form>
-          </div> 
+          </div>
 
             <!-- CART SUMMARY -->
           <div class="w-1/2 ml-10">
@@ -594,7 +594,7 @@
         </div>
       </div>
     </div>
-  
+
 </template>
 
 <style>
@@ -644,6 +644,7 @@ hr {
 import Vue from "vue";
 import VeeValidate from "vee-validate";
 import gql from "graphql-tag";
+import { statuses } from '../utils';
 import PageHeader from "@/components/PageHeader.vue";
 import Footer from "@/components/Footer.vue";
 import Loader from "@/components/Loader.vue";
@@ -779,10 +780,10 @@ export default Vue.extend({
           `,
           variables: {
             data: {
-              status: "Received",
+              status: statuses.RECEIVED,
               products: { create: this.orderProducts },
               customer: { create: this.customerInfo },
-              shippingAddress: { create: this.shippingInfo },
+              shippingAddress: this.shippingMethod === "delivery" ? { create: this.shippingInfo } : null,
               billingAddress: { create: this.billingInfo },
               payment: { create: this.paymentInfo },
               subtotal: this.subtotal,
