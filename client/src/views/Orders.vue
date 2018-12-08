@@ -148,7 +148,7 @@ export default Vue.extend({
   methods: {
     formatDate: format,
     formatOrderStatus(status: string) {
-      return statusDisplayNames[status];
+      return statusDisplayNames[status] || status;
     },
   },
 });
