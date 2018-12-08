@@ -4,10 +4,10 @@
       <img
         class="w-full h-full"
         alt="Main photo"
-        src="http://www.acyclists.com/wp-content/uploads/2017/10/ONeill-0022-6M3A9750-Edit-DUP1.jpg"
+        src="http://s7d2.scene7.com/is/image/smithoptics/overtakeBackground-0?$cmsFull$"
       />
       <h1
-        class="py-32 mx-16 text-right lg:text-7xl md:text-5xl text-3xl font-normal uppercase absolute pin-x pin-t"
+        class="py-24 mx-16 text-right lg:text-6xl md:text-5xl text-3xl font-normal uppercase absolute pin-x pin-t"
       >
         Find your ride.
       </h1>
@@ -26,7 +26,7 @@
       </div>
       <div
         class="flex w-2/3 flex-none items-center justify-center lg:px-24 px-16 bg-cover"
-        style="background-image: url(https://wallpaperaccess.com/full/420374.jpg)"
+        style="background-image: url(http://eskipaper.com/images/forest-road-background-1.jpg)"
       >
         <div v-if="$apollo.loading" class="my-20 text-center"><Loader /></div>
         <p
