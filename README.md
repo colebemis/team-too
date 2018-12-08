@@ -23,7 +23,7 @@
 
 Follow these steps to set up and run the project locally:
 
-> **Disclaimer:** Database queries and mutations are very slow and sometimes fail with the error "There are too many concurrent queries for this service." This is a recent issue with Prisma and is being tracked [here](https://www.prisma.io/forum/t/too-many-concurrent-queries/5103). 
+> **Disclaimer:** Database queries and mutations are very slow and sometimes fail with the error "There are too many concurrent queries for this service." This is a recent issue with Prisma and is being tracked [here](https://www.prisma.io/forum/t/too-many-concurrent-queries/5103). If a page fails to load with this error, try reloading the page.
 
 > **Note:** This requires Node.js and npm to be set up locally
 ```shell
