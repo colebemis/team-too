@@ -863,7 +863,7 @@ export default Vue.extend({
         };
 
         this.paymentInfo = {
-          name: this.billingFirstName + this.billingLastName,
+          name: this.billingFirstName + " " + this.billingLastName,
           number: this.creditCardNumber,
           expDate: this.creditCardExpDate,
           cvv: this.creditCardCVV,
